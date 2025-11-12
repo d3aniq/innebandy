@@ -62,7 +62,7 @@
       <div class="muted">Matcher (inom datumfilter, för vald domare)</div>
       <table>
         <thead><tr>
-          <th>Datum</th><th>Serie</th><th>Hemma</th><th>Borta</th><th>Arena</th><th>Domarkollega</th>
+          <th>Datum</th><th>Serie</th><th>Hemmalag</th><th>Bortalag</th><th>Arena</th><th>Domarkollega</th>
         </tr></thead>
         <tbody id="rows"><tr><td colspan="6" class="muted">Välj domare i listan.</td></tr></tbody>
       </table>
@@ -72,9 +72,11 @@
 
 <script>
 (async function(){
+  // -- Läs alla CSV via /csv/files.json
   const files = await (await fetch("csv/files.json")).json();
   const texts = await Promise.all(files.map(f=>fetch("csv/"+f).then(r=>r.text())));
 
+  // -- Minimal CSV-parser (med citattecken)
   function parseCSV(s){
     const out=[], re=/\s*(?:"([^"]*(?:""[^"]*)*)"|([^,"\r\n]*))\s*(,|\r?\n|$)/g; let m,row=[],head;
     const val=(a,b)=>(a||b||"").replace(/""/g,'"');
@@ -82,6 +84,7 @@
     head=out.shift()||[]; return out.map(r=>Object.fromEntries(head.map((h,i)=>[h.trim(),(r[i]??"").trim()])));
   }
 
+  // -- Normalisering (flera möjliga kolumnnamn)
   function norm(rec){
     const g=k=>rec[k]??""; const first=x=>(x||"").split(/[ T]/)[0];
     const refsField=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
@@ -90,41 +93,60 @@
       date:first(g("Date")||g("Datum")||g("MatchDate")||g("Start")||g("Kickoff")),
       series:g("Serie")||g("Series")||g("Competition")||"",
       arena:g("Arena")||g("Venue")||g("Hall")||"",
-      home:g("Home")||g("Hemma")||g("HomeTeam")||g("Hemmalag")||"",
-      away:g("Away")||g("Borta")||g("AwayTeam")||g("Bortalag")||"",
+      home:g("Hemmalag")||g("Home")||g("HomeTeam")||g("Hemma")||"",
+      away:g("Bortalag")||g("Away")||g("AwayTeam")||g("Borta")||"",
       referees:refsField.split(/[;,|]/).map(s=>s.trim()).filter(Boolean)
     };
   }
 
   const all=texts.flatMap(t=>parseCSV(t).map(norm)).filter(r=>r.date);
-  const minDate=all.reduce((a,b)=>a&&a<b.date?a:b.date,all[0]?.date||"");
-  const maxDate=all.reduce((a,b)=>a&&a>b.date?a:b.date,all[0]?.date||"");
-  const $from=document.getElementById("from"),$to=document.getElementById("to");
-  $from.min=$to.min=minDate; $from.max=$to.max=maxDate; $from.value=minDate; $to.value=maxDate;
 
-  let currentRef="";
-  const $rows=document.getElementById("rows"),$kpi=document.getElementById("kpiCount"),
-        $who=document.getElementById("currentRef"),$top=document.getElementById("toplist");
+  // -- Globalt datumintervall (YYYY-MM-DD, funkar lexikografiskt)
+  const minDate = all.reduce((a,b)=> a && a<b.date ? a : b.date, all[0]?.date || "");
+  const maxDate = all.reduce((a,b)=> a && a>b.date ? a : b.date, all[0]?.date || "");
+  const $from = document.getElementById("from");
+  const $to   = document.getElementById("to");
 
-  const inRange=(d,f,t)=>(!f||d>=f)&&(!t||d<=t);
+  // Sätt och lås min/max + preset
+  [$from,$to].forEach(el=>{
+    el.min = minDate;
+    el.max = maxDate;
+  });
+  $from.value = minDate;
+  $to.value   = maxDate;
+
+  // Extra hård klampning (vissa browsers låter dig välja men vi rättar direkt)
+  function clampDates(){
+    if($from.value < minDate) $from.value = minDate;
+    if($to.value   > maxDate) $to.value   = maxDate;
+    if($from.value > $to.value) $from.value = $to.value;
+  }
+
+  let currentRef = "";
+  const $rows=document.getElementById("rows"), $kpi=document.getElementById("kpiCount"),
+        $who=document.getElementById("currentRef"), $top=document.getElementById("toplist");
+
+  const inRange = (d,f,t)=> (!f||d>=f) && (!t||d<=t);
 
   function renderTop(){
+    clampDates();
     const f=$from.value,t=$to.value,cnt=new Map();
     for(const m of all){ if(!inRange(m.date,f,t)) continue; for(const r of m.referees) cnt.set(r,(cnt.get(r)||0)+1); }
     const arr=[...cnt.entries()].sort((a,b)=>b[1]-a[1]);
     if(!arr.length){ $top.textContent="Inga matcher i valt intervall."; return; }
     $top.innerHTML=arr.map(([name,n])=>`<div class="item" data-ref="${name}"><span>${name}</span><span class="pill">${n}</span></div>`).join("");
-    $top.querySelectorAll(".item").forEach(el=>el.onclick=()=>{currentRef=el.dataset.ref;$who.textContent=currentRef;renderMatches();});
+    $top.querySelectorAll(".item").forEach(el=>el.onclick=()=>{ currentRef=el.dataset.ref; $who.textContent=currentRef; renderMatches(); });
   }
 
   function renderMatches(){
+    clampDates();
     const f=$from.value,t=$to.value;
-    const rows=all.filter(m=>(!currentRef||m.referees.includes(currentRef))&&inRange(m.date,f,t))
+    const rows=all.filter(m=>(!currentRef||m.referees.includes(currentRef)) && inRange(m.date,f,t))
                   .sort((a,b)=>(a.date||"").localeCompare(b.date||""));
-    $kpi.textContent=currentRef?rows.length:"—";
-    if(!currentRef){$rows.innerHTML=`<tr><td colspan="6" class="muted">Välj domare i listan.</td></tr>`;return;}
-    if(!rows.length){$rows.innerHTML=`<tr><td colspan="6" class="muted">Inga matcher för ${currentRef} i detta intervall.</td></tr>`;return;}
-    $rows.innerHTML=rows.map(m=>{
+    $kpi.textContent = currentRef ? rows.length : "—";
+    if(!currentRef){ $rows.innerHTML=`<tr><td colspan="6" class="muted">Välj domare i listan.</td></tr>`; return; }
+    if(!rows.length){ $rows.innerHTML=`<tr><td colspan="6" class="muted">Inga matcher för ${currentRef} i detta intervall.</td></tr>`; return; }
+    $rows.innerHTML = rows.map(m=>{
       const others=(m.referees||[]).filter(r=>r!==currentRef);
       return `<tr>
         <td>${m.date}</td><td>${m.series}</td><td>${m.home}</td><td>${m.away}</td>
@@ -133,14 +155,16 @@
     }).join("");
   }
 
-  [$from,$to].forEach(el=>el.addEventListener("change",()=>{
-    if($from.value<minDate)$from.value=minDate;
-    if($to.value>maxDate)$to.value=maxDate;
-    if($from.value>$to.value)$from.value=$to.value;
-    renderTop();renderMatches();
-  }));
+  // Lyssna på både input och change för att klampa omedelbart
+  ["input","change","blur"].forEach(evt=>{
+    $from.addEventListener(evt, ()=>{ clampDates(); renderTop(); renderMatches(); });
+    $to.addEventListener(evt,   ()=>{ clampDates(); renderTop(); renderMatches(); });
+  });
 
-  renderTop();renderMatches();
+  // Första render
+  clampDates();
+  renderTop();
+  renderMatches();
 })();
 </script>
 </html>
