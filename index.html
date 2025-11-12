@@ -3,29 +3,75 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Domar-minidashboard</title>
+
 <style>
-  :root { --bg:#f8fafc; --fg:#0f172a; --muted:#64748b; --border:#e2e8f0; --card:#fff; }
-  body{font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--fg);margin:14px}
-  .wrap{max-width:1100px;margin:auto}
-  h1{font-size:28px;margin:6px 4px 12px}
-  .row{display:grid;gap:10px;grid-template-columns:1fr;margin:8px 0}
-  @media (min-width:800px){ .row.filters{grid-template-columns:repeat(4,minmax(0,1fr));} }
-  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px}
-  .muted{color:var(--muted);font-size:12px;margin-bottom:6px}
-  input[type=date]{width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fff}
-  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
-  th,td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left}
-  thead{background:#f1f5f9;font-weight:700}
-  .kpi{font-size:22px;font-weight:800}
-  .list{max-height:420px;overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--card)}
-  .item{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer}
-  .item:hover{background:#f1f5f9}
-  .pill{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:#e2e8f0;margin-left:8px}
+  /* ====== Lätt, modern palett ====== */
+  :root{
+    --bg: #f7f9fc;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted:#6b7280;
+    --border:#e6e9f2;
+    --accent:#6d28d9;         /* indigo-violett */
+    --accent-2:#8b5cf6;       /* ljusare */
+    --accent-weak:#ede9fe;    /* bakgrundssköld */
+  }
   @media (prefers-color-scheme: dark){
-    :root{ --bg:#0f172a; --fg:#f1f5f9; --muted:#94a3b8; --border:#334155; --card:#1e293b; }
-    thead{background:#334155}
-    .item:hover{background:#273447}
-    input[type=date]{background:#0b1220;color:#f1f5f9;border-color:#334155}
+    :root{
+      --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --border:#1f2937;
+      --accent:#a78bfa; --accent-2:#c4b5fd; --accent-weak:#312e81;
+    }
+  }
+
+  /* ====== Bas ====== */
+  *{box-sizing:border-box}
+  body{margin:14px; font:15px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+       color:var(--text); background:var(--bg);}
+  .wrap{max-width:1100px;margin:auto}
+  h1{
+    font-size:28px; margin:10px 4px 14px; font-weight:800; letter-spacing:.2px;
+    background: linear-gradient(90deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .row{display:grid; gap:12px; grid-template-columns:1fr; margin:10px 0}
+  @media(min-width:820px){ .row.filters{grid-template-columns:repeat(4,minmax(0,1fr));} }
+
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px;
+    box-shadow:0 6px 18px rgba(17,24,39,.06);
+  }
+  .muted{color:var(--muted); font-size:12px; margin-bottom:6px}
+
+  input[type=date]{
+    width:100%; padding:12px 14px; background:var(--card); color:var(--text);
+    border:1px solid var(--border); border-radius:10px; outline:none;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  input[type=date]:focus{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
+  }
+
+  table{width:100%; border-collapse:collapse; background:var(--card);
+        border:1px solid var(--border); border-radius:14px; overflow:hidden}
+  thead{background: color-mix(in oklab, var(--accent-weak) 40%, var(--card));}
+  th,td{padding:11px 12px; border-bottom:1px solid var(--border); text-align:left}
+  th{font-weight:800; color:var(--text)}
+
+  .kpi{font-size:22px; font-weight:900}
+  .list{max-height:420px; overflow:auto; border:1px solid var(--border); border-radius:14px; background:var(--card)}
+  .item{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:13px 14px; border-bottom:1px solid var(--border); cursor:pointer;
+    transition: background .12s, transform .06s;
+  }
+  .item:hover{ background: color-mix(in oklab, var(--accent-weak) 35%, var(--card)); }
+  .item:active{ transform: translateY(1px); }
+  .pill{
+    display:inline-flex; align-items:center; gap:6px;
+    font:600 12px/1 Inter,system-ui; padding:3px 10px; border-radius:999px;
+    background: color-mix(in oklab, var(--accent-weak) 75%, var(--card));
+    color: var(--accent); border:1px solid color-mix(in oklab, var(--accent) 20%, var(--border));
   }
 </style>
 
@@ -72,11 +118,10 @@
 
 <script>
 (async function(){
-  // -- Läs alla CSV via /csv/files.json
   const files = await (await fetch("csv/files.json")).json();
   const texts = await Promise.all(files.map(f=>fetch("csv/"+f).then(r=>r.text())));
 
-  // -- Minimal CSV-parser (med citattecken)
+  // Minimal CSV-parser m. citattecken
   function parseCSV(s){
     const out=[], re=/\s*(?:"([^"]*(?:""[^"]*)*)"|([^,"\r\n]*))\s*(,|\r?\n|$)/g; let m,row=[],head;
     const val=(a,b)=>(a||b||"").replace(/""/g,'"');
@@ -84,87 +129,79 @@
     head=out.shift()||[]; return out.map(r=>Object.fromEntries(head.map((h,i)=>[h.trim(),(r[i]??"").trim()])));
   }
 
-  // -- Normalisering (flera möjliga kolumnnamn)
+  // Normalisering
   function norm(rec){
     const g=k=>rec[k]??""; const first=x=>(x||"").split(/[ T]/)[0];
-    const refsField=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
-      [g("Domare1"),g("Domare2"),g("Domare3"),g("Referee1"),g("Referee2"),g("Referee3")].filter(Boolean).join(",");
+    const refs=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
+               [g("Domare1"),g("Domare2"),g("Domare3"),g("Referee1"),g("Referee2"),g("Referee3")].filter(Boolean).join(",");
     return {
       date:first(g("Date")||g("Datum")||g("MatchDate")||g("Start")||g("Kickoff")),
       series:g("Serie")||g("Series")||g("Competition")||"",
       arena:g("Arena")||g("Venue")||g("Hall")||"",
       home:g("Hemmalag")||g("Home")||g("HomeTeam")||g("Hemma")||"",
       away:g("Bortalag")||g("Away")||g("AwayTeam")||g("Borta")||"",
-      referees:refsField.split(/[;,|]/).map(s=>s.trim()).filter(Boolean)
+      referees: refs.split(/[;,|]/).map(s=>s.trim()).filter(Boolean)
     };
   }
 
-  const all=texts.flatMap(t=>parseCSV(t).map(norm)).filter(r=>r.date);
+  const all = texts.flatMap(t=>parseCSV(t).map(norm)).filter(r=>r.date);
 
-  // -- Globalt datumintervall (YYYY-MM-DD, funkar lexikografiskt)
-  const minDate = all.reduce((a,b)=> a && a<b.date ? a : b.date, all[0]?.date || "");
-  const maxDate = all.reduce((a,b)=> a && a>b.date ? a : b.date, all[0]?.date || "");
-  const $from = document.getElementById("from");
-  const $to   = document.getElementById("to");
+  // Dataintervall
+  const minDate = all.reduce((a,b)=> a && a<b.date ? a : b.date, all[0]?.date||"");
+  const maxDate = all.reduce((a,b)=> a && a>b.date ? a : b.date, all[0]?.date||"");
+  const $from = document.getElementById("from"), $to = document.getElementById("to");
+  [$from,$to].forEach(el=>{ el.min=minDate; el.max=maxDate; });
+  $from.value=minDate; $to.value=maxDate;
 
-  // Sätt och lås min/max + preset
-  [$from,$to].forEach(el=>{
-    el.min = minDate;
-    el.max = maxDate;
-  });
-  $from.value = minDate;
-  $to.value   = maxDate;
-
-  // Extra hård klampning (vissa browsers låter dig välja men vi rättar direkt)
-  function clampDates(){
-    if($from.value < minDate) $from.value = minDate;
-    if($to.value   > maxDate) $to.value   = maxDate;
-    if($from.value > $to.value) $from.value = $to.value;
+  function clamp(){
+    if($from.value<minDate) $from.value=minDate;
+    if($to.value>maxDate)   $to.value=maxDate;
+    if($from.value>$to.value) $from.value=$to.value;
   }
 
-  let currentRef = "";
+  let currentRef="";
   const $rows=document.getElementById("rows"), $kpi=document.getElementById("kpiCount"),
         $who=document.getElementById("currentRef"), $top=document.getElementById("toplist");
 
-  const inRange = (d,f,t)=> (!f||d>=f) && (!t||d<=t);
+  const inRange=(d,f,t)=>(!f||d>=f)&&(!t||d<=t);
 
   function renderTop(){
-    clampDates();
+    clamp();
     const f=$from.value,t=$to.value,cnt=new Map();
     for(const m of all){ if(!inRange(m.date,f,t)) continue; for(const r of m.referees) cnt.set(r,(cnt.get(r)||0)+1); }
     const arr=[...cnt.entries()].sort((a,b)=>b[1]-a[1]);
     if(!arr.length){ $top.textContent="Inga matcher i valt intervall."; return; }
-    $top.innerHTML=arr.map(([name,n])=>`<div class="item" data-ref="${name}"><span>${name}</span><span class="pill">${n}</span></div>`).join("");
+    $top.innerHTML=arr.map(([name,n])=>`
+      <div class="item" data-ref="${name}">
+        <span>${name}</span><span class="pill">${n}</span>
+      </div>`).join("");
     $top.querySelectorAll(".item").forEach(el=>el.onclick=()=>{ currentRef=el.dataset.ref; $who.textContent=currentRef; renderMatches(); });
   }
 
   function renderMatches(){
-    clampDates();
+    clamp();
     const f=$from.value,t=$to.value;
-    const rows=all.filter(m=>(!currentRef||m.referees.includes(currentRef)) && inRange(m.date,f,t))
+    const rows=all.filter(m=>(!currentRef||m.referees.includes(currentRef))&&inRange(m.date,f,t))
                   .sort((a,b)=>(a.date||"").localeCompare(b.date||""));
-    $kpi.textContent = currentRef ? rows.length : "—";
+    $kpi.textContent=currentRef?rows.length:"—";
     if(!currentRef){ $rows.innerHTML=`<tr><td colspan="6" class="muted">Välj domare i listan.</td></tr>`; return; }
     if(!rows.length){ $rows.innerHTML=`<tr><td colspan="6" class="muted">Inga matcher för ${currentRef} i detta intervall.</td></tr>`; return; }
-    $rows.innerHTML = rows.map(m=>{
+    $rows.innerHTML=rows.map(m=>{
       const others=(m.referees||[]).filter(r=>r!==currentRef);
       return `<tr>
-        <td>${m.date}</td><td>${m.series}</td><td>${m.home}</td><td>${m.away}</td>
-        <td>${m.arena}</td><td>${others.join(", ")||"—"}</td>
+        <td>${m.date}</td><td>${m.series}</td><td>${m.home}</td><td>${m.away}</td><td>${m.arena}</td>
+        <td>${others.join(", ")||"—"}</td>
       </tr>`;
     }).join("");
   }
 
-  // Lyssna på både input och change för att klampa omedelbart
+  // Reagera direkt vid ändring/skrivning
   ["input","change","blur"].forEach(evt=>{
-    $from.addEventListener(evt, ()=>{ clampDates(); renderTop(); renderMatches(); });
-    $to.addEventListener(evt,   ()=>{ clampDates(); renderTop(); renderMatches(); });
+    $from.addEventListener(evt, ()=>{ clamp(); renderTop(); renderMatches(); });
+    $to.addEventListener(evt,   ()=>{ clamp(); renderTop(); renderMatches(); });
   });
 
-  // Första render
-  clampDates();
-  renderTop();
-  renderMatches();
+  clamp(); renderTop(); renderMatches();
 })();
 </script>
 </html>
