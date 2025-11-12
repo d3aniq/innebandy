@@ -8,7 +8,7 @@
   body{font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--fg);margin:14px}
   .wrap{max-width:1100px;margin:auto}
   h1{font-size:28px;margin:6px 4px 12px}
-  .row{display:grid;gap:10px;grid-template-columns:1fr; margin:8px 0}
+  .row{display:grid;gap:10px;grid-template-columns:1fr;margin:8px 0}
   @media (min-width:800px){ .row.filters{grid-template-columns:repeat(4,minmax(0,1fr));} }
   .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px}
   .muted{color:var(--muted);font-size:12px;margin-bottom:6px}
@@ -21,12 +21,10 @@
   .item{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer}
   .item:hover{background:#f1f5f9}
   .pill{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:#e2e8f0;margin-left:8px}
-  #filters{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--border);box-shadow:0 4px 12px rgba(15,23,42,.04)}
   @media (prefers-color-scheme: dark){
     :root{ --bg:#0f172a; --fg:#f1f5f9; --muted:#94a3b8; --border:#334155; --card:#1e293b; }
     thead{background:#334155}
     .item:hover{background:#273447}
-    #filters{box-shadow:0 4px 12px rgba(0,0,0,.25)}
     input[type=date]{background:#0b1220;color:#f1f5f9;border-color:#334155}
   }
 </style>
@@ -34,7 +32,7 @@
 <div class="wrap">
   <h1>Domar-minidashboard</h1>
 
-  <!-- Sticky filter, nu: Från, Till, Vald domare, Matcher i vyn -->
+  <!-- Filter -->
   <div class="row filters" id="filters">
     <div class="card">
       <div class="muted">Från</div>
@@ -54,7 +52,7 @@
     </div>
   </div>
 
-  <!-- Lista + matchtabell -->
+  <!-- Lista + tabell -->
   <div class="row">
     <div class="card">
       <div class="muted">Topplista – matcher per domare (klicka)</div>
@@ -64,7 +62,7 @@
       <div class="muted">Matcher (inom datumfilter, för vald domare)</div>
       <table>
         <thead><tr>
-          <th>Datum</th><th>Serie</th><th>Arena</th><th>Hemma</th><th>Borta</th><th>Domarkollega</th>
+          <th>Datum</th><th>Serie</th><th>Hemma</th><th>Borta</th><th>Arena</th><th>Domarkollega</th>
         </tr></thead>
         <tbody id="rows"><tr><td colspan="6" class="muted">Välj domare i listan.</td></tr></tbody>
       </table>
@@ -74,11 +72,9 @@
 
 <script>
 (async function(){
-  // -- Läs alla CSV via /csv/files.json
   const files = await (await fetch("csv/files.json")).json();
   const texts = await Promise.all(files.map(f=>fetch("csv/"+f).then(r=>r.text())));
 
-  // -- Minimal CSV-parser (stöd för citattecken)
   function parseCSV(s){
     const out=[], re=/\s*(?:"([^"]*(?:""[^"]*)*)"|([^,"\r\n]*))\s*(,|\r?\n|$)/g; let m,row=[],head;
     const val=(a,b)=>(a||b||"").replace(/""/g,'"');
@@ -86,74 +82,65 @@
     head=out.shift()||[]; return out.map(r=>Object.fromEntries(head.map((h,i)=>[h.trim(),(r[i]??"").trim()])));
   }
 
-  // -- Normalisera poster från olika CSV-varianter
   function norm(rec){
     const g=k=>rec[k]??""; const first=x=>(x||"").split(/[ T]/)[0];
-    const refsField = (g("Referees")||g("Domare")||g("DomareLista")||"") ||
-                      [g("Domare1"),g("Domare2"),g("Domare3"),g("Referee1"),g("Referee2"),g("Referee3")].filter(Boolean).join(",");
+    const refsField=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
+      [g("Domare1"),g("Domare2"),g("Domare3"),g("Referee1"),g("Referee2"),g("Referee3")].filter(Boolean).join(",");
     return {
       date:first(g("Date")||g("Datum")||g("MatchDate")||g("Start")||g("Kickoff")),
       series:g("Serie")||g("Series")||g("Competition")||"",
       arena:g("Arena")||g("Venue")||g("Hall")||"",
       home:g("Home")||g("Hemma")||g("HomeTeam")||g("Hemmalag")||"",
       away:g("Away")||g("Borta")||g("AwayTeam")||g("Bortalag")||"",
-      referees: refsField.split(/[;,|]/).map(s=>s.trim()).filter(Boolean)
+      referees:refsField.split(/[;,|]/).map(s=>s.trim()).filter(Boolean)
     };
   }
 
-  const all = texts.flatMap(t=>parseCSV(t).map(norm)).filter(r=>r.date);
-
-  // -- Globalt datumintervall från data
-  const minDate = all.reduce((a,b)=> a && a<b.date ? a : b.date, all[0]?.date||"");
-  const maxDate = all.reduce((a,b)=> a && a>b.date ? a : b.date, all[0]?.date||"");
-  const $from = document.getElementById("from"), $to = document.getElementById("to");
-  // Lås fälten till spannet och preset:a
+  const all=texts.flatMap(t=>parseCSV(t).map(norm)).filter(r=>r.date);
+  const minDate=all.reduce((a,b)=>a&&a<b.date?a:b.date,all[0]?.date||"");
+  const maxDate=all.reduce((a,b)=>a&&a>b.date?a:b.date,all[0]?.date||"");
+  const $from=document.getElementById("from"),$to=document.getElementById("to");
   $from.min=$to.min=minDate; $from.max=$to.max=maxDate; $from.value=minDate; $to.value=maxDate;
 
-  let currentRef = "";
-  const $rows = document.getElementById("rows");
-  const $kpi = document.getElementById("kpiCount");
-  const $who = document.getElementById("currentRef");
-  const $top = document.getElementById("toplist");
+  let currentRef="";
+  const $rows=document.getElementById("rows"),$kpi=document.getElementById("kpiCount"),
+        $who=document.getElementById("currentRef"),$top=document.getElementById("toplist");
 
-  const inRange = (d,f,t)=> (!f||d>=f) && (!t||d<=t);
+  const inRange=(d,f,t)=>(!f||d>=f)&&(!t||d<=t);
 
   function renderTop(){
-    const f=$from.value,t=$to.value, cnt=new Map();
+    const f=$from.value,t=$to.value,cnt=new Map();
     for(const m of all){ if(!inRange(m.date,f,t)) continue; for(const r of m.referees) cnt.set(r,(cnt.get(r)||0)+1); }
     const arr=[...cnt.entries()].sort((a,b)=>b[1]-a[1]);
     if(!arr.length){ $top.textContent="Inga matcher i valt intervall."; return; }
     $top.innerHTML=arr.map(([name,n])=>`<div class="item" data-ref="${name}"><span>${name}</span><span class="pill">${n}</span></div>`).join("");
-    $top.querySelectorAll(".item").forEach(el=> el.onclick=()=>{ currentRef=el.dataset.ref; $who.textContent=currentRef; renderMatches(); window.scrollTo({top:document.getElementById('filters').offsetTop,behavior:'smooth'}); });
+    $top.querySelectorAll(".item").forEach(el=>el.onclick=()=>{currentRef=el.dataset.ref;$who.textContent=currentRef;renderMatches();});
   }
 
   function renderMatches(){
     const f=$from.value,t=$to.value;
-    const rows=all.filter(m=>(!currentRef||m.referees.includes(currentRef)) && inRange(m.date,f,t))
+    const rows=all.filter(m=>(!currentRef||m.referees.includes(currentRef))&&inRange(m.date,f,t))
                   .sort((a,b)=>(a.date||"").localeCompare(b.date||""));
-    // KPI visar endast när domare vald
-    $kpi.textContent = currentRef ? rows.length : "—";
-    if(!currentRef){ $rows.innerHTML=`<tr><td colspan="6" class="muted">Välj domare i listan.</td></tr>`; return; }
-    if(!rows.length){ $rows.innerHTML=`<tr><td colspan="6" class="muted">Inga matcher för ${currentRef} i detta intervall.</td></tr>`; return; }
+    $kpi.textContent=currentRef?rows.length:"—";
+    if(!currentRef){$rows.innerHTML=`<tr><td colspan="6" class="muted">Välj domare i listan.</td></tr>`;return;}
+    if(!rows.length){$rows.innerHTML=`<tr><td colspan="6" class="muted">Inga matcher för ${currentRef} i detta intervall.</td></tr>`;return;}
     $rows.innerHTML=rows.map(m=>{
       const others=(m.referees||[]).filter(r=>r!==currentRef);
       return `<tr>
-        <td>${m.date}</td><td>${m.series}</td><td>${m.arena}</td>
-        <td>${m.home}</td><td>${m.away}</td><td>${others.join(", ")||"—"}</td>
+        <td>${m.date}</td><td>${m.series}</td><td>${m.home}</td><td>${m.away}</td>
+        <td>${m.arena}</td><td>${others.join(", ")||"—"}</td>
       </tr>`;
     }).join("");
   }
 
-  // Klampa datum direkt vid ändring (Till kan aldrig gå över maxDate)
   [$from,$to].forEach(el=>el.addEventListener("change",()=>{
-    if($from.value<minDate) $from.value=minDate;
-    if($to.value>maxDate)   $to.value=maxDate;   // <- viktigt: aldrig senare än data
-    if($from.value>$to.value) $from.value=$to.value;
-    renderTop(); renderMatches();
+    if($from.value<minDate)$from.value=minDate;
+    if($to.value>maxDate)$to.value=maxDate;
+    if($from.value>$to.value)$from.value=$to.value;
+    renderTop();renderMatches();
   }));
 
-  // Första render
-  renderTop(); renderMatches();
+  renderTop();renderMatches();
 })();
 </script>
 </html>
