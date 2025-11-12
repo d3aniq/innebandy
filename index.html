@@ -5,16 +5,12 @@
 <title>Domar-minidashboard</title>
 
 <style>
-  /* ====== Lätt, modern palett ====== */
+  /* ===== Lätt, modern palett ===== */
   :root{
-    --bg: #f7f9fc;
-    --card: #ffffff;
-    --text: #0f172a;
-    --muted:#6b7280;
-    --border:#e6e9f2;
-    --accent:#6d28d9;         /* indigo-violett */
-    --accent-2:#8b5cf6;       /* ljusare */
-    --accent-weak:#ede9fe;    /* bakgrundssköld */
+    --bg:#f7f9fc; --card:#ffffff; --text:#0f172a; --muted:#6b7280; --border:#e6e9f2;
+    --accent:#6d28d9;      /* indigo-violett */
+    --accent-2:#9333ea;    /* gradientslut */
+    --accent-weak:#ede9fe; /* bakgrundston */
   }
   @media (prefers-color-scheme: dark){
     :root{
@@ -23,55 +19,62 @@
     }
   }
 
-  /* ====== Bas ====== */
   *{box-sizing:border-box}
-  body{margin:14px; font:15px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
-       color:var(--text); background:var(--bg);}
-  .wrap{max-width:1100px;margin:auto}
-  h1{
-    font-size:28px; margin:10px 4px 14px; font-weight:800; letter-spacing:.2px;
-    background: linear-gradient(90deg,var(--accent),var(--accent-2));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
+  body{
+    margin:14px; font:15px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    color:var(--text); background:var(--bg);
   }
-  .row{display:grid; gap:12px; grid-template-columns:1fr; margin:10px 0}
+  .wrap{max-width:1100px;margin:auto}
+
+  /* Titel med gradient */
+  h1{
+    font-size:30px;margin:14px 0 18px;text-align:center;font-weight:900;letter-spacing:.4px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  .row{display:grid;gap:12px;grid-template-columns:1fr;margin:10px 0}
   @media(min-width:820px){ .row.filters{grid-template-columns:repeat(4,minmax(0,1fr));} }
 
   .card{
-    background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px;
-    box-shadow:0 6px 18px rgba(17,24,39,.06);
+    background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 16px;
+    box-shadow:0 4px 10px rgba(0,0,0,.04),0 8px 24px rgba(109,40,217,.04);
   }
-  .muted{color:var(--muted); font-size:12px; margin-bottom:6px}
+  .muted{color:var(--muted);font-size:12px;margin-bottom:6px}
 
   input[type=date]{
-    width:100%; padding:12px 14px; background:var(--card); color:var(--text);
-    border:1px solid var(--border); border-radius:10px; outline:none;
+    width:100%;padding:12px 14px;background:var(--card);color:var(--text);
+    border:1px solid var(--border);border-radius:10px;outline:none;
     transition:border-color .15s, box-shadow .15s;
   }
   input[type=date]:focus{
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
+    border-color:var(--accent);
+    box-shadow:0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
   }
 
-  table{width:100%; border-collapse:collapse; background:var(--card);
-        border:1px solid var(--border); border-radius:14px; overflow:hidden}
-  thead{background: color-mix(in oklab, var(--accent-weak) 40%, var(--card));}
-  th,td{padding:11px 12px; border-bottom:1px solid var(--border); text-align:left}
-  th{font-weight:800; color:var(--text)}
+  table{width:100%;border-collapse:collapse;background:var(--card);
+        border:1px solid var(--border);border-radius:16px;overflow:hidden}
+  thead{background:color-mix(in oklab,var(--accent-weak) 30%, var(--card));color:var(--accent)}
+  th,td{padding:11px 12px;border-bottom:1px solid var(--border);text-align:left}
+  th{font-weight:800;text-transform:uppercase;letter-spacing:.3px}
 
-  .kpi{font-size:22px; font-weight:900}
-  .list{max-height:420px; overflow:auto; border:1px solid var(--border); border-radius:14px; background:var(--card)}
+  .kpi{font-size:22px;font-weight:900}
+
+  .list{max-height:420px;overflow:auto;border:1px solid var(--border);border-radius:16px;background:var(--card)}
   .item{
-    display:flex; justify-content:space-between; align-items:center;
-    padding:13px 14px; border-bottom:1px solid var(--border); cursor:pointer;
-    transition: background .12s, transform .06s;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:13px 14px;border-bottom:1px solid var(--border);cursor:pointer;
+    transition:background .15s, transform .05s;
   }
-  .item:hover{ background: color-mix(in oklab, var(--accent-weak) 35%, var(--card)); }
-  .item:active{ transform: translateY(1px); }
+  .item:hover{background:color-mix(in oklab,var(--accent-weak) 40%, var(--card))}
+  .item:active{transform:translateY(1px)}
+  .item.active{background:color-mix(in oklab,var(--accent-weak) 60%, var(--card));font-weight:600}
   .pill{
-    display:inline-flex; align-items:center; gap:6px;
-    font:600 12px/1 Inter,system-ui; padding:3px 10px; border-radius:999px;
-    background: color-mix(in oklab, var(--accent-weak) 75%, var(--card));
-    color: var(--accent); border:1px solid color-mix(in oklab, var(--accent) 20%, var(--border));
+    display:inline-flex;align-items:center;gap:6px;font:600 12px/1 Inter,system-ui;
+    padding:3px 10px;border-radius:999px;
+    background:color-mix(in oklab,var(--accent) 10%, var(--card));
+    color:var(--accent);
+    border:1px solid color-mix(in oklab,var(--accent) 25%, var(--border));
   }
 </style>
 
@@ -118,10 +121,11 @@
 
 <script>
 (async function(){
+  // Läs alla CSV enligt /csv/files.json
   const files = await (await fetch("csv/files.json")).json();
   const texts = await Promise.all(files.map(f=>fetch("csv/"+f).then(r=>r.text())));
 
-  // Minimal CSV-parser m. citattecken
+  // Minimal CSV-parser (hanterar citattecken)
   function parseCSV(s){
     const out=[], re=/\s*(?:"([^"]*(?:""[^"]*)*)"|([^,"\r\n]*))\s*(,|\r?\n|$)/g; let m,row=[],head;
     const val=(a,b)=>(a||b||"").replace(/""/g,'"');
@@ -129,7 +133,7 @@
     head=out.shift()||[]; return out.map(r=>Object.fromEntries(head.map((h,i)=>[h.trim(),(r[i]??"").trim()])));
   }
 
-  // Normalisering
+  // Normalisera poster (stöd för flera kolumnnamn)
   function norm(rec){
     const g=k=>rec[k]??""; const first=x=>(x||"").split(/[ T]/)[0];
     const refs=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
@@ -140,13 +144,13 @@
       arena:g("Arena")||g("Venue")||g("Hall")||"",
       home:g("Hemmalag")||g("Home")||g("HomeTeam")||g("Hemma")||"",
       away:g("Bortalag")||g("Away")||g("AwayTeam")||g("Borta")||"",
-      referees: refs.split(/[;,|]/).map(s=>s.trim()).filter(Boolean)
+      referees:refs.split(/[;,|]/).map(s=>s.trim()).filter(Boolean)
     };
   }
 
   const all = texts.flatMap(t=>parseCSV(t).map(norm)).filter(r=>r.date);
 
-  // Dataintervall
+  // Globalt datumintervall
   const minDate = all.reduce((a,b)=> a && a<b.date ? a : b.date, all[0]?.date||"");
   const maxDate = all.reduce((a,b)=> a && a>b.date ? a : b.date, all[0]?.date||"");
   const $from = document.getElementById("from"), $to = document.getElementById("to");
@@ -160,8 +164,10 @@
   }
 
   let currentRef="";
-  const $rows=document.getElementById("rows"), $kpi=document.getElementById("kpiCount"),
-        $who=document.getElementById("currentRef"), $top=document.getElementById("toplist");
+  const $rows=document.getElementById("rows"),
+        $kpi=document.getElementById("kpiCount"),
+        $who=document.getElementById("currentRef"),
+        $top=document.getElementById("toplist");
 
   const inRange=(d,f,t)=>(!f||d>=f)&&(!t||d<=t);
 
@@ -175,7 +181,17 @@
       <div class="item" data-ref="${name}">
         <span>${name}</span><span class="pill">${n}</span>
       </div>`).join("");
-    $top.querySelectorAll(".item").forEach(el=>el.onclick=()=>{ currentRef=el.dataset.ref; $who.textContent=currentRef; renderMatches(); });
+
+    // klick -> välj domare + markera aktiv
+    $top.querySelectorAll(".item").forEach(el=>{
+      el.onclick=()=>{
+        currentRef=el.dataset.ref;
+        $who.textContent=currentRef;
+        $top.querySelectorAll(".item").forEach(i=>i.classList.remove("active"));
+        el.classList.add("active");
+        renderMatches();
+      };
+    });
   }
 
   function renderMatches(){
