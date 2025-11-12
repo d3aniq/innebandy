@@ -44,13 +44,13 @@
       <div class="muted">Till</div>
       <input type="date" id="to">
     </div>
-    <div class="card">
+    <!-- <div class="card">
       <div class="muted">Snabbval</div>
       <div class="row" style="grid-template-columns:1fr 1fr;">
         <button id="clear">Rensa</button>
         <button id="season">Denna säsong</button>
       </div>
-    </div>
+    </div> -->
     <div class="card">
       <div class="muted">Vald domare</div>
       <div id="currentRef" class="kpi">—</div>
@@ -70,7 +70,8 @@
     <div class="card" style="grid-column:span 2;">
       <div class="muted">Matcher (inom datumfilter, för vald domare)</div>
       <table>
-        <thead><tr><th>Datum</th><th>Serie</th><th>Arena</th><th>Hemma</th><th>Borta</th><th>Länk</th></tr></thead>
+        <!-- <thead><tr><th>Datum</th><th>Serie</th><th>Arena</th><th>Hemma</th><th>Borta</th><th>Länk</th></tr></thead> -->
+        <thead><tr><th>Datum</th><th>Serie</th><th>Arena</th><th>Hemma</th><th>Borta</th><th>Domarkollega</th></tr></thead>
         <tbody id="rows"><tr><td colspan="6" class="muted">Välj domare i listan.</td></tr></tbody>
       </table>
     </div>
@@ -117,7 +118,7 @@
       arena:  g("Arena")||g("Venue")||g("Hall")||"",
       home:   g("Home")||g("Hemma")||g("HomeTeam")||g("Hemmalag")||"",
       away:   g("Away")||g("Borta")||g("AwayTeam")||g("Bortalag")||"",
-      url:    g("URL")||g("Link")||g("MatchURL")||g("Länk")||"",
+      // url:    g("URL")||g("Link")||g("MatchURL")||g("Länk")||"",
       referees
     };
   }
@@ -178,12 +179,25 @@
       $rows.innerHTML = `<tr><td colspan="6" class="muted">Inga matcher för ${currentRef} i detta intervall.</td></tr>`;
       return;
     }
-    $rows.innerHTML = rows.map(m=>`
-      <tr>
-        <td>${m.date}</td><td>${m.series}</td><td>${m.arena}</td>
-        <td>${m.home}</td><td>${m.away}</td>
-        <td>${m.url?`<a href="${m.url}" target="_blank" rel="noopener">Match</a>`:"—"}</td>
-      </tr>`).join("");
+    // $rows.innerHTML = rows.map(m=>`
+    //   <tr>
+    //     <td>${m.date}</td><td>${m.series}</td><td>${m.arena}</td>
+    //     <td>${m.home}</td><td>${m.away}</td>
+    //     <td>${m.url?`<a href="${m.url}" target="_blank" rel="noopener">Match</a>`:"—"}</td>
+    //   </tr>`).join("");
+    $rows.innerHTML = rows.map(m=>{
+      const others = (m.referees||[]).filter(r=>r!==currentRef);
+      return `
+        <tr>
+          <td>${m.date}</td>
+          <td>${m.series}</td>
+          <td>${m.arena}</td>
+          <td>${m.home}</td>
+          <td>${m.away}</td>
+          <td>${others.join(", ") || "—"}</td>
+        </tr>`;
+    }).join("");
+
   }
 
   // ---- 6) UI events
