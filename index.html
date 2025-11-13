@@ -5,18 +5,17 @@
 <title>Innebandy - domarstatistik</title>
 
 <style>
-  /* ===== Lätt, modern palett (endast ljust tema) ===== */
   :root{
     --bg:#f7f9fc; --card:#ffffff; --text:#0f172a; --muted:#6b7280; --border:#e6e9f2;
-    --accent:#6d28d9;      /* indigo-violett */
-    --accent-2:#9333ea;    /* gradientslut */
-    --accent-weak:#ede9fe; /* bakgrundston */
+    --accent:#6d28d9;
+    --accent-2:#9333ea;
+    --accent-weak:#ede9fe;
   }
 
   *{box-sizing:border-box}
   html,body{
     max-width:100%;
-    overflow-x:hidden;      /* hindra horisontell scroll på hela sidan */
+    overflow-x:hidden;
   }
   body{
     margin:14px;
@@ -25,7 +24,6 @@
   }
   .wrap{max-width:1100px;margin:auto;width:100%;}
 
-  /* Titel med gradient */
   h1{
     font-size:30px;margin:14px 0 18px;text-align:center;font-weight:900;letter-spacing:.4px;
     background:linear-gradient(90deg,var(--accent),var(--accent-2));
@@ -54,7 +52,6 @@
     box-shadow:0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
   }
 
-  /* Dropdown för vald domare */
   .ref-select{
     width:100%;
     padding:6px 0;
@@ -65,31 +62,24 @@
     font-weight:800;
     outline:none;
   }
-  .ref-select:focus{
-    outline:none;
-  }
 
-  /* Tabell */
   .table-wrap{
     width:100%;
-    overflow-x:hidden;           /* inget som sticker ut horisontellt */
+    overflow-x:hidden;
   }
   table{
     width:100%;
     border-collapse:collapse;background:var(--card);
     border:1px solid var(--border);border-radius:16px;overflow:hidden;
-    table-layout:fixed;          /* fördela bredden jämnt, bra på mobil */
   }
   thead{background:color-mix(in oklab,var(--accent-weak) 30%, var(--card));color:var(--accent)}
   th,td{
     padding:11px 12px;
     border-bottom:1px solid var(--border);
     text-align:left;
-    word-break:break-word;       /* långa lag-/arenanamn bryts till ny rad */
   }
   th{font-weight:800;text-transform:uppercase;letter-spacing:.3px}
 
-  /* Datumkolumn – bredare och ingen radbrytning */
   th:first-child, td:first-child{
     white-space:nowrap;
     width:120px;
@@ -140,11 +130,41 @@
       max-height:320px;
     }
     th,td{
-      padding:7px 6px;
+      padding:7px 8px;
       font-size:13px;
     }
     .ref-select{
       font-size:16px;
+    }
+
+    /* Gör tabellen till "kort" på mobil */
+    table, thead, tbody, th, tr{
+      display:block;
+      width:100%;
+    }
+    thead{display:none;}                /* dölj headern */
+    tbody{display:block;}
+    tr{
+      margin-bottom:10px;
+      border-bottom:1px solid var(--border);
+    }
+    td{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      border-bottom:none;
+      padding:4px 0;
+      word-break:break-word;
+    }
+    td::before{
+      content:attr(data-label);
+      font-weight:600;
+      color:var(--muted);
+      margin-right:8px;
+      text-transform:none;
+    }
+    td[data-label="Datum"]{
+      white-space:nowrap;
     }
   }
 </style>
@@ -152,7 +172,6 @@
 <div class="wrap">
   <h1>Innebandy - domarstatistik</h1>
 
-  <!-- Filter -->
   <div class="row filters" id="filters">
     <div class="card">
       <div class="muted">Från datum</div>
@@ -174,7 +193,6 @@
     </div>
   </div>
 
-  <!-- Lista + tabell -->
   <div class="row">
     <div class="card">
       <div class="muted">Antal matcher per domare (inom datumintervall)</div>
@@ -199,7 +217,6 @@
   const files = await (await fetch("csv/files.json")).json();
   const texts = await Promise.all(files.map(f=>fetch("csv/"+f).then(r=>r.text())));
 
-  // Minimal CSV-parser
   function parseCSV(s){
     const out=[], re=/\s*(?:"([^"]*(?:""[^"]*)*)"|([^,"\r\n]*))\s*(,|\r?\n|$)/g; let m,row=[],head;
     const val=(a,b)=>(a||b||"").replace(/""/g,'"');
@@ -207,7 +224,6 @@
     head=out.shift()||[]; return out.map(r=>Object.fromEntries(head.map((h,i)=>[h.trim(),(r[i]??"").trim()])));
   }
 
-  // Normalisering
   function norm(rec){
     const g=k=>rec[k]??""; const first=x=>(x||"").split(/[ T]/)[0];
     const refs=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
@@ -224,7 +240,6 @@
 
   const all = texts.flatMap(t=>parseCSV(t).map(norm)).filter(r=>r.date);
 
-  // Dataintervall: max låst till 2025-10-31
   const hardMax = "2025-10-31";
   const minDate = all.reduce((a,b)=> a && a<b.date ? a : b.date, all[0]?.date||"");
   const rawMax = all.reduce((a,b)=> a && a>b.date ? a : b.date, all[0]?.date||"");
@@ -247,7 +262,6 @@
     if($from.value>$to.value) $from.value=$to.value;
   }
 
-  // Unik lista domare för dropdown (alfabetiskt)
   const allRefs = [...new Set(all.flatMap(m=>m.referees))].sort((a,b)=>a.localeCompare(b,"sv"));
   $refSelect.innerHTML =
     '<option value="">(välj domare)</option>' +
@@ -304,19 +318,21 @@
     $rows.innerHTML = rows.map(m=>{
       const others=(m.referees||[]).filter(r=>r!==currentRef);
       return `<tr>
-        <td>${m.date}</td><td>${m.series}</td><td>${m.home}</td><td>${m.away}</td><td>${m.arena}</td>
-        <td>${others.join(", ")||"—"}</td>
+        <td data-label="Datum">${m.date}</td>
+        <td data-label="Serie">${m.series}</td>
+        <td data-label="Hemmalag">${m.home}</td>
+        <td data-label="Bortalag">${m.away}</td>
+        <td data-label="Arena">${m.arena}</td>
+        <td data-label="Domarkollega">${others.join(", ")||"—"}</td>
       </tr>`;
     }).join("");
   }
 
-  // Datumändringar
   ["input","change","blur"].forEach(evt=>{
     $from.addEventListener(evt, ()=>{ clamp(); renderTop(); renderMatches(); });
     $to.addEventListener(evt,   ()=>{ clamp(); renderTop(); renderMatches(); });
   });
 
-  // Dropdownändring – synka listan + scrolla till domaren
   $refSelect.addEventListener("change", ()=>{
     currentRef = $refSelect.value || "";
 
