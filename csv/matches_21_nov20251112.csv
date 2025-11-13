@@ -1,0 +1,382 @@
+Datum,Tid,Serie,Hemmalag,Bortalag,Arena,Domare1,Domare2,url
+2025-11-01,14:00,SSL - Svenska Superligan Damer,FBC Partille,Malmö FBC,Partillebohallen,Jörgen Andersson,Kevin Cardell,https://stats.innebandy.se/sasong/43/serie/40695/match/1571628
+2025-11-01,16:00,SSL - Svenska Superligan Damer,Pixbo IBK,Täby FC IBK,Wallenstam Arena A,David Geiser Mellkvist,Fredrik Lundborg,https://stats.innebandy.se/sasong/43/serie/40695/match/1571629
+2025-11-01,13:30,Allsvenskan Damer Södra,FBC Katrineholm,Lindome IBK,Stensätter Sporthall,Albin Aro Rydén,Dennie Rydén,https://stats.innebandy.se/sasong/43/serie/40697/match/1570693
+2025-11-01,16:00,Allsvenskan Damer Södra,IBK Lockerud Mariestad,Landvetter IBK,"ICA-kvantum hallen, Mariestad",Noel Hildensjö,Tim Nissinen Eriksson,https://stats.innebandy.se/sasong/43/serie/40697/match/1570695
+2025-11-01,13:00,Allsvenskan Herrar,Sundsvall FBC,FBC Lerum,Sundsvalls Sporthall-A,Jonas Backman,Roger Nilsson,https://stats.innebandy.se/sasong/43/serie/40694/match/1570959
+2025-11-01,12:30,Damer Div. 1 region,FBC Engelholm,Onsala IBK,Kungsgårdshallen,Niclas Eriksson,Robin Jönsson,https://stats.innebandy.se/sasong/43/serie/41175/match/1573095
+2025-11-01,16:00,Damer Div. 1 region,FBC Lerum,IBF Backadalen,Lerum Arena A,Måns Bartilson,Robin Cederdahl,https://stats.innebandy.se/sasong/43/serie/41175/match/1573096
+2025-11-01,16:00,Damer Div. 1 region,Kustens IF,IBK Lund,Haverdalshallen,Ronny Jensen,Eino Kozan,https://stats.innebandy.se/sasong/43/serie/41175/match/1573098
+2025-11-01,14:00,Damer Div. 2,IK Zenith D2,Landvetter IBF D2,Björlanda Idrottshall,Christer Carlberg,Mats Sällberg,https://stats.innebandy.se/sasong/43/serie/42062/match/1629494
+2025-11-01,17:00,Damer Div. 2,Burås IK D3,Lindås IBF D2,Torpahallen,Sebastian Ågren,Mats Sällberg,https://stats.innebandy.se/sasong/43/serie/42062/match/1629497
+2025-11-01,10:30,Damer Div. 3,Mölndals IBF D3,IBK Göteborg D3,Aktiviteten A-Hall,Ian S Blomqvist,Linus Svensson,https://stats.innebandy.se/sasong/43/serie/42080/match/1647641
+2025-11-01,17:00,Damer Div. 3,Ale IBF / IBK Kungälv D3,Fristads GoIF / Sandared IBS D3 Gbg,Ale Kulturrum,Roger Zahnér,Goran Kuduzovic,https://stats.innebandy.se/sasong/43/serie/42080/match/1647637
+2025-11-01,14:00,Division 1 Herrar Västra Götaland,IBK Lidköping,IBK Göteborg,Idrottens hus i Lidköping,Christoffer Danielsson,Martin Johansson,https://stats.innebandy.se/sasong/43/serie/40701/match/1570553
+2025-11-01,14:00,Division 1 Herrar Västra Götaland,IBF Backadalen,Fagerhult Habo IBK,Lundbyskolans sporthall A-hall,Tobias Anderberg,Adam Kruse,https://stats.innebandy.se/sasong/43/serie/40701/match/1570555
+2025-11-01,15:00,Division 1 Herrar Västra Götaland,Fristads GoIF,Floda IBK,Nya Fristadshallen,Richard Claesson,Robin Boqvist,https://stats.innebandy.se/sasong/43/serie/40701/match/1570556
+2025-11-01,16:00,Division 1 Herrar Västra Götaland,Mullsjö AIS Utveckling,FBC Partille,Nyhemshallen - Mullsjö,Jesper Björklund Greter,Sebastian Kiejs,https://stats.innebandy.se/sasong/43/serie/40701/match/1570554
+2025-11-01,13:00,Herrar Div. 2,Surte IS IBK H2,Landvetter IBK H2,Bohushallen,Linda Lindskog,Sandra Lindskog,https://stats.innebandy.se/sasong/43/serie/42061/match/1629829
+2025-11-01,13:00,Herrar Div. 2,Mölndals IBF H2,FBC Vinga H2,Aktiviteten A-Hall,Christian Svärdström,Marcus Orrhult,https://stats.innebandy.se/sasong/43/serie/42061/match/1629830
+2025-11-01,15:00,Herrar Div. 2,Stenungsunds IBK H2,Lindome IBK H2,Stenungsund Arena,Adnan Tongur,Hajrudin Begic,https://stats.innebandy.se/sasong/43/serie/42061/match/1629828
+2025-11-01,12:00,Herrar Div. 3 A,Ale IBF H3,FBC Lerum H3,Ale Kulturrum,Alexander Pavlovic,Magnus Fredriksson,https://stats.innebandy.se/sasong/43/serie/42064/match/1630669
+2025-11-01,12:30,Herrar Div. 3 A,Stenungsunds IBK H3,Pixbo IBF H3,Stenungsund Arena,Adnan Tongur,Hajrudin Begic,https://stats.innebandy.se/sasong/43/serie/42064/match/1630673
+2025-11-01,14:30,Herrar Div. 3 A,IBK Göteborg H3,Floda IBK H3,Torpahallen,Sebastian Ågren,Wessam Abdellrazek,https://stats.innebandy.se/sasong/43/serie/42064/match/1630672
+2025-11-01,15:00,Herrar Div. 3 B,Mölndals IBF H3,Lindås IBF H3,Aktiviteten A-Hall,Hampus Räffling,Tommy Runhammar,https://stats.innebandy.se/sasong/43/serie/42065/match/1630538
+2025-11-01,12:00,Herrar Div. 4 A,Orust IBK H4,IBF Backadalen H4,Ängås Idrottshall,Thomas Johansson,Mathias Hannu,https://stats.innebandy.se/sasong/43/serie/42079/match/1647906
+2025-11-01,14:30,Herrar Div. 4 B,Lindome IBK H4,KFKD H4,Almåshallen A,Mustafa Kalajdzisalihovic,Håkan Krafft,https://stats.innebandy.se/sasong/43/serie/42082/match/1654512
+2025-11-01,12:00,Juniorallsvenskan H HJ18,Pixbo IBF/Pixbo IBK,Warberg IBF,Wallenstam Arena A,Linus Backlund,Tommy Runhammar,https://stats.innebandy.se/sasong/43/serie/41546/match/1591895
+2025-11-01,14:00,Klubbhuset Blå Pojkar 14 B,Öckerö IBK P14/15,Landvetter IBK P14 Vit,Hedenskolans Idrottshall,Sam Olovson,Molly Knutsson,https://stats.innebandy.se/sasong/43/serie/42399/match/1652886
+2025-11-01,15:00,Pantamera Damjunior A,Landvetter IBF JAS DJ-Utveckling Blå,Pixbo IBF Utveckling Röd,Pinntorps Idrottshall,Selma Hadziselimovic,Emir Rajabi,https://stats.innebandy.se/sasong/43/serie/42367/match/1648868
+2025-11-01,11:00,Pantamera Damjunior B,IBK Alingsås Damjunior,FBC Lerum Utveckling DJ,"Stadsskogshallen, Alingsås",Emil Jacobsson,Sven Persson,https://stats.innebandy.se/sasong/43/serie/42368/match/1648906
+2025-11-01,11:00,Pantamera Flickor C-ungdom A,Surte IS IBK F11,Pixbo IBF F12 Röd,Bohushallen,Mohamed Ahmed Warsame,Mustaf Osman,https://stats.innebandy.se/sasong/43/serie/42390/match/1649525
+2025-11-01,16:00,Pantamera Flickor C-ungdom B,Surte IS IBK F 12/13 Röd,IBK Bergum F10-13,Bohushallen,Arthur Nielsen,Arvid Biörnerud,https://stats.innebandy.se/sasong/43/serie/42391/match/1649777
+2025-11-01,14:00,Pantamera Herrjunior C,IBK Kungälv Herrjuniorer Svart,Varla IBK Juniorer 2 GBG,Munkegärdehallen,Henry Tames,Semir Aganspahic,https://stats.innebandy.se/sasong/43/serie/42365/match/1648392
+2025-11-01,17:30,Pantamera Herrjunior C,IK Zenith HJ,IBK Kungälv Herrjuniorer Svart,Björlanda Idrottshall,Felix Broström,Semir Aganspahic,https://stats.innebandy.se/sasong/43/serie/42365/match/1648396
+2025-11-01,10:00,Pantamera Pojkar B-ungdom E,Ale IBF P11,Frölunda IBK P10-11 Svart,Ale Kulturrum,Joacim Olsson,Albin Wennersten,https://stats.innebandy.se/sasong/43/serie/42373/match/1650694
+2025-11-01,13:30,Pantamera Pojkar B-ungdom E,Stenungsunds IBK P10/11,FBC Vinga P10 Svart,Kyrkenorumskolans Idrottshall,Emin Kosovac,Jasmin Dzanic,https://stats.innebandy.se/sasong/43/serie/42373/match/1650695
+2025-11-01,09:00,Sammandrag 1-2 nov Göteborg,Umeå,Kalmer,Lundenhallen,Sebastian Ågren,Robin Cederdahl,https://stats.innebandy.se/sasong/43/serie/42663/match/1664073
+2025-11-01,10:45,Sammandrag 1-2 nov Göteborg,Eskilstuna,Göteborg,Lundenhallen,Sebastian Ågren,Robin Cederdahl,https://stats.innebandy.se/sasong/43/serie/42663/match/1664074
+2025-11-01,12:30,Sammandrag 1-2 nov Göteborg,Kalmer,Nacka,Lundenhallen,Sebastian Cedgard,Hampus Räffling,https://stats.innebandy.se/sasong/43/serie/42663/match/1664075
+2025-11-01,14:15,Sammandrag 1-2 nov Göteborg,Eskilstuna,Umeå,Lundenhallen,Linus Svensson,Ian S Blomqvist,https://stats.innebandy.se/sasong/43/serie/42663/match/1664076
+2025-11-01,13:00,Träningsmatcher 2025/2026,Sandö IBK P14 Svart,Pixbo IBK P14,Vallda Idrottshall,Max Ström,Wilmer Svensson,https://stats.innebandy.se/sasong/43/serie/41348/match/1664239
+2025-11-02,15:00,Damer Div. 1 region,Malmhaug IBF,Pixbo IBF,Kulladals Sporthall,Ahmad Homsi,Ante Johansson Stenholm,https://stats.innebandy.se/sasong/43/serie/41175/match/1573094
+2025-11-02,15:00,Damer Div. 1 region,Almås IBF D1,Warberg IBF,Almåshallen A,Carl Otterström,Marcus Yngvesson,https://stats.innebandy.se/sasong/43/serie/41175/match/1573099
+2025-11-02,18:00,Damer Div. 1 region,Varla IBK Dam,Floda IBK D1,Skårbyhallen,Alice Haeggman,Kim Bjurek,https://stats.innebandy.se/sasong/43/serie/41175/match/1573097
+2025-11-02,17:30,Damer Div. 2,FBC Lerum Utveckling D2,IBK Kungälv D2,Rydsbergshallen,Måns Bartilson,Magnus Fredriksson,https://stats.innebandy.se/sasong/43/serie/42062/match/1629496
+2025-11-02,18:00,Division 1 Herrar Västra Götaland,Pixbo IBF,IBK Kungälv,Wallenstam Arena A,Andreas Lybacken,Marcus Larsson,https://stats.innebandy.se/sasong/43/serie/40701/match/1570551
+2025-11-02,13:15,Herrar Div. 2,Frölunda IBK H2,IBF Älvstranden H2,Frölunda Kulturhus,Linus Backlund,Tommy Runhammar,https://stats.innebandy.se/sasong/43/serie/42061/match/1629832
+2025-11-02,13:00,Herrar Div. 3 A,IBK Bergum H3,Dingle AIK H3,Bergumsskolan,Kristoffer Lind,Sebastian Ågren,https://stats.innebandy.se/sasong/43/serie/42064/match/1630671
+2025-11-02,17:50,Herrar Div. 3 A,IBK Kungälv H3,Orust IBK H3,Kastellegårdshallen,Kristoffer Lind,Sebastian Ågren,https://stats.innebandy.se/sasong/43/serie/42064/match/1630670
+2025-11-02,10:45,Herrar Div. 3 B,Frölunda IBK H3,Burås IK H3,Frölunda Kulturhus,Linus Backlund,Tommy Runhammar,https://stats.innebandy.se/sasong/43/serie/42065/match/1630540
+2025-11-02,16:30,Herrar Div. 3 B,Landvetter IBK H3,Sörgårdens IBF H3,Pinntorps Idrottshall,Alexander Pavlovic,Robin Cederdahl,https://stats.innebandy.se/sasong/43/serie/42065/match/1630541
+2025-11-02,17:00,Herrar Div. 3 B,IK Zenith H3,IBF Backadalen H3 Utveckling,Björlanda Idrottshall,Adnan Tongur,Hajrudin Begic,https://stats.innebandy.se/sasong/43/serie/42065/match/1630537
+2025-11-02,19:00,Herrar Div. 3 B,FBC Partille H3,Pixbo IBF H3B,Partillebohallen,Christian Svärdström,Marcus Orrhult,https://stats.innebandy.se/sasong/43/serie/42065/match/1630539
+2025-11-02,12:30,Herrar Div. 4 A,Landvetter IBK H4 A,Myggenäs IBK H4,Pinntorps Idrottshall,Håkan Krafft,Pierre Eberhard Berg,https://stats.innebandy.se/sasong/43/serie/42079/match/1647901
+2025-11-02,12:30,Herrar Div. 4 A,Lindome IBK H4,IBK Kungälv H4,Almåshallen A,Goran Kuduzovic,Roger Zahnér,https://stats.innebandy.se/sasong/43/serie/42079/match/1647904
+2025-11-02,18:00,Herrar Div. 4 A,Överby IBK H4,Kärra IBK H4,Nordby Supermarkethallen A-hallen,Emir Rajabi,Martin Andersson,https://stats.innebandy.se/sasong/43/serie/42079/match/1647903
+2025-11-02,14:45,Herrar Div. 4 B,IK Zenith H4,IBK Göteborg H4,Björlanda Idrottshall,Adnan Tongur,Hajrudin Begic,https://stats.innebandy.se/sasong/43/serie/42082/match/1654510
+2025-11-02,15:00,Herrar Div. 4 B,Frölunda IBK H4,IBF Älvstranden H4,Skyttesskolan,Jonathan Johansson,Wessam Abdellrazek,https://stats.innebandy.se/sasong/43/serie/42082/match/1654514
+2025-11-02,18:00,Herrar Div. 4 B,Utbynäs SK H4,Landvetter IBK H4 B,Kviberg Arena B,Mats Sällberg,Yao-Zu Galby,https://stats.innebandy.se/sasong/43/serie/42082/match/1654511
+2025-11-02,15:00,Juniorallsvenskan F DJ18,Pixbo IBF,Sandareds IBS /Fristad GoIF,Wallenstam Arena A,Mattias Strid,Adnan Mehmedagic,https://stats.innebandy.se/sasong/43/serie/41554/match/1594291
+2025-11-02,09:00,Klubbhuset Blå Flickor 15 B,Utbynäs SK F15 Gul,Landvetter IBK F15,Kviberg Arena B,Eyvind Fägerlind,Elias Kristoffersson,https://stats.innebandy.se/sasong/43/serie/42413/match/1652337
+2025-11-02,13:00,Klubbhuset Blå Pojkar 14 A,Utbynäs SK P 14 Gul,FBC Vinga P14 Orange,Kviberg Arena B,Moa Solberg Andersson,Einar Junsten,https://stats.innebandy.se/sasong/43/serie/42398/match/1652707
+2025-11-02,14:00,Klubbhuset Blå Pojkar 14 A,IBK Kungälv P14 Vit,Guldhedens IK P14,Kastellegårdshallen,Nova Stenhill,Albin Jansson,https://stats.innebandy.se/sasong/43/serie/42398/match/1652706
+2025-11-02,12:00,Klubbhuset Blå Pojkar 14 C,Utbynäs SK P 14 Blå,Pixbo IBK P14 Svart,Kviberg Arena B,Nils Koch,Einar Junsten,https://stats.innebandy.se/sasong/43/serie/42400/match/1652234
+2025-11-02,12:15,Klubbhuset Blå Pojkar 14 C,IK Zenith P14 Grön,Hindås IBK P14,Björlanda Idrottshall,Oliver Claesson,Teodor Ringhage,https://stats.innebandy.se/sasong/43/serie/42400/match/1652231
+2025-11-02,10:15,Klubbhuset Blå Pojkar 15 B,IK Zenith P15 Vit,Mölndals IBF P15 RÖD,Björlanda Idrottshall,Teodor Ringhage,Viktor Sigurdsson,https://stats.innebandy.se/sasong/43/serie/42402/match/1652602
+2025-11-02,11:15,Klubbhuset Blå Pojkar 15 B,IK Zenith P15 Grön,IBK Kungälv P15 Blå,Björlanda Idrottshall,Oliver Claesson,Viktor Sigurdsson,https://stats.innebandy.se/sasong/43/serie/42402/match/1652598
+2025-11-02,11:00,Klubbhuset Blå Pojkar 16 A,Utbynäs SK P16 BLÅ,Floda IBK P16,Kviberg Arena B,Nils Koch,Sixten Linderup,https://stats.innebandy.se/sasong/43/serie/42404/match/1651392
+2025-11-02,11:30,Klubbhuset Blå Pojkar 16 A,IBK Kungälv P16 Vit,FBC Vinga P15/16 Orange,Munkegärdehallen,Nova Stenhill,Albin Jansson,https://stats.innebandy.se/sasong/43/serie/42404/match/1651389
+2025-11-02,10:00,Klubbhuset Blå Pojkar 16 B,Utbynäs SK P16 GUL,Ale IBF P16,Kviberg Arena B,Elias Kristoffersson,Eyvind Fägerlind,https://stats.innebandy.se/sasong/43/serie/42409/match/1651160
+2025-11-02,17:00,Pantamera Damjunior A,FBC Partille F Akademi,Landvetter IBF JAS DJ-Utveckling Blå,Partillebohallen,Christian Svärdström,Marcus Orrhult,https://stats.innebandy.se/sasong/43/serie/42367/match/1648879
+2025-11-02,18:40,Pantamera Damjunior A,Pixbo IBF Utveckling Röd,Warberg IBF Junior,Wallenstam Arena B,Mustafa Kalajdzisalihovic,Selma Hadziselimovic,https://stats.innebandy.se/sasong/43/serie/42367/match/1648877
+2025-11-02,15:15,Pantamera Flickor B-ungdom B,IBK Kungälv F10-12 Blå,Pixbo IBF F11 Röd,Kastellegårdshallen,Malte Bartilson,Joacim Olsson,https://stats.innebandy.se/sasong/43/serie/42387/match/1648965
+2025-11-02,14:30,Pantamera Flickor C-ungdom C,Landvetter IBF F13/14 Blå,Eken IBK F11/12/13 Lila,Pinntorps Idrottshall,Alexander Acke,,https://stats.innebandy.se/sasong/43/serie/42392/match/1649817
+2025-11-02,15:25,Pantamera Flickor C-ungdom E,Utbynäs SK F 12/13,IBK Göteborg / Guldhedens IK F12-13,Kviberg Arena B,Nils Biörnerud,Olivia Tornberg,https://stats.innebandy.se/sasong/43/serie/42394/match/1649366
+2025-11-02,13:30,Pantamera Pojkar B-ungdom D,Frölunda IBK P10-11 Röda,Stenungsunds IBK P10/11,Skyttesskolan,Jonathan Johansson,Wessam Abdellrazek,https://stats.innebandy.se/sasong/43/serie/42372/match/1648552
+2025-11-02,11:00,Pantamera Pojkar B-ungdom E,Landvetter IBK P10 Blå,FBC Partille P11 Vit,Pinntorps Idrottshall,Håkan Krafft,Pierre Eberhard Berg,https://stats.innebandy.se/sasong/43/serie/42373/match/1650696
+2025-11-02,15:00,Pantamera Pojkar B-ungdom E,Myggenäs IBK P10,Mölndals IBF P10 Röd,Häggvallsskolan,Anthon Räffling,Albin Wennersten,https://stats.innebandy.se/sasong/43/serie/42373/match/1650697
+2025-11-02,12:45,Pantamera Pojkar C-ungdom C,IBK Kungälv P12,IK Zenith P11/12,Munkegärdehallen,Emmy Birgersson,Joacim Olsson,https://stats.innebandy.se/sasong/43/serie/42377/match/1649553
+2025-11-02,09:00,Pantamera Pojkar C-ungdom G,Lindome IBK P13 Vit,Eken IBK / Mölndals IBF P12,Almåshallen A,Anton Holmgren,Elliot Strid,https://stats.innebandy.se/sasong/43/serie/42381/match/1649604
+2025-11-02,16:25,Pantamera Pojkar C-ungdom H,IBK Kungälv P13 Svart,Lindås IBK P13 Turkos,Kastellegårdshallen,Malte Bartilson,Joacim Olsson,https://stats.innebandy.se/sasong/43/serie/42382/match/1649735
+2025-11-02,16:35,Pantamera Pojkar C-ungdom H,Utbynäs SK P 12,Överby IBK P13/14,Kviberg Arena B,Olivia Tornberg,Nils Biörnerud,https://stats.innebandy.se/sasong/43/serie/42382/match/1649734
+2025-11-02,14:15,Pantamera Pojkar C-ungdom K,Utbynäs SK P 13,IBK Göteborg P13/14,Kviberg Arena B,Moa Solberg Andersson,Olivia Tornberg,https://stats.innebandy.se/sasong/43/serie/42385/match/1649321
+2025-11-02,16:30,Pantamera Pojkar C-ungdom K,Öckerö IBK P12/13 Vit,Stenungsunds IBK P13-14,Hedenskolans Idrottshall,Mohsen Gholami,Mustafa Kalajdzisalihovic,https://stats.innebandy.se/sasong/43/serie/42385/match/1649318
+2025-11-02,09:00,Sammandrag 1-2 nov Göteborg,Umeå,Göteborg,Lundenhallen,Sebastian Ågren,Kristoffer Lind,https://stats.innebandy.se/sasong/43/serie/42663/match/1664077
+2025-11-02,10:45,Sammandrag 1-2 nov Göteborg,Nacka,Eskilstuna,Lundenhallen,Sebastian Ågren,Kristoffer Lind,https://stats.innebandy.se/sasong/43/serie/42663/match/1664078
+2025-11-02,12:30,Sammandrag 1-2 nov Göteborg,Kalmer,Göteborg,Lundenhallen,Ian S Blomqvist,Sebastian Cedgard,https://stats.innebandy.se/sasong/43/serie/42663/match/1664079
+2025-11-03,19:45,Damer Div. 3,Öckerö IBK D3,Eken IBK D3,Hedenskolans Idrottshall,Emir Rajabi,Selma Hadziselimovic,https://stats.innebandy.se/sasong/43/serie/42080/match/1647638
+2025-11-03,20:00,Herrar Div. 3 A,Utbynäs SK H3,Myggenäs IBK H3,Kviberg Arena B,Jonathan Johansson,Wessam Abdellrazek,https://stats.innebandy.se/sasong/43/serie/42064/match/1630674
+2025-11-03,20:30,Juniorallsvenskan H HJ18,Lindås IBK/Lindås IBF,Landvetter IBK,Lindås Waves Arena,Linda Lindskog,Sandra Lindskog,https://stats.innebandy.se/sasong/43/serie/41546/match/1591894
+2025-11-03,17:30,Klubbhuset Blå Pojkar 15 A,IBK Kungälv P15 Svart,Utbynäs SK P 15,Kviberg Arena B,Mattias Strid,Sixten Linderup,https://stats.innebandy.se/sasong/43/serie/42401/match/1652511
+2025-11-04,19:30,Damer Div. 2,Ale IBF D2,Guldhedens IK D2,Ale Kulturrum,Goran Kuduzovic,Magnus Fredriksson,https://stats.innebandy.se/sasong/43/serie/42062/match/1629493
+2025-11-04,20:00,Damer Div. 2,Lindås IBF D2,Mölnlycke Frontside IBF D2,Lindås Waves Arena,Tommy Runhammar,Linus Backlund,https://stats.innebandy.se/sasong/43/serie/42062/match/1629500
+2025-11-04,20:30,Juniorallsvenskan F DJ18,Landvetter IBK,FBC Lerum Utveckling/FBC Lerum,Pinntorps Idrottshall,Marcus Orrhult,Christian Svärdström,https://stats.innebandy.se/sasong/43/serie/41554/match/1594289
+2025-11-04,18:00,Klubbhuset Blå Pojkar 16 A,Orust IBK P/F16,Eken IBK FP16/17,Svanesunds Sporthall,Joel Möller,,https://stats.innebandy.se/sasong/43/serie/42404/match/1651390
+2025-11-04,18:30,Pantamera Pojkar C-ungdom A,Lindome IBK P11 Grön,Öckerö IBK P10-13,Streteredsskolan,Alexander T Forsberg,Alfred Jorpes,https://stats.innebandy.se/sasong/43/serie/42375/match/1649583
+2025-11-13,10:46,SSL - Svenska Superligan Damer,Pixbo IBK,Karlstad IBF,Wallenstam Arena A,Andreas Lybacken,Josefine Hedelind,https://stats.innebandy.se/sasong/43/serie/40695/match/1571635
+2025-11-05,20:10,Crabions League 25-26,Park/ Dahlbergs,Tigers,Nordby Supermarkethallen A-hallen,,,https://stats.innebandy.se/sasong/43/serie/42616/match/1661927
+2025-11-05,21:00,Crabions League 25-26,Krokstrands Gräv,Turnegänget,Nordby Supermarkethallen A-hallen,,,https://stats.innebandy.se/sasong/43/serie/42616/match/1661928
+2025-11-05,19:15,Juniorallsvenskan G HJ18,IBK Lidköping/Skara IBK,Stenungsunds IBK,"Idrottens hus T2, Lidköping",David Karlsson,Christian Ragnevi,https://stats.innebandy.se/sasong/43/serie/41545/match/1591716
+2025-11-05,18:30,Pantamera Pojkar C-ungdom C,Myggenäs IBK P 11/12,IBK Kungälv P12,Häggvallsskolan,Oscar Stendahl,Lucas Schöldström,https://stats.innebandy.se/sasong/43/serie/42377/match/1649555
+2025-11-06,18:30,SSL - Svenska Superligan Damer,Täby FC IBK,FBC Partille,Hägerneholmshallen,Johannes Ekenberg,Amir Zilic,https://stats.innebandy.se/sasong/43/serie/40695/match/1571630
+2025-11-06,20:15,Damer Div. 2,FBC Vinga D2,FBC Lerum Utveckling D2,Frölunda Kulturhus,Christer Carlberg,Mats Sällberg,https://stats.innebandy.se/sasong/43/serie/42062/match/1629502
+2025-11-06,20:00,Herrar Div. 2,Lindome IBK H2,Surte IS IBK H2,Almåshallen A,Linus Backlund,Tommy Runhammar,https://stats.innebandy.se/sasong/43/serie/42061/match/1629840
+2025-11-06,20:00,Herrar Div. 3 B,Burås IK H3,Landvetter IBK H3,Svingelns Sporthall,Magnus Fredriksson,Aldin Hadziselmovic,https://stats.innebandy.se/sasong/43/serie/42065/match/1630545
+2025-11-06,18:45,Klubbhuset Blå Pojkar 14 B,Landvetter IBK P14 Vit,Lindås IBK P14 Gul,Landvetter Idrottshall,Vincent Qvist,Oliver Josefsson,https://stats.innebandy.se/sasong/43/serie/42399/match/1652851
+2025-11-06,18:30,Pantamera Pojkar B-ungdom C,Surte IS IBK P10/11,Lindome IBK U16 Lila,Bohushallen,Mustafa Kalajdzisalihovic,Emin Kosovac,https://stats.innebandy.se/sasong/43/serie/42371/match/1648508
+2025-11-06,18:15,Pantamera Pojkar C-ungdom G,Lindome IBK P13 Vit,Pixbo IBF P12 Vit,Streteredsskolan,Alexander T Forsberg,Alfred Jorpes,https://stats.innebandy.se/sasong/43/serie/42381/match/1649616
+2025-11-06,19:30,Träningsmatcher 2025/2026,Sandö IBK P10/11,Lindome IBK P11,Vallda Idrottshall,Elliot Cornelius,Max Ström,https://stats.innebandy.se/sasong/43/serie/41348/match/1666094
+2025-11-07,19:30,Damer Div. 3,Ale IBF / IBK Kungälv D3,Eken IBK D3,Ale Kulturrum,Selma Hadziselimovic,Sebastian Ågren,https://stats.innebandy.se/sasong/43/serie/42080/match/1647625
+2025-11-07,19:00,Herrar Div. 2,Kärra IBK H2,Stenungsunds IBK H2,Kärra Sporthall,Tommy Runhammar,Linus Backlund,https://stats.innebandy.se/sasong/43/serie/42061/match/1629834
+2025-11-13,20:00,Herrar Div. 2,Landvetter IBK H2,Mölndals IBF H2,Pinntorps Idrottshall,Linda Lindskog,Sandra Lindskog,https://stats.innebandy.se/sasong/43/serie/42061/match/1629838
+2025-11-07,19:30,Herrar Div. 3 A,Dingle AIK H3,IBK Göteborg H3,Munkedals Idrottshall,Adnan Tongur,Hajrudin Begic,https://stats.innebandy.se/sasong/43/serie/42064/match/1630678
+2025-11-07,19:30,Herrar Div. 3 A,Orust IBK H3,IBK Bergum H3,Svanesunds Sporthall,Emir Rajabi,Yao-Zu Galby,https://stats.innebandy.se/sasong/43/serie/42064/match/1630679
+2025-11-07,19:46,Herrar Div. 4 A,IBK Kungälv H4,Dingle AIK H4,Kastellegårdshallen,Alexander Hellström,Senad Olevic,https://stats.innebandy.se/sasong/43/serie/42079/match/1647909
+2025-11-07,19:00,Juniorallsvenskan G HJ18,IBF Backadalen/IK Zenith,Floda IBK,Tuve Sporthall,Marcus Orrhult,Christian Svärdström,https://stats.innebandy.se/sasong/43/serie/41545/match/1591715
+2025-11-07,19:00,Juniorallsvenskan H HJ18,Lindås IBK/Lindås IBF,Pixbo IBF/Pixbo IBK,Askims Sporthall,Marcus Yngvesson,Magnus Fredriksson,https://stats.innebandy.se/sasong/43/serie/41546/match/1591911
+2025-11-07,18:30,Pantamera Damjunior A,Lindås IBK DJ,Lindome IBK DJ,Lindås Waves Arena,Sebastian Cedgard,Hampus Räffling,https://stats.innebandy.se/sasong/43/serie/42367/match/1648878
+2025-11-07,19:20,Pantamera Flickor C-ungdom E,Hindås IBK F13,FBC Partille F 12/14 Röd,Hindås Idrottshall,Katarina Arnoldsdotter,Joacim Olsson,https://stats.innebandy.se/sasong/43/serie/42394/match/1649369
+2025-11-07,18:15,Pantamera Pojkar B-ungdom E,FBC Vinga P10 Svart,Ale IBF P11,Hall Of Flame,Mustafa Kalajdzisalihovic,Per Sundvall,https://stats.innebandy.se/sasong/43/serie/42373/match/1650698
+2025-11-07,18:45,Pantamera Pojkar B-ungdom E,FBC Partille P11 Vit,Frölunda IBK P10-11 Svart,Qvisthallen,Semir Aganspahic,Emin Kosovac,https://stats.innebandy.se/sasong/43/serie/42373/match/1650699
+2025-11-07,18:00,Pantamera Pojkar C-ungdom H,Hindås IBK P13,Utbynäs SK P 12,Hindås Idrottshall,Katarina Arnoldsdotter,Joacim Olsson,https://stats.innebandy.se/sasong/43/serie/42382/match/1649736
+2025-11-07,08:30,Skol DM Högstadiet,Skol DM Högstadiet Wallenstam Fabrikshall C 0830-1130,Skol DM Högstadiet Wallenstam Fabrikshall C 0830-1130,Wallenstam Arena C,Semir Aganspahic,Per Sundvall,https://stats.innebandy.se/sasong/43/serie/42788/match/1667315
+2025-11-07,11:30,Skol DM Högstadiet,Skol DM Högstadiet Wallenstam Fabrikshall C 1130 - 1500,Skol DM Högstadiet Wallenstam Fabrikshall C 1130 - 1500,Wallenstam Arena C,Robin Boqvist,Mohamed Ahmed Warsame,https://stats.innebandy.se/sasong/43/serie/42788/match/1667316
+2025-11-08,17:00,Allsvenskan Damer Södra,Lindås IBK,Skoghalls IBK,Lindås Waves Arena,Gabriel Adolfsson,Christian Jensen,https://stats.innebandy.se/sasong/43/serie/40697/match/1570690
+2025-11-08,13:00,Allsvenskan Herrar,Lindås IBK,Järfälla Bele IBF,Lindås Waves Arena,Erik Hindemith,Fredrik Lundborg,https://stats.innebandy.se/sasong/43/serie/40694/match/1570956
+2025-11-08,14:30,Dam Veteraner,Lindome IBK DV,FBC Lerum DV,Streteredsskolan,Adem Can,Håkan Krafft,https://stats.innebandy.se/sasong/43/serie/42081/match/1653286
+2025-11-08,15:10,Dam Veteraner,IK Zenith DV,IBK Bergum / IBK Göteborg DV,Björlanda Idrottshall,Mohammad Mahmud,Mohsen Gholami,https://stats.innebandy.se/sasong/43/serie/42081/match/1653288
+2025-11-08,14:00,Damer Div. 1 region,IBF Backadalen,Varla IBK Dam,Lundbyskolans sporthall A-hall,Marcus Yngvesson,Magnus Fredriksson,https://stats.innebandy.se/sasong/43/serie/41175/match/1573103
+2025-11-08,15:00,Damer Div. 1 region,Warberg IBF,Malmhaug IBF,"Sparbanken Wictory Center, Unihocplanen",Tobias Anderberg,Jacob Johansson,https://stats.innebandy.se/sasong/43/serie/41175/match/1573100
+2025-11-08,16:00,Damer Div. 1 region,IBK Lund,Almås IBF D1,Lerbäckshallen A,Cevin Ivarsson,Pelle Verhulst,https://stats.innebandy.se/sasong/43/serie/41175/match/1573101
+2025-11-08,14:30,Damer Div. 2,IBK Göteborg D2,Ale IBF D2,Torpahallen,Adnan Tongur,Hajrudin Begic,https://stats.innebandy.se/sasong/43/serie/42062/match/1629499
+2025-11-08,16:00,Damer Div. 2,Landvetter IBF D2,Mölndals IBF D2,Pinntorps Idrottshall,Christer Carlberg,Mats Sällberg,https://stats.innebandy.se/sasong/43/serie/42062/match/1629503
+2025-11-08,12:30,Damer Div. 3,Stenungsunds IBK D3,Mölndals IBF D3,Stenungsund Arena,Alexander Hellström,Senad Olevic,https://stats.innebandy.se/sasong/43/serie/42080/match/1647645
+2025-11-08,13:15,Herrar Div. 2,FBC Vinga H2,Herrestads AIF H2,Frölunda Kulturhus,Linda Lindskog,Sandra Lindskog,https://stats.innebandy.se/sasong/43/serie/42061/match/1629837
+2025-11-08,14:00,Herrar Div. 2,IBF Älvstranden H2,Göteborg City IBK H2,Santoshallen,Christian Svärdström,Marcus Orrhult,https://stats.innebandy.se/sasong/43/serie/42061/match/1629835
+2025-11-08,15:30,Herrar Div. 2,Frölunda IBK H2,Almås IBF H2,Frölunda Kulturhus,Alexander Pavlovic,Robin Cederdahl,https://stats.innebandy.se/sasong/43/serie/42061/match/1629836
+2025-11-08,15:30,Herrar Div. 3 A,Myggenäs IBK H3,Ale IBF H3,Häggvallsskolan,Emir Rajabi,Yao-Zu Galby,https://stats.innebandy.se/sasong/43/serie/42064/match/1630675
+2025-11-08,15:00,Herrar Div. 3 B,Pixbo IBF H3B,Frölunda IBK H3,Wallenstam Arena B,Kristoffer Lind,Sebastian Ågren,https://stats.innebandy.se/sasong/43/serie/42065/match/1630546
+2025-11-08,16:30,Herrar Div. 3 B,IBF Backadalen H3 Utveckling,Mölndals IBF H3,Tuve Sporthall,Jonathan Johansson,Wessam Abdellrazek,https://stats.innebandy.se/sasong/43/serie/42065/match/1630548
+2025-11-08,16:00,Herrar Div. 4 A,Hindås IBK H4,Överby IBK H4,Hindås Idrottshall,Thomas Johansson,Per Sundvall,https://stats.innebandy.se/sasong/43/serie/42079/match/1647911
+2025-11-08,15:30,Herrar Div. 4 B,IBK Kungälv H4/HV,Frölunda IBK H4,Munkegärdehallen,Selma Hadziselimovic,Tage Sandquist,https://stats.innebandy.se/sasong/43/serie/42082/match/1654518
+2025-11-08,17:00,Herrar Div. 4 B,IBK Göteborg H4,Utbynäs SK H4,Torpahallen,Adnan Tongur,Hajrudin Begic,https://stats.innebandy.se/sasong/43/serie/42082/match/1654521
+2025-11-08,14:00,Klubbhuset Blå Flickor 14 A,Floda IBK F13/14 Svart,Ale IBF F14/15 Blå,Nova Floda Sportcenter A-hall,Joel Silvén,Olle Gregersson,https://stats.innebandy.se/sasong/43/serie/42410/match/1650961
+2025-11-08,12:30,Klubbhuset Blå Flickor 14 B,Hindås IBK F14/15,Stenungsunds IBK F13-14 Svart,Hindås Idrottshall,Vilmer Olausson,,https://stats.innebandy.se/sasong/43/serie/42411/match/1651009
+2025-11-08,14:15,Klubbhuset Blå Flickor 15 A,Öckerö IBK F15,Landvetter IBK F15 Blå,Hedenskolans Idrottshall,Sam Olovson,Petter Östling,https://stats.innebandy.se/sasong/43/serie/42412/match/1652374
+2025-11-08,09:30,Klubbhuset Blå Flickor 15 B,Stenungsunds IBK F15-16,Landvetter IBK F15,Stenungsund Arena,Ludwig Pettersson,Lucas Nordberg,https://stats.innebandy.se/sasong/43/serie/42413/match/1652340
+2025-11-08,12:00,Klubbhuset Blå Flickor 15 B,FBC Partille FP 15 Partille Grön,Utbynäs SK F15 Gul,Qvisthallen,Mustaf Osman,Anton Stenberg,https://stats.innebandy.se/sasong/43/serie/42413/match/1652339
+2025-11-08,09:00,Klubbhuset Blå Flickor 16,Landvetter IBK F16 Vit,Pixbo IBK F16 Röd,Pinntorps Idrottshall,Mio Sjölin,Anton Thorin,https://stats.innebandy.se/sasong/43/serie/42408/match/1650756
+2025-11-08,10:00,Klubbhuset Blå Flickor 16,Landvetter IBK F16 Blå,Hindås IBK F16/17,Pinntorps Idrottshall,Mio Sjölin,Anton Thorin,https://stats.innebandy.se/sasong/43/serie/42408/match/1650759
+2025-11-08,14:45,Klubbhuset Blå Flickor 16,IBF Backadalen F16,Lindome IBK F16/17 Lila,Tuve Sporthall,Kevin Sund,Emanuel Kanan,https://stats.innebandy.se/sasong/43/serie/42408/match/1650752
+2025-11-08,09:00,Klubbhuset Blå Pojkar 14 A,Eken IBK P14,FBC Lerum Utveckling P14 Röd,Ekenhallen 1,Felicia Håman,Molly Wallberg,https://stats.innebandy.se/sasong/43/serie/42398/match/1652712
+2025-11-08,11:00,Klubbhuset Blå Pojkar 14 A,Mölndals IBF P14,IBK Kungälv P14 Vit,Aktiviteten A-Hall,Leon Hulten,Oliver Lück,https://stats.innebandy.se/sasong/43/serie/42398/match/1652716
+2025-11-08,12:15,Klubbhuset Blå Pojkar 14 A,Myggenäs IBK P14 Vit,IBF Backadalen P13/14 Röd,Häggvallsskolan,Alfred Ahlström,Hugo Sommargren,https://stats.innebandy.se/sasong/43/serie/42398/match/1652711
+2025-11-08,15:00,Klubbhuset Blå Pojkar 14 A,Ale IBF P14,Frölunda IBK P14 Röd,Ale Kulturrum,Hanna Örn,Loke Björk,https://stats.innebandy.se/sasong/43/serie/42398/match/1652710
+2025-11-08,17:00,Klubbhuset Blå Pojkar 14 A,IBF Älvstranden P14/15 Vit,Lindome IBK P14 Lila,Santoshallen,Edvin Lindkvist,Caleb Häljestig,https://stats.innebandy.se/sasong/43/serie/42398/match/1652713
+2025-11-08,10:30,Klubbhuset Blå Pojkar 14 B,Pixbo IBK P14 Röd,FBC Partille P 14 Blå,Wallenstam Arena B,Emil Windevall,Alejandra Feng,https://stats.innebandy.se/sasong/43/serie/42399/match/1652859
+2025-11-08,13:15,Klubbhuset Blå Pojkar 14 B,Öckerö IBK P14/15,Floda IBK P14 Svart,Hedenskolans Idrottshall,Molly Knutsson,Petter Östling,https://stats.innebandy.se/sasong/43/serie/42399/match/1652857
+2025-11-08,14:05,Klubbhuset Blå Pojkar 14 B,FBC Lerum Utveckling P14 Vit,Landvetter IBK P14 Vit,Hjällsnäshallen B-hallen,Theodor Oxelstrand,Carsten Kans,https://stats.innebandy.se/sasong/43/serie/42399/match/1652858
+2025-11-08,14:30,Klubbhuset Blå Pojkar 14 C,Hindås IBK P14,Lindås IBK P14 Blå,Hindås Idrottshall,Vilmer Olausson,,https://stats.innebandy.se/sasong/43/serie/42400/match/1652235
+2025-11-08,10:00,Klubbhuset Blå Pojkar 15 A,FBC Partille P15 Öjersjö,Floda IBK P15 Svart,Qvisthallen,Owen Nilsson,Hugo Cullbrand,https://stats.innebandy.se/sasong/43/serie/42401/match/1652515
+2025-11-08,10:00,Klubbhuset Blå Pojkar 15 A,Surte IS IBK P15/16,Kärra IBK P15/16 Svart,Bohushallen,,,https://stats.innebandy.se/sasong/43/serie/42401/match/1652518
+2025-11-08,13:30,Klubbhuset Blå Pojkar 15 A,Hindås IBK P15,Kärra IBK P15/16 Röd,Hindås Idrottshall,Vilmer Olausson,,https://stats.innebandy.se/sasong/43/serie/42401/match/1652516
+2025-11-08,09:00,Klubbhuset Blå Pojkar 15 B,FBC Partille P 15 Vallhamra Vit,Floda IBK P15 Vit,Qvisthallen,Owen Nilsson,Hugo Cullbrand,https://stats.innebandy.se/sasong/43/serie/42402/match/1652605
+2025-11-08,09:00,Klubbhuset Blå Pojkar 15 B,Mölndals IBF P15 RÖD,Pixbo IBK P15 Röd,Aktiviteten A-Hall,Kevin Wingren,Noel Magnusson,https://stats.innebandy.se/sasong/43/serie/42402/match/1652608
+2025-11-08,16:05,Klubbhuset Blå Pojkar 15 B,FBC Lerum Utveckling P15 Svart,Lindås IBK P15 Turkos,Hjällsnäshallen B-hallen,Jolina Magnusson,Carsten Kans,https://stats.innebandy.se/sasong/43/serie/42402/match/1652607
+2025-11-08,11:00,Klubbhuset Blå Pojkar 15 C,Landvetter IBK P15 Vit,Lindås IBK P15 Svart,Pinntorps Idrottshall,Jakob Lindqvist,,https://stats.innebandy.se/sasong/43/serie/42403/match/1652921
+2025-11-08,17:05,Klubbhuset Blå Pojkar 15 C,FBC Lerum Utveckling P15 Röd,Frölunda IBK P15 Röd,Hjällsnäshallen B-hallen,Ludvig Hermansson,Carsten Kans,https://stats.innebandy.se/sasong/43/serie/42403/match/1652919
+2025-11-08,08:30,Klubbhuset Blå Pojkar 16 A,Myggenäs IBK P 16 Grön,IK Zenith P16 Vit,Häggvallsskolan,Sixten Espefors,Victor Åkerström,https://stats.innebandy.se/sasong/43/serie/42404/match/1651396
+2025-11-08,10:00,Klubbhuset Blå Pojkar 16 A,Mölndals IBF P16,Landvetter IBK P16,Aktiviteten A-Hall,Kevin Wingren,Noel Magnusson,https://stats.innebandy.se/sasong/43/serie/42404/match/1651394
+2025-11-08,10:00,Klubbhuset Blå Pojkar 16 A,Eken IBK FP16/17,FBC Partille P16 Svart,Ekenhallen 1,Molly Wallberg,Felicia Håman,https://stats.innebandy.se/sasong/43/serie/42404/match/1651398
+2025-11-08,11:30,Klubbhuset Blå Pojkar 16 A,Hindås IBK P16 Vit,Lindome IBK P16,Hindås Idrottshall,Vilmer Olausson,,https://stats.innebandy.se/sasong/43/serie/42404/match/1651393
+2025-11-08,13:00,Klubbhuset Blå Pojkar 16 A,Floda IBK P16,Orust IBK P/F16,Nova Floda Sportcenter A-hall,Joel Silvén,Olle Gregersson,https://stats.innebandy.se/sasong/43/serie/42404/match/1651400
+2025-11-08,15:05,Klubbhuset Blå Pojkar 16 A,FBC Lerum Utveckling P/F 15/16 Gråbo,Pixbo IBK P17 Röd,Hjällsnäshallen B-hallen,Emil Windevall,,https://stats.innebandy.se/sasong/43/serie/42404/match/1651395
+2025-11-08,09:45,Klubbhuset Blå Pojkar 16 B,Myggenäs IBK P 16 Vit,Pixbo IBK P16,Häggvallsskolan,Sixten Espefors,Victor Åkerström,https://stats.innebandy.se/sasong/43/serie/42409/match/1651168
+2025-11-08,11:00,Klubbhuset Blå Pojkar 16 B,FBC Partille P16 Röd,Utbynäs SK P16 GUL,Qvisthallen,Mustaf Osman,Anton Stenberg,https://stats.innebandy.se/sasong/43/serie/42409/match/1651167
+2025-11-08,13:05,Klubbhuset Blå Pojkar 16 B,FBC Lerum Utveckling P16 Röd,Stenungsunds IBK P15-16 Blå,Hjällsnäshallen B-hallen,Theodor Oxelstrand,Carsten Kans,https://stats.innebandy.se/sasong/43/serie/42409/match/1651170
+2025-11-08,12:30,Klubbhuset Blå Pojkar 16 C,Pixbo IBK P16 Vit,Hindås IBK P16,Wallenstam Arena B,Alejandra Feng,Emil Windevall,https://stats.innebandy.se/sasong/43/serie/42405/match/1651106
+2025-11-08,13:30,Klubbhuset Blå Pojkar 16 C,Pixbo IBK P16 Röd,IBK Göteborg P15/16 Vit,Wallenstam Arena B,Alejandra Feng,Mohamed Ahmed Warsame,https://stats.innebandy.se/sasong/43/serie/42405/match/1651105
+2025-11-08,10:35,Lerum Nivå 1,IF Änglarna,FUB Borås A,Lerum Arena B,Mustafa Kalajdzisalihovic,Sebastian Cedgard,https://stats.innebandy.se/sasong/43/serie/42784/match/1666370
+2025-11-08,11:10,Lerum Nivå 1,FUB Borås A,Skövde Parasportförening Röd,Lerum Arena B,Mustafa Kalajdzisalihovic,Sebastian Cedgard,https://stats.innebandy.se/sasong/43/serie/42784/match/1666371
+2025-11-08,12:45,Lerum Nivå 1,Skövde Parasportförening Röd,IF Änglarna,Lerum Arena B,Alexander T Forsberg,Sebastian Cedgard,https://stats.innebandy.se/sasong/43/serie/42784/match/1666373
+2025-11-08,13:20,Lerum Nivå 1,FUB Borås A,IF Änglarna,Lerum Arena B,Alexander T Forsberg,Sebastian Cedgard,https://stats.innebandy.se/sasong/43/serie/42784/match/1666376
+2025-11-08,14:30,Lerum Nivå 1,Skövde Parasportförening Röd,FUB Borås A,Lerum Arena B,Alexander T Forsberg,Helin Beyza Altuntas,https://stats.innebandy.se/sasong/43/serie/42784/match/1666377
+2025-11-08,15:05,Lerum Nivå 1,IF Änglarna,Skövde Parasportförening Röd,Lerum Arena B,Alexander T Forsberg,Helin Beyza Altuntas,https://stats.innebandy.se/sasong/43/serie/42784/match/1666379
+2025-11-08,10:00,Lerum Nivå 2,Grunden Bois B,Grunden Bois A,Torpskolan,Albin Wennersten,Felix Bark Peterson,https://stats.innebandy.se/sasong/43/serie/42785/match/1666341
+2025-11-08,10:30,Lerum Nivå 2,FUB Borås B,Falköping 1,Torpskolan,Albin Wennersten,Felix Bark Peterson,https://stats.innebandy.se/sasong/43/serie/42785/match/1666343
+2025-11-08,11:00,Lerum Nivå 2,Grunden Bois A,IK Oddevold,Torpskolan,Albin Wennersten,Felix Bark Peterson,https://stats.innebandy.se/sasong/43/serie/42785/match/1666349
+2025-11-08,11:30,Lerum Nivå 2,Grunden Bois B,Falköping 1,Torpskolan,Albin Wennersten,Felix Bark Peterson,https://stats.innebandy.se/sasong/43/serie/42785/match/1666347
+2025-11-08,12:00,Lerum Nivå 2,FUB Borås B,IK Oddevold,Torpskolan,Albin Wennersten,Felix Bark Peterson,https://stats.innebandy.se/sasong/43/serie/42785/match/1666346
+2025-11-08,12:30,Lerum Nivå 2,Falköping 1,Grunden Bois A,Torpskolan,Albin Wennersten,Felix Bark Peterson,https://stats.innebandy.se/sasong/43/serie/42785/match/1666345
+2025-11-08,13:45,Lerum Nivå 2,FUB Borås B,Grunden Bois B,Torpskolan,Pontus Ekengränd,Yosuf Amiri,https://stats.innebandy.se/sasong/43/serie/42785/match/1666350
+2025-11-08,14:15,Lerum Nivå 2,IK Oddevold,Falköping 1,Torpskolan,Pontus Ekengränd,Yosuf Amiri,https://stats.innebandy.se/sasong/43/serie/42785/match/1666351
+2025-11-08,14:45,Lerum Nivå 2,FUB Borås B,Grunden Bois A,Torpskolan,Pontus Ekengränd,Yosuf Amiri,https://stats.innebandy.se/sasong/43/serie/42785/match/1666354
+2025-11-08,15:15,Lerum Nivå 2,Grunden Bois B,IK Oddevold,Torpskolan,Pontus Ekengränd,Yosuf Amiri,https://stats.innebandy.se/sasong/43/serie/42785/match/1666353
+2025-11-08,10:00,Lerum Nivå 3,FBC Lerum Team Unik Robert,Pixbo Stars,Lerum Arena C,Thomas Johansson,,https://stats.innebandy.se/sasong/43/serie/42786/match/1666382
+2025-11-08,11:10,Lerum Nivå 3,Pixbo Stars,Falköping 2,Lerum Arena C,Thomas Johansson,,https://stats.innebandy.se/sasong/43/serie/42786/match/1666383
+2025-11-08,11:45,Lerum Nivå 3,Falköping 2,FBC Lerum Team Unik Robert,Lerum Arena C,Thomas Johansson,,https://stats.innebandy.se/sasong/43/serie/42786/match/1666385
+2025-11-08,13:20,Lerum Nivå 3,Pixbo Stars,FBC Lerum Team Unik Robert,Lerum Arena C,Henry Tames,,https://stats.innebandy.se/sasong/43/serie/42786/match/1666388
+2025-11-08,13:55,Lerum Nivå 3,Falköping 2,Pixbo Stars,Lerum Arena C,Henry Tames,,https://stats.innebandy.se/sasong/43/serie/42786/match/1666389
+2025-11-08,15:05,Lerum Nivå 3,FBC Lerum Team Unik Robert,Falköping 2,Lerum Arena C,Henry Tames,,https://stats.innebandy.se/sasong/43/serie/42786/match/1666391
+2025-11-08,10:00,Lerum Nivå 4,Grunden Bois C,Grunden Bois D,Lerum Arena B,Sebastian Cedgard,,https://stats.innebandy.se/sasong/43/serie/42787/match/1666394
+2025-11-08,10:35,Lerum Nivå 4,Grunden Bois D,FBC Lerum Team Unik MagnusT,Lerum Arena C,Thomas Johansson,,https://stats.innebandy.se/sasong/43/serie/42787/match/1666395
+2025-11-08,11:45,Lerum Nivå 4,FBC Lerum Team Unik MagnusT,Grunden Bois C,Lerum Arena B,Mustafa Kalajdzisalihovic,,https://stats.innebandy.se/sasong/43/serie/42787/match/1666397
+2025-11-08,12:45,Lerum Nivå 4,Grunden Bois D,Grunden Bois C,Lerum Arena C,Henry Tames,,https://stats.innebandy.se/sasong/43/serie/42787/match/1666400
+2025-11-08,13:55,Lerum Nivå 4,FBC Lerum Team Unik MagnusT,Grunden Bois D,Lerum Arena B,Alexander T Forsberg,Helin Beyza Altuntas,https://stats.innebandy.se/sasong/43/serie/42787/match/1666401
+2025-11-08,14:30,Lerum Nivå 4,Grunden Bois C,FBC Lerum Team Unik MagnusT,Lerum Arena C,Henry Tames,,https://stats.innebandy.se/sasong/43/serie/42787/match/1666403
+2025-11-08,14:00,Pantamera Flickor B-ungdom A,IK Zenith Grön,Pixbo IBF F11 Vit,Björlanda Idrottshall,Mohammad Mahmud,Mohsen Gholami,https://stats.innebandy.se/sasong/43/serie/42386/match/1648949
+2025-11-08,15:40,Pantamera Flickor B-ungdom C,Floda IBK / FBC Lerum Utveckling F10/11,Lindås IBK F10-11 Vit,Nova Floda Sportcenter A-hall,Roger Zahnér,Alexander Rydqvist,https://stats.innebandy.se/sasong/43/serie/42388/match/1648999
+2025-11-08,14:00,Pantamera Flickor C-ungdom A,Dingle AIK Flickor Utveckling,FBC Lerum Utveckling F12 Röd,Munkedals Idrottshall,Martin Andersson,Mükremin Er,https://stats.innebandy.se/sasong/43/serie/42390/match/1649526
+2025-11-08,11:10,Pantamera Flickor C-ungdom B,Ale IBF F12/13 Blå,IBK Bergum F10-13,Ale Kulturrum,Anna-Klara Gidlöf,Agnes Boge,https://stats.innebandy.se/sasong/43/serie/42391/match/1649767
+2025-11-08,12:00,Pantamera Flickor C-ungdom B,IBF Backadalen F11/12 Röd,Surte IS IBK F 12/13 Röd,Tuve Sporthall,Alexander Wren-Wennefors,Vidar Hagberg,https://stats.innebandy.se/sasong/43/serie/42391/match/1649766
+2025-11-08,16:15,Pantamera Flickor C-ungdom B,IBK Alingsås F12-13 Gbg,Landvetter IBF F12 Vit,"Stadsskogshallen, Alingsås",,,https://stats.innebandy.se/sasong/43/serie/42391/match/1649768
+2025-11-08,11:30,Pantamera Flickor C-ungdom C,Lindome IBK F12,Landvetter IBF F13/14 Blå,Streteredsskolan,Konrad Jorpes,Matilda Litzell,https://stats.innebandy.se/sasong/43/serie/42392/match/1649828
+2025-11-08,12:30,Pantamera Flickor C-ungdom C,Eken IBK F11/12/13 Lila,Pixbo IBF F13/14 Röd,Ekenhallen 1,Noel Hylén,Ian S Blomqvist,https://stats.innebandy.se/sasong/43/serie/42392/match/1649826
+2025-11-08,13:30,Pantamera Flickor C-ungdom C,IBF Backadalen F11/12 Svart,FBC Lerum Utveckling F13 Vit,Tuve Sporthall,Alexander Wren-Wennefors,Vidar Hagberg,https://stats.innebandy.se/sasong/43/serie/42392/match/1649827
+2025-11-08,10:15,Pantamera Flickor C-ungdom D,Lindome IBK F13 Grön,IBF Älvstranden F12/13,Streteredsskolan,Konrad Jorpes,Matilda Litzell,https://stats.innebandy.se/sasong/43/serie/42393/match/1649678
+2025-11-08,15:50,Pantamera Flickor C-ungdom D,FBC Lerum Utveckling F13 Röd,Ale IBF F12/13 Vit,Rydsbergshallen,Noah Mellby,Filip Boman,https://stats.innebandy.se/sasong/43/serie/42393/match/1649677
+2025-11-08,16:45,Pantamera Flickor C-ungdom D,Öckerö IBK F10-12,Pixbo IBF F13/14 Vit,Hedenskolans Idrottshall,Sinem Atay,Gökhan Atay,https://stats.innebandy.se/sasong/43/serie/42393/match/1649676
+2025-11-08,18:00,Pantamera Herrjunior A,FBC Partille U16,Pixbo IBF Utveckling,Qvisthallen,Håkan Krafft,Pierre Eberhard Berg,https://stats.innebandy.se/sasong/43/serie/42363/match/1648336
+2025-11-08,16:50,Pantamera Herrjunior B,Floda IBK HJ07-09 Vit,Stenungsunds IBK HJ,Nova Floda Sportcenter A-hall,Roger Zahnér,Alexander Rydqvist,https://stats.innebandy.se/sasong/43/serie/42364/match/1648367
+2025-11-08,17:00,Pantamera Herrjunior B,Varla IBK Juniorer 1 GBG,Träslövsläge IF Herrjunior,Lindälvshallen,Viktoria Wallström,Elin Idéhn,https://stats.innebandy.se/sasong/43/serie/42364/match/1648369
+2025-11-08,14:30,Pantamera Herrjunior C,Landvetter IBK U16,IBK Kungälv Herrjuniorer Svart,Pinntorps Idrottshall,Christer Carlberg,Mats Sällberg,https://stats.innebandy.se/sasong/43/serie/42365/match/1648399
+2025-11-08,15:30,Pantamera Herrjunior C,Varla IBK Juniorer 2 GBG,IK Zenith HJ,Lindälvshallen,Viktoria Wallström,Elin Idéhn,https://stats.innebandy.se/sasong/43/serie/42365/match/1648398
+2025-11-08,09:00,Pantamera Pojkar B-ungdom C,Lindome IBK U16 Lila,Pixbo IBF P11 Röd,Streteredsskolan,Emin Kosovac,Samuel Tolland,https://stats.innebandy.se/sasong/43/serie/42371/match/1648517
+2025-11-08,12:20,Pantamera Pojkar B-ungdom C,Ale IBF P09 Blå,Surte IS IBK P10/11,Ale Kulturrum,Per Sundvall,Felix Broström,https://stats.innebandy.se/sasong/43/serie/42371/match/1648519
+2025-11-08,12:30,Pantamera Pojkar B-ungdom D,Frölunda IBK P10-11 Röda,FBC Lerum Utveckling P09/10,Skyttesskolan,Arvid Biörnerud,Arthur Nielsen,https://stats.innebandy.se/sasong/43/serie/42372/match/1648549
+2025-11-08,13:30,Pantamera Pojkar B-ungdom D,Stenungsunds IBK P10/11,Överby IBK P09/11,Kyrkenorumskolans Idrottshall,Mustafa Kalajdzisalihovic,Semir Aganspahic,https://stats.innebandy.se/sasong/43/serie/42372/match/1648548
+2025-11-08,13:30,Pantamera Pojkar B-ungdom E,Ale IBF P11,FBC Partille P11 Vit,Ale Kulturrum,Per Sundvall,Felix Broström,https://stats.innebandy.se/sasong/43/serie/42373/match/1650702
+2025-11-08,15:00,Pantamera Pojkar B-ungdom E,Stenungsunds IBK P10/11,Landvetter IBK P10 Blå,Kyrkenorumskolans Idrottshall,Mustafa Kalajdzisalihovic,Semir Aganspahic,https://stats.innebandy.se/sasong/43/serie/42373/match/1650705
+2025-11-08,13:00,Pantamera Pojkar C-ungdom A,Lindome IBK P11 Grön,IBK Elfhög P11 Gbg,Streteredsskolan,Konrad Jorpes,Matilda Litzell,https://stats.innebandy.se/sasong/43/serie/42375/match/1649587
+2025-11-08,14:15,Pantamera Pojkar C-ungdom A,IBK Kungälv P11 Svart,Floda IBK P10-12 Vit,Munkegärdehallen,Selma Hadziselimovic,Tage Sandquist,https://stats.innebandy.se/sasong/43/serie/42375/match/1649588
+2025-11-08,17:00,Pantamera Pojkar C-ungdom B,FBC Lerum Utveckling P11,IBF Backadalen P11/12,Rydsbergshallen,Alexander Miriandis,Noah Mellby,https://stats.innebandy.se/sasong/43/serie/42376/match/1649918
+2025-11-08,15:40,Pantamera Pojkar C-ungdom C,FBC Partille P12 Röd,Hindås IBK P11,Qvisthallen,Mohamed Ahmed Warsame,Anton Stenberg,https://stats.innebandy.se/sasong/43/serie/42377/match/1649556
+2025-11-08,10:00,Pantamera Pojkar C-ungdom D,Ale IBF P12,Mölndals IBF / Eken IBK P11/12,Ale Kulturrum,Maja Alenvik-Dahl,Anna-Klara Gidlöf,https://stats.innebandy.se/sasong/43/serie/42378/match/1649797
+2025-11-08,12:10,Pantamera Pojkar C-ungdom D,Landvetter IBK P12,Floda IBK P11-12 Gul,Pinntorps Idrottshall,Lina Lind,Jasmin Dzanic,https://stats.innebandy.se/sasong/43/serie/42378/match/1649796
+2025-11-08,11:00,Pantamera Pojkar C-ungdom F,Herrestads AIF P11/12,IBF Backadalen P12,Rampen Sporthall (Källdalsskolan),Susanne Andersson,Katarina Arnoldsdotter,https://stats.innebandy.se/sasong/43/serie/42380/match/1649647
+2025-11-08,14:40,Pantamera Pojkar C-ungdom F,FBC Lerum Utveckling P12/13,Lindome IBK P13 Grön,Rydsbergshallen,Alexander Miriandis,Ivan Ivanovic,https://stats.innebandy.se/sasong/43/serie/42380/match/1649648
+2025-11-08,17:00,Pantamera Pojkar C-ungdom F,Lindås IBK P12 Turkos,Frölunda IBK P12 Röd,Askims Sporthall,Vince Perzon,Melker Norin,https://stats.innebandy.se/sasong/43/serie/42380/match/1649646
+2025-11-08,15:45,Pantamera Pojkar C-ungdom G,Lindås IBK P13 Svart,IBK Kungälv P13 Vit,Askims Sporthall,Vince Perzon,Melker Norin,https://stats.innebandy.se/sasong/43/serie/42381/match/1649618
+2025-11-08,12:20,Pantamera Pojkar C-ungdom H,Mölndals IBF P13/14 Svart,IBK Kungälv P13 Svart,Aktiviteten A-Hall,Yao-Zu Galby,Gökhan Atay,https://stats.innebandy.se/sasong/43/serie/42382/match/1649737
+2025-11-08,13:15,Pantamera Pojkar C-ungdom I,FBC Partille P 13 Blå,Landvetter IBK P13 Blå,Qvisthallen,Mustaf Osman,Anton Stenberg,https://stats.innebandy.se/sasong/43/serie/42383/match/1649707
+2025-11-08,13:45,Pantamera Pojkar C-ungdom I,Myggenäs IBK P-13,Pixbo IBF P13 Röd,Häggvallsskolan,Henry Frydensbjerg,Hugo Sommargren,https://stats.innebandy.se/sasong/43/serie/42383/match/1649708
+2025-11-08,12:45,Pantamera Pojkar C-ungdom J,Herrestads AIF P13/14 Rött,Pixbo IBK P14 Nytt,Rampen Sporthall (Källdalsskolan),Susanne Andersson,Katarina Arnoldsdotter,https://stats.innebandy.se/sasong/43/serie/42384/match/1649888
+2025-11-08,15:30,Pantamera Pojkar C-ungdom J,Öckerö IBK P12/13 Blå,FBC Partille P 15 Vallhamra Blå,Hedenskolans Idrottshall,Sinem Atay,Gökhan Atay,https://stats.innebandy.se/sasong/43/serie/42384/match/1649887
+2025-11-08,10:45,Pantamera Pojkar C-ungdom K,Stenungsunds IBK P13-14,Hindås IBK P13 Vit,Stenungsund Arena,Linus Engman,Anthon Räffling,https://stats.innebandy.se/sasong/43/serie/42385/match/1649323
+2025-11-08,15:00,Pantamera Pojkar C-ungdom K,Kärra IBK P13/14 Svart,Utbynäs SK P 13,Kärra Sporthall,Fredrik Gander,Jaana Gander,https://stats.innebandy.se/sasong/43/serie/42385/match/1649325
+2025-11-08,18:00,Pantamera Pojkar C-ungdom K,Öckerö IBK P12/13 Vit,IK Zenith P13 Grön,Hedenskolans Idrottshall,Sinem Atay,Gökhan Atay,https://stats.innebandy.se/sasong/43/serie/42385/match/1649324
+2025-11-08,10:30,USM Flickor Grupp 19,Pixbo IBF,Lindome IBK,Wallenstam Arena A,Hampus Räffling,Ian S Blomqvist,https://stats.innebandy.se/sasong/43/serie/42138/match/1645478
+2025-11-08,13:30,USM Flickor Grupp 19,Lindome IBK,Lindås IBK/Lindås IBF,Wallenstam Arena A,Linus Backlund,Tommy Runhammar,https://stats.innebandy.se/sasong/43/serie/42138/match/1645479
+2025-11-08,16:30,USM Flickor Grupp 19,Lindås IBK/Lindås IBF,Pixbo IBF,Wallenstam Arena A,Mattias Strid,Adnan Mehmedagic,https://stats.innebandy.se/sasong/43/serie/42138/match/1645480
+2025-11-08,09:00,USM Flickor Grupp 20,Landvetter IBF/Kinna IBK,FBC Lerum Utveckling,Wallenstam Arena A,Hampus Räffling,Ian S Blomqvist,https://stats.innebandy.se/sasong/43/serie/42139/match/1645482
+2025-11-08,12:00,USM Flickor Grupp 20,FBC Lerum Utveckling,FBC Partille,Wallenstam Arena A,Linus Backlund,Tommy Runhammar,https://stats.innebandy.se/sasong/43/serie/42139/match/1645483
+2025-11-08,15:00,USM Flickor Grupp 20,FBC Partille,Landvetter IBF/Kinna IBK,Wallenstam Arena A,Mattias Strid,Adnan Mehmedagic,https://stats.innebandy.se/sasong/43/serie/42139/match/1645484
+2025-11-08,12:00,USM Flickor Grupp 21,Warberg IBF,IBK Kungälv,Gantoftahallen,Jonas Pettersson,Petter Niklasson,https://stats.innebandy.se/sasong/43/serie/42140/match/1643004
+2025-11-08,15:00,USM Flickor Grupp 21,IBK Kungälv,Gantofta IBK,Gantoftahallen,Marcus Ingolf,Petter Niklasson,https://stats.innebandy.se/sasong/43/serie/42140/match/1643005
+2025-11-08,09:00,Västserien Division 2,Skövde Parasportförening Röd,JLIF 1,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42478/match/1664227
+2025-11-08,10:30,Västserien Division 2,JLIF 1,Vara SK 1,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42478/match/1664230
+2025-11-08,11:30,Västserien Division 2,IF Änglarna A,JLIF 1,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42478/match/1664232
+2025-11-08,10:30,Västserien Division 3,Skara 2,IF Fregatten 1,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42480/match/1664689
+2025-11-08,11:30,Västserien Division 3,Skövde Parasportförening Grön,Skara 2,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42480/match/1664690
+2025-11-08,11:30,Västserien Division 3,Vara SK 2,IF Fregatten 1,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42480/match/1664691
+2025-11-08,12:30,Västserien Division 3,IF Fregatten 1,Skövde Parasportförening Grön,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42480/match/1664693
+2025-11-08,09:00,Västserien Division 4,Skara HIF 2,Vara SK 3,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42628/match/1667690
+2025-11-08,09:00,Västserien Division 4,Skövde Parasportförening Gul,IF Fregatten 2,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42628/match/1667691
+2025-11-08,09:30,Västserien Division 4,JLIF 2,IK Oddevold Grunden 1,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42628/match/1667692
+2025-11-08,10:00,Västserien Division 4,Vara SK 3,IF Fregatten 2,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42628/match/1667693
+2025-11-08,10:30,Västserien Division 4,IK Oddevold Grunden 1,Skara HIF 2,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42628/match/1667695
+2025-11-08,11:00,Västserien Division 4,JLIF 2,Vara SK 3,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42628/match/1667696
+2025-11-08,11:00,Västserien Division 4,Skara HIF 2,IF Änglarna 2,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42628/match/1667697
+2025-11-08,12:00,Västserien Division 4,JLIF 2,IF Fregatten 2,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42628/match/1667699
+2025-11-08,12:00,Västserien Division 4,IF Änglarna 2,IK Oddevold Grunden 1,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42628/match/1667700
+2025-11-08,12:30,Västserien Division 4,Skövde Parasportförening Gul,Skara HIF 2,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42628/match/1667702
+2025-11-09,17:00,Dam Veteraner,IBK Alingsås DV,IBF Backadalen / IBK Älvstranden DV,"Stadsskogshallen, Alingsås",Nebojsa Stefanovski,Daniel Dimitrovski,https://stats.innebandy.se/sasong/43/serie/42081/match/1653289
+2025-11-09,15:00,Damer Div. 1 region,Floda IBK D1,Kustens IF,Nova Floda Sportcenter A-hall,Mattias Strid,Måns Bartilson,https://stats.innebandy.se/sasong/43/serie/41175/match/1573102
+2025-11-13,10:48,Damer Div. 1 region,Pixbo IBF,FBC Engelholm,Wallenstam Arena A,Robin Cederdahl,Alexander Pavlovic,https://stats.innebandy.se/sasong/43/serie/41175/match/1573105
+2025-11-09,18:00,Damer Div. 1 region,Onsala IBK,FBC Lerum,Presse Idrottshall,Alice Haeggman,Christoffer Söderström,https://stats.innebandy.se/sasong/43/serie/41175/match/1573104
+2025-11-09,11:30,Damer Div. 2,Guldhedens IK D2,IK Zenith D2,Valhalla B-hall,Carl Otterström,Marcus Yngvesson,https://stats.innebandy.se/sasong/43/serie/42062/match/1629504
+2025-11-09,18:45,Damer Div. 2,IBK Kungälv D2,Burås IK D3,Mimershus A-hallen,Jonny Gaardén,Thomas Andersson,https://stats.innebandy.se/sasong/43/serie/42062/match/1629501
+2025-11-09,12:00,Damer Div. 3,Fristads GoIF / Sandared IBS D3 Gbg,Öckerö IBK D3,Nya Fristadshallen,Bianca Madsen,Pedram Koublani,https://stats.innebandy.se/sasong/43/serie/42080/match/1647648
+2025-11-09,12:00,Herrar Div. 3 A,Floda IBK H3,Stenungsunds IBK H3,Nova Floda Sportcenter A-hall,Christer Carlberg,Mats Sällberg,https://stats.innebandy.se/sasong/43/serie/42064/match/1630677
+2025-11-09,13:30,Herrar Div. 3 A,Pixbo IBF H3,Utbynäs SK H3,Wallenstam Arena A,Thomas Johansson,Marcus Orrhult,https://stats.innebandy.se/sasong/43/serie/42064/match/1630676
+2025-11-09,14:30,Herrar Div. 3 A,FBC Lerum H3,IBK Kungälv H3,Rydsbergshallen,Felix Bark Peterson,Emir Rajabi,https://stats.innebandy.se/sasong/43/serie/42064/match/1630680
+2025-11-09,10:30,Herrar Div. 3 B,Sörgårdens IBF H3,Eken IBK H3,Lundenhallen,Adnan Tongur,Hajrudin Begic,https://stats.innebandy.se/sasong/43/serie/42065/match/1630544
+2025-11-09,13:15,Herrar Div. 3 B,Lindås IBF H3,FBC Partille H3,Lindås Waves Arena,Tommy Runhammar,Alexander T Forsberg,https://stats.innebandy.se/sasong/43/serie/42065/match/1630547
+2025-11-09,14:00,Herrar Div. 4 A,IBF Backadalen H4,Landvetter IBK H4 A,Tuve Sporthall,Jonathan Johansson,Wessam Abdellrazek,https://stats.innebandy.se/sasong/43/serie/42079/match/1647907
+2025-11-09,18:00,Herrar Div. 4 A,Kärra IBK H4,Lindome IBK H4,Kärra Sporthall,Alexander Hellström,Thomas Johansson,https://stats.innebandy.se/sasong/43/serie/42079/match/1647910
+2025-11-09,18:00,Herrar Div. 4 A,Myggenäs IBK H4,Surte IS IBK H4,Häggvallsskolan,Roger Zahnér,Martin Andersson,https://stats.innebandy.se/sasong/43/serie/42079/match/1647912
+2025-11-09,13:45,Herrar Div. 4 B,Guldhedens IK H4,IK Zenith H4,Valhalla B-hall,Carl Otterström,Marcus Yngvesson,https://stats.innebandy.se/sasong/43/serie/42082/match/1654516
+2025-11-09,14:30,Herrar Div. 4 B,IBF Älvstranden H4,Floda IBK H4,Santoshallen,Goran Kuduzovic,Roger Zahnér,https://stats.innebandy.se/sasong/43/serie/42082/match/1654517
+2025-11-09,15:10,Herrar Div. 4 B,Landvetter IBK H4 B,Lindome IBK H4,Pinntorps Idrottshall,Kristoffer Lind,Sebastian Ågren,https://stats.innebandy.se/sasong/43/serie/42082/match/1654520
+2025-11-09,17:00,Herrar Div. 4 B,KFKD H4,Öckerö IBK H4,Santoshallen,Goran Kuduzovic,Adnan Tongur,https://stats.innebandy.se/sasong/43/serie/42082/match/1654519
+2025-11-09,11:00,Klubbhuset Blå Flickor 14 A,Lindome IBK F14/15 Grön,Dingle AIK F14-16,Almåshallen B,Liam Liljeblad,Anna Larsson,https://stats.innebandy.se/sasong/43/serie/42410/match/1650962
+2025-11-09,11:00,Klubbhuset Blå Flickor 14 A,IBF Älvstranden F14/15,IBF Backadalen F14/15 Svart,Santoshallen,Edvin Lindkvist,Eric Engström,https://stats.innebandy.se/sasong/43/serie/42410/match/1650964
+2025-11-09,14:30,Klubbhuset Blå Flickor 14 A,Utbynäs SK F14 Blå,FBC Lerum Utveckling F14 Vit,Kviberg Arena B,Sixten Linderup,Nils Koch,https://stats.innebandy.se/sasong/43/serie/42410/match/1650963
+2025-11-09,10:15,Klubbhuset Blå Flickor 14 B,IK Zenith 14,FBC Lerum Utveckling F14 Röd,Björlanda Idrottshall,Teodor Ringhage,Viktor Sigurdsson,https://stats.innebandy.se/sasong/43/serie/42411/match/1651007
+2025-11-09,10:30,Klubbhuset Blå Flickor 14 B,Lindås IBK F14-15 Turkos,Stenungsunds IBK F13-14 Blå,Askims Sporthall,Ella Fredriksson,Astrid Ekberg,https://stats.innebandy.se/sasong/43/serie/42411/match/1651005
+2025-11-09,12:00,Klubbhuset Blå Flickor 14 B,Lindome IBK F14/15 Lila,Floda IBK F13/14 Vit,Almåshallen B,Liam Liljeblad,Anna Larsson,https://stats.innebandy.se/sasong/43/serie/42411/match/1651006
+2025-11-09,10:00,Klubbhuset Blå Flickor 15 A,Ale IBF F14/15 Vit,IBK Kungälv F15,Kronan Älvängen,Maja Alenvik-Dahl,Agnes Boge,https://stats.innebandy.se/sasong/43/serie/42412/match/1652372
+2025-11-09,11:15,Klubbhuset Blå Flickor 15 A,IK Zenith F15-16,Pixbo IBK F15 Röd,Björlanda Idrottshall,Teodor Ringhage,Arvid Dahlin,https://stats.innebandy.se/sasong/43/serie/42412/match/1652375
+2025-11-09,12:15,Klubbhuset Blå Flickor 15 A,IBK Bergum F14-16,Dingle AIK F14-16 Vit,Bergumsskolan,Albin Frykholm,Felicia Lundgren Narváez,https://stats.innebandy.se/sasong/43/serie/42412/match/1652373
+2025-11-09,14:30,Klubbhuset Blå Flickor 15 A,Kärra IBK F14/15,Pixbo IBK F15 Vit,Kärra Sporthall,Felix Broström,Melik Feyli,https://stats.innebandy.se/sasong/43/serie/42412/match/1652371
+2025-11-09,16:30,Klubbhuset Blå Flickor 15 B,FBC Partille FP 15 Partille Grön,Floda IBK F15/16 Vit,Partillebohallen,Emilia Blomqvist,Josephine Danielsson,https://stats.innebandy.se/sasong/43/serie/42413/match/1652335
+2025-11-09,09:00,Klubbhuset Blå Flickor 16,Lindome IBK F16/17 Grön,FBC Lerum Utveckling F15/16,Almåshallen B,Liam Liljeblad,,https://stats.innebandy.se/sasong/43/serie/42408/match/1650757
+2025-11-09,09:30,Klubbhuset Blå Flickor 16,Lindås IBK F16-17 Svart,Floda IBK F15/16 Svart,Askims Sporthall,Tove Smith,Estelle Furenberg Ring,https://stats.innebandy.se/sasong/43/serie/42408/match/1650755
+2025-11-09,10:00,Klubbhuset Blå Flickor 16,IBK Göteborg F14-18,IBF Älvstranden F16,Torpahallen,Vilmer Praetorious Lehto,Zoe Meunier,https://stats.innebandy.se/sasong/43/serie/42408/match/1650761
+2025-11-09,13:30,Klubbhuset Blå Flickor 16,IBK Kungälv F16,IBF Backadalen F16,Munkegärdehallen,Alfons Jonsson,Theo Söderlund,https://stats.innebandy.se/sasong/43/serie/42408/match/1650760
+2025-11-09,10:00,Klubbhuset Blå Pojkar 14 A,Guldhedens IK P14,Frölunda IBK P14 Svart,Valhalla B-hall,Henry Möller,Imra Axelsson,https://stats.innebandy.se/sasong/43/serie/42398/match/1652714
+2025-11-09,12:00,Klubbhuset Blå Pojkar 14 A,FBC Vinga P14 Orange,Kärra IBK P13/14 Röd,Hall Of Flame,Dante Lau,Oliver Andersson,https://stats.innebandy.se/sasong/43/serie/42398/match/1652715
+2025-11-09,13:00,Klubbhuset Blå Pojkar 14 A,Orust IBK P14,Herrestads AIF P13/14 Blått,Svanesunds Sporthall,Thorbjörn Mauritzen,,https://stats.innebandy.se/sasong/43/serie/42398/match/1652718
+2025-11-09,11:30,Klubbhuset Blå Pojkar 14 B,IBF Backadalen P13/14 Svart,Landvetter IBK P14 Blå,Tuve Sporthall,Alexander Wren-Wennefors,Benjamin Lyche,https://stats.innebandy.se/sasong/43/serie/42399/match/1652854
+2025-11-09,13:15,Klubbhuset Blå Pojkar 14 B,IBK Bergum P14/15,IBF Älvstranden P14 Svart,Bergumsskolan,Leo Malm,Felicia Lundgren Narváez,https://stats.innebandy.se/sasong/43/serie/42399/match/1652855
+2025-11-09,10:30,Klubbhuset Blå Pojkar 14 C,Floda IBK P14 Vit,FBC Partille P 14 Vit,Nova Floda Sportcenter A-hall,Olle Gregersson,,https://stats.innebandy.se/sasong/43/serie/42400/match/1652236
+2025-11-09,12:30,Klubbhuset Blå Pojkar 14 C,IBF Backadalen P13/14 Blå,IK Zenith P14 Grön,Tuve Sporthall,Alexander Wren-Wennefors,Benjamin Lyche,https://stats.innebandy.se/sasong/43/serie/42400/match/1652237
+2025-11-09,13:30,Klubbhuset Blå Pojkar 14 C,Utbynäs SK P 14 Blå,Myggenäs IBK P 14 Grön,Kviberg Arena B,Einar Junsten,Nils Koch,https://stats.innebandy.se/sasong/43/serie/42400/match/1652238
+2025-11-09,09:00,Klubbhuset Blå Pojkar 15 A,Guldhedens IK P15,IBK Kungälv P15 Svart,Valhalla B-hall,Henry Möller,Imra Axelsson,https://stats.innebandy.se/sasong/43/serie/42401/match/1652519
+2025-11-09,10:00,Klubbhuset Blå Pojkar 15 A,Lindome IBK P15,IBF Backadalen P15/16 Röd,Almåshallen B,Liam Liljeblad,Anna Larsson,https://stats.innebandy.se/sasong/43/serie/42401/match/1652513
+2025-11-09,11:30,Klubbhuset Blå Pojkar 15 A,Orust IBK P/F15,Herrestads AIF IB 15,Svanesunds Sporthall,Thorbjörn Mauritzen,,https://stats.innebandy.se/sasong/43/serie/42401/match/1652514
+2025-11-09,12:30,Klubbhuset Blå Pojkar 15 A,Utbynäs SK P 15,IBF Backadalen P15/16 Svart,Kviberg Arena B,Einar Junsten,Elias Kristoffersson,https://stats.innebandy.se/sasong/43/serie/42401/match/1652517
+2025-11-09,11:00,Klubbhuset Blå Pojkar 15 B,Överby IBK P15,IK Zenith P15 Vit,Nordby Supermarkethallen A-hallen,Isak Kärnberg,Jacop Ekehed,https://stats.innebandy.se/sasong/43/serie/42402/match/1652610
+2025-11-09,12:00,Klubbhuset Blå Pojkar 15 B,Ale IBF P15,Lindås IBK P15 Vit,Kronan Älvängen,Malva Asplund,Anna-Klara Gidlöf,https://stats.innebandy.se/sasong/43/serie/42402/match/1652609
+2025-11-09,13:00,Klubbhuset Blå Pojkar 15 B,IBK Kungälv P15 Blå,Pixbo IBK P15 Vit,Kastellegårdshallen,Tilda Embretsén,Nova Stenhill,https://stats.innebandy.se/sasong/43/serie/42402/match/1652604
+2025-11-09,09:00,Klubbhuset Blå Pojkar 15 C,IBK Göteborg P15/16 Svart,Lindås IBK P15 Blå,Torpahallen,Vilmer Praetorious Lehto,Zoe Meunier,https://stats.innebandy.se/sasong/43/serie/42403/match/1652917
+2025-11-09,13:15,Klubbhuset Blå Pojkar 15 C,Frölunda IBK P15 Svart,Landvetter IBK P15 Blå,Skyttesskolan,Ivar Dahlén Holmqvist,Viggo Nivedahl,https://stats.innebandy.se/sasong/43/serie/42403/match/1652920
+2025-11-09,11:30,Klubbhuset Blå Pojkar 16 A,IBK Kungälv P16 Vit,Lindås IBK P16,Munkegärdehallen,Fabian Pihl,Charlie Åberg,https://stats.innebandy.se/sasong/43/serie/42404/match/1651399
+2025-11-09,13:00,Klubbhuset Blå Pojkar 16 A,FBC Vinga P15/16 Orange,Frölunda IBK P16 Svart,Hall Of Flame,Oliver Andersson,Manaberi Elion,https://stats.innebandy.se/sasong/43/serie/42404/match/1651397
+2025-11-09,15:00,Klubbhuset Blå Pojkar 16 A,IK Zenith P16 Vit,Mölndals IBF P16,Björlanda Idrottshall,Casper Claesson,Olle Bohman,https://stats.innebandy.se/sasong/43/serie/42404/match/1651386
+2025-11-09,15:30,Klubbhuset Blå Pojkar 16 A,Utbynäs SK P16 BLÅ,IBK Bergum P15-16,Kviberg Arena B,Nils Koch,,https://stats.innebandy.se/sasong/43/serie/42404/match/1651401
+2025-11-09,11:00,Klubbhuset Blå Pojkar 16 B,FBC Vinga P15/16 Blå,Frölunda IBK P16 Röd,Hall Of Flame,Arthur Jönrup,Oliver Andersson,https://stats.innebandy.se/sasong/43/serie/42409/match/1651169
+2025-11-09,13:00,Klubbhuset Blå Pojkar 16 B,Ale IBF P16,Lindås IBK P16 Blå,Kronan Älvängen,Malva Asplund,Anna-Klara Gidlöf,https://stats.innebandy.se/sasong/43/serie/42409/match/1651165
+2025-11-09,14:30,Klubbhuset Blå Pojkar 16 B,IBK Kungälv P16 Svart,Herrestads AIF IB 16/17,Munkegärdehallen,Alfons Jonsson,Theo Söderlund,https://stats.innebandy.se/sasong/43/serie/42409/match/1651166
+2025-11-09,12:15,Klubbhuset Blå Pojkar 16 C,IK Zenith P16 Grön,FBC Lerum Utveckling P16 Svart,Björlanda Idrottshall,Arvid Dahlin,Viktor Sigurdsson,https://stats.innebandy.se/sasong/43/serie/42405/match/1651103
+2025-11-09,12:30,Klubbhuset Blå Pojkar 16 C,IBK Kungälv P16 Blå,Stenungsunds IBK P15-16 Svart,Munkegärdehallen,Fabian Pihl,Charlie Åberg,https://stats.innebandy.se/sasong/43/serie/42405/match/1651104
+2025-11-09,17:45,Pantamera Damjunior B,IBK Kungälv DJ,Pixbo IBF Utveckling Vit,Kastellegårdshallen,Josefin Sannerholm,Selma Hadziselimovic,https://stats.innebandy.se/sasong/43/serie/42368/match/1648907
+2025-11-09,12:20,Pantamera Flickor B-ungdom B,Landvetter IBF F11 Blå,IK Zenith Svart,Pinntorps Idrottshall,Pontus Ekengränd,Mükremin Er,https://stats.innebandy.se/sasong/43/serie/42387/match/1648970
+2025-11-09,16:35,Pantamera Flickor B-ungdom B,IBK Kungälv F10-12 Blå,Lindås IBK F10/11 Blå,Kastellegårdshallen,Josefin Sannerholm,Selma Hadziselimovic,https://stats.innebandy.se/sasong/43/serie/42387/match/1648969
+2025-11-09,18:40,Pantamera Flickor B-ungdom B,Pixbo IBF F11 Röd,Lindome IBK F10/11,Wallenstam Arena A,Yao-Zu Galby,Gustav Persson,https://stats.innebandy.se/sasong/43/serie/42387/match/1648968
+2025-11-09,13:15,Pantamera Flickor B-ungdom C,IBF Älvstranden F09/10,FBC Partille F09/11 Svart,Santoshallen,Goran Kuduzovic,Roger Zahnér,https://stats.innebandy.se/sasong/43/serie/42388/match/1648998
+2025-11-09,15:25,Pantamera Flickor B-ungdom C,IBK Kungälv F10-12 Grå,Landvetter IBF F11 Vit,Kastellegårdshallen,Arthur Nielsen,Ali Alizada,https://stats.innebandy.se/sasong/43/serie/42388/match/1649000
+2025-11-09,15:40,Pantamera Flickor B-ungdom D,Frölunda IBK Flickor Röd,Lindås IBK F12,Skyttesskolan,Helin Beyza Altuntas,Malte Bartilson,https://stats.innebandy.se/sasong/43/serie/42389/match/1649028
+2025-11-09,16:40,Pantamera Flickor B-ungdom D,FBC Lerum Utveckling F12 Svart,Pixbo IBF F12 Vit,Rydsbergshallen,Gökhan Atay,Emir Rajabi,https://stats.innebandy.se/sasong/43/serie/42389/match/1649029
+2025-11-09,11:10,Pantamera Flickor C-ungdom A,Landvetter IBF F12 Blå,IK Zenith Vit,Pinntorps Idrottshall,Jasmin Dzanic,Lina Lind,https://stats.innebandy.se/sasong/43/serie/42390/match/1649527
+2025-11-09,10:00,Pantamera Flickor C-ungdom E,Landvetter IBF F13/14 Vit,IBF Backadalen F13,Pinntorps Idrottshall,Jasmin Dzanic,Lina Lind,https://stats.innebandy.se/sasong/43/serie/42394/match/1649368
+2025-11-09,12:10,Pantamera Flickor C-ungdom E,Överby IBK F10-14,Utbynäs SK F 12/13,Nordby Supermarkethallen A-hallen,Susanne Andersson,Jaana Gander,https://stats.innebandy.se/sasong/43/serie/42394/match/1649370
+2025-11-09,14:15,Pantamera Flickor C-ungdom E,IBK Kungälv F13/14,Lindås IBK F13,Kastellegårdshallen,Arthur Nielsen,Ali Alizada,https://stats.innebandy.se/sasong/43/serie/42394/match/1649371
+2025-11-09,17:30,Pantamera Herrjunior A,Warberg IBF HJ USM,IBK Kungälv Herrjuniorer Vit,"Sparbanken Wictory Center, Unihocplanen",Albin Persson,Axel Sagdahl,https://stats.innebandy.se/sasong/43/serie/42363/match/1648338
+2025-11-09,17:00,Pantamera Herrjunior B,IBF Backadalen HJ,FBC Vinga HJ,Tuve Sporthall,Hampus Räffling,Ian S Blomqvist,https://stats.innebandy.se/sasong/43/serie/42364/match/1648368
+2025-11-09,15:00,Pantamera Herrjunior D,Onsala IBK U16,Lindome IBK/Almås IBK U-16,Presse Idrottshall,Alice Haeggman,Christoffer Söderström,https://stats.innebandy.se/sasong/43/serie/42366/match/1648427
+2025-11-09,16:00,Pantamera Herrjunior D,Kärra IBK,Herrestads AIF Junior,Kärra Sporthall,Henry Tames,Semir Aganspahic,https://stats.innebandy.se/sasong/43/serie/42366/match/1648429
+2025-11-09,10:55,Pantamera Pojkar B-ungdom A,Pixbo IBF P10 Röd,IBF Backadalen P09/10,Wallenstam Arena A,Per Sundvall,Katarina Arnoldsdotter,https://stats.innebandy.se/sasong/43/serie/42369/match/1648457
+2025-11-09,15:50,Pantamera Pojkar B-ungdom B,IBK Göteborg P10 Vit,Mölndals IBF / Lindås IBK P10,Torpahallen,Gustav Persson,Tove Hall,https://stats.innebandy.se/sasong/43/serie/42370/match/1648488
+2025-11-09,16:00,Pantamera Pojkar B-ungdom B,IK Zenith P10 Vit,Pixbo IBF P10 Vit,Björlanda Idrottshall,Albin Wennersten,Dante Lindskog,https://stats.innebandy.se/sasong/43/serie/42370/match/1648489
+2025-11-09,17:30,Pantamera Pojkar B-ungdom B,Floda IBK P09-11 Svart,Herrestads AIF HJ,Nova Floda Sportcenter A-hall,Mattias Strid,Måns Bartilson,https://stats.innebandy.se/sasong/43/serie/42370/match/1648487
+2025-11-09,09:40,Pantamera Pojkar B-ungdom D,Pixbo IBF P11 Vit,Ale IBF P10,Wallenstam Arena A,Per Sundvall,Katarina Arnoldsdotter,https://stats.innebandy.se/sasong/43/serie/42372/match/1648547
+2025-11-09,16:50,Pantamera Pojkar B-ungdom E,Frölunda IBK P10-11 Svart,Myggenäs IBK P10,Skyttesskolan,Helin Beyza Altuntas,Malte Bartilson,https://stats.innebandy.se/sasong/43/serie/42373/match/1650704
+2025-11-09,14:40,Pantamera Pojkar C-ungdom B,IBK Göteborg P11,Lindås IBK P11-12 Svart,Torpahallen,Gustav Persson,Tove Hall,https://stats.innebandy.se/sasong/43/serie/42376/match/1649919
+2025-11-09,15:45,Pantamera Pojkar C-ungdom B,IBK Kungälv P10-12,Dingle AIK Pojkar Utveckling,Munkegärdehallen,Per Sundvall,Mathias Hannu,https://stats.innebandy.se/sasong/43/serie/42376/match/1649917
+2025-11-09,13:30,Pantamera Pojkar C-ungdom C,IK Zenith P11/12,Lindome IBK P11 Lila,Björlanda Idrottshall,Casper Claesson,Olle Bohman,https://stats.innebandy.se/sasong/43/serie/42377/match/1649557
+2025-11-09,17:30,Pantamera Pojkar C-ungdom D,FBC Partille P13 Svart,IBK Bergum P 11-12,Partillebohallen,Freja Linderoth,Nils Biörnerud,https://stats.innebandy.se/sasong/43/serie/42378/match/1649798
+2025-11-09,12:10,Pantamera Pojkar C-ungdom E,Pixbo IBF P12 Röd,IBF Älvstranden P11/12,Wallenstam Arena A,Thomas Johansson,Marcus Orrhult,https://stats.innebandy.se/sasong/43/serie/42379/match/1649856
+2025-11-09,14:30,Pantamera Pojkar C-ungdom E,IBK Bergum P12-13,Frölunda IBK P12 Svart,Bergumsskolan,Leo Malm,Albin Frykholm,https://stats.innebandy.se/sasong/43/serie/42379/match/1649857
+2025-11-09,14:20,Pantamera Pojkar C-ungdom F,FBC Lerum Utveckling P12/13,IBF Backadalen P12,Lerum Arena C,Alexander Miriandis,Max Remper,https://stats.innebandy.se/sasong/43/serie/42380/match/1649638
+2025-11-09,13:00,Pantamera Pojkar C-ungdom G,Stenungsunds IBK P12-13,Eken IBK / Mölndals IBF P12,Kyrkenorumskolans Idrottshall,Linus Engman,Anthon Räffling,https://stats.innebandy.se/sasong/43/serie/42381/match/1649617
+2025-11-09,13:30,Pantamera Pojkar C-ungdom H,Överby IBK P13/14,Lindås IBK P13 Turkos,Nordby Supermarkethallen A-hallen,Susanne Andersson,Jaana Gander,https://stats.innebandy.se/sasong/43/serie/42382/match/1649738
+2025-11-09,14:30,Pantamera Pojkar C-ungdom I,Orust IBK P12/13,Mölndals IBF P13/14 Röd,Svanesunds Sporthall,Martin Andersson,Adem Can,https://stats.innebandy.se/sasong/43/serie/42383/match/1649706
+2025-11-09,14:30,Pantamera Pojkar C-ungdom J,Frölunda IBK P13,Ale IBF P13,Skyttesskolan,Helin Beyza Altuntas,Malte Bartilson,https://stats.innebandy.se/sasong/43/serie/42384/match/1649889
+2025-11-09,13:30,Pantamera Pojkar C-ungdom K,IBK Göteborg P13/14,IBK Kungälv P14 Svart,Torpahallen,Gustav Persson,Tove Hall,https://stats.innebandy.se/sasong/43/serie/42385/match/1649327
+2025-11-09,13:00,Västserien Division 3,Skara 2,Vara SK 2,"Vilanhallen, Skara",,,https://stats.innebandy.se/sasong/43/serie/42480/match/1664710
+2025-11-10,19:45,Pantamera Flickor C-ungdom B,IBK Bergum F10-13,IBF Backadalen F11/12 Röd,Bergumsskolan,Albin Frykholm,Felicia Lundgren Narváez,https://stats.innebandy.se/sasong/43/serie/42391/match/1649769
+2025-11-10,19:45,Pantamera Flickor C-ungdom E,IBK Göteborg / Guldhedens IK F12-13,IK Zenith F13/14,Svingelns Sporthall,Per Sundvall,Emmy Birgersson,https://stats.innebandy.se/sasong/43/serie/42394/match/1649372
+2025-11-11,19:00,Division 1 Herrar Västra Götaland,IBK Kungälv,IBF Backadalen,Mimershus A-hallen,Tobias Anderberg,Jacob Johansson,https://stats.innebandy.se/sasong/43/serie/40701/match/1570558
+2025-11-11,19:45,Division 1 Herrar Västra Götaland,Floda IBK,FBC Partille,Nova Floda Sportcenter A-hall,Richard Claesson,Martin Johansson,https://stats.innebandy.se/sasong/43/serie/40701/match/1570559
+2025-11-11,20:00,Herrar Div. 3 B,Korsvägen BBK H3,IK Zenith H3,Lundenhallen,Kristoffer Lind,Sebastian Ågren,https://stats.innebandy.se/sasong/43/serie/42065/match/1630543
+2025-11-11,18:20,Pantamera Flickor B-ungdom A,Eken IBK DJ,Lindås IBK F10/11 Svart,Ekenhallen 1,Alexander Hellström,Emir Rajabi,https://stats.innebandy.se/sasong/43/serie/42386/match/1648940
+2025-11-11,19:30,Pantamera Pojkar B-ungdom C,IBK Kungälv Ungdom Utveckling,Surte IS IBK P10/11,Munkegärdehallen,Albin Wennersten,Senad Olevic,https://stats.innebandy.se/sasong/43/serie/42371/match/1648516
+2025-11-11,09:00,Skol DM Högstadiet,Skol DM Högstadiet Lindås Arena 0900-1200,Skol DM Högstadiet Lindås Arena 0900-1200,Lindås Waves Arena,Robin Boqvist,Alexander Rydqvist,https://stats.innebandy.se/sasong/43/serie/42788/match/1666506
+2025-11-11,09:00,Skol DM Högstadiet,Skol DM Högstadiet Bohushallen 0900-1200,Skol DM Högstadiet Bohushallen 0900-1200,Bohushallen,Mohsen Gholami,Semir Aganspahic,https://stats.innebandy.se/sasong/43/serie/42788/match/1667662
+2025-11-11,12:00,Skol DM Högstadiet,Skol DM Högstadiet Lindås Arena 1200-1500,Skol DM Högstadiet Lindås Arena 1200-1500,Lindås Waves Arena,Robin Boqvist,Per Sundvall,https://stats.innebandy.se/sasong/43/serie/42788/match/1666509
+2025-11-11,12:00,Skol DM Högstadiet,Skol DM Högstadiet Bohushallen 1200 - 1500,Skol DM Högstadiet Bohushallen 1200 - 1500,Bohushallen,Mohsen Gholami,Semir Aganspahic,https://stats.innebandy.se/sasong/43/serie/42788/match/1667663
+2025-11-12,20:10,Crabions League 25-26,Tigers,Krokstrands Gräv,Nordby Supermarkethallen A-hallen,,,https://stats.innebandy.se/sasong/43/serie/42616/match/1661929
+2025-11-12,21:00,Crabions League 25-26,Park/ Dahlbergs,Turnegänget,Nordby Supermarkethallen A-hallen,,,https://stats.innebandy.se/sasong/43/serie/42616/match/1661930
+2025-11-12,19:30,Division 1 Herrar Västra Götaland,Fristads GoIF,Pixbo IBF,Nya Fristadshallen,Marcus Larsson,Petter Enlund,https://stats.innebandy.se/sasong/43/serie/40701/match/1570560
