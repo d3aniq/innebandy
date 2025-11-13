@@ -5,18 +5,12 @@
 <title>Domarstatistik</title>
 
 <style>
-  /* ===== Lätt, modern palett ===== */
+  /* ===== Lätt, modern palett (endast ljust tema) ===== */
   :root{
     --bg:#f7f9fc; --card:#ffffff; --text:#0f172a; --muted:#6b7280; --border:#e6e9f2;
     --accent:#6d28d9;      /* indigo-violett */
     --accent-2:#9333ea;    /* gradientslut */
     --accent-weak:#ede9fe; /* bakgrundston */
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --border:#1f2937;
-      --accent:#a78bfa; --accent-2:#c4b5fd; --accent-weak:#312e81;
-    }
   }
 
   *{box-sizing:border-box}
@@ -70,17 +64,16 @@
     outline:none;
   }
 
-  /* Tabell + wrapper (för mobil-scroll) */
+  /* Tabell */
   .table-wrap{
     width:100%;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
+    overflow-x:hidden;           /* inget som sticker ut horisontellt */
   }
   table{
     width:100%;
-    min-width:640px;           /* så att kolumnerna inte blir mikrosmå på mobil */
     border-collapse:collapse;background:var(--card);
     border:1px solid var(--border);border-radius:16px;overflow:hidden;
+    table-layout:auto;
   }
   thead{background:color-mix(in oklab,var(--accent-weak) 30%, var(--card));color:var(--accent)}
   th,td{padding:11px 12px;border-bottom:1px solid var(--border);text-align:left}
@@ -137,7 +130,7 @@
       max-height:320px;
     }
     th,td{
-      padding:8px 10px;
+      padding:8px 8px;
       font-size:13px;
     }
     .ref-select{
@@ -230,6 +223,9 @@
   const $from = document.getElementById("from");
   const $to   = document.getElementById("to");
   const $refSelect = document.getElementById("refSelect");
+  const $rows=document.getElementById("rows"),
+        $kpi=document.getElementById("kpiCount"),
+        $top=document.getElementById("toplist");
 
   [$from,$to].forEach(el=>{ el.min=minDate; el.max=maxDate; });
   $from.value=minDate;
@@ -248,9 +244,6 @@
     allRefs.map(n=>`<option value="${n}">${n}</option>`).join("");
 
   let currentRef = "";
-  const $rows=document.getElementById("rows"),
-        $kpi=document.getElementById("kpiCount"),
-        $top=document.getElementById("toplist");
 
   const inRange=(d,f,t)=>(!f||d>=f)&&(!t||d<=t);
 
@@ -313,13 +306,21 @@
     $to.addEventListener(evt,   ()=>{ clamp(); renderTop(); renderMatches(); });
   });
 
-  // Dropdownändring
+  // Dropdownändring – synka listan + scrolla till domaren
   $refSelect.addEventListener("change", ()=>{
     currentRef = $refSelect.value || "";
-    $top.querySelectorAll(".item").forEach(i=>{
+
+    const items = $top.querySelectorAll(".item");
+    items.forEach(i=>{
       i.classList.toggle("active", i.dataset.ref === currentRef);
     });
+
     renderMatches();
+
+    const active = $top.querySelector(".item.active");
+    if(active){
+      active.scrollIntoView({behavior:"smooth", block:"center"});
+    }
   });
 
   clamp();
