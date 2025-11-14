@@ -399,11 +399,30 @@
     $to.addEventListener(evt,   ()=>{ clamp(); updateSeriesOptions(); renderTop(); renderMatches(); });
   });
 
-  // Serieändring
+/*   // Serieändring
   $seriesSelect.addEventListener("change", ()=>{
     currentSeries = $seriesSelect.value || "";
     renderTop();
     renderMatches();
+  }); */
+
+  // Serieändring
+  $seriesSelect.addEventListener("change", ()=>{
+    currentSeries = $seriesSelect.value || "";
+  
+    renderTop();
+    renderMatches();
+
+    if (currentRef) {
+      // Om en domare är vald: scrolla till domaren i listan (samma beteende som domar-dropdown)
+      const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
+      if (active) {
+        active.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    } else {
+      // Ingen domare vald: visa listan från toppen
+      $top.scrollTop = 0;
+    }
   });
 
   // Dropdownändring – domare
