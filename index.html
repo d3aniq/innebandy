@@ -190,23 +190,23 @@
   <!-- Filter -->
   <div class="row filters" id="filters">
     <div class="card">
-      <div class="muted">Från datum</div>
-      <input type="date" id="from" aria-label="Från datum">
-    </div>
-    <div class="card">
-      <div class="muted">Till datum</div>
-      <input type="date" id="to" aria-label="Till datum">
-    </div>
-    <div class="card">
-      <div class="muted">Vald serie</div>
-      <select id="seriesSelect" class="ref-select">
-        <option value="">(alla serier)</option>
+      <div class="muted">Domare</div>
+      <select id="refSelect" class="ref-select">
+        <option value="">(alla domare)</option>
       </select>
     </div>
     <div class="card">
-      <div class="muted">Vald domare</div>
-      <select id="refSelect" class="ref-select">
-        <option value="">(välj domare)</option>
+      <div class="muted">Från</div>
+      <input type="date" id="from" aria-label="Från datum">
+    </div>
+    <div class="card">
+      <div class="muted">Till</div>
+      <input type="date" id="to" aria-label="Till datum">
+    </div>
+    <div class="card">
+      <div class="muted">Serie</div>
+      <select id="seriesSelect" class="ref-select">
+        <option value="">(alla serier)</option>
       </select>
     </div>
   </div>
@@ -302,7 +302,7 @@
   // Unik lista domare för dropdown (alfabetiskt)
   const allRefs = [...new Set(all.flatMap(m=>m.referees))].sort((a,b)=>a.localeCompare(b,"sv"));
   $refSelect.innerHTML =
-    '<option value="">(välj domare)</option>' +
+    '<option value="">(alla domare)</option>' +
     allRefs.map(n=>`<option value="${n}">${n}</option>`).join("");
 
   // Uppdatera serielista beroende på datum + ev. vald domare
