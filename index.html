@@ -150,11 +150,11 @@
 </style>
 
 <div class="wrap">
-  <h1>Västsvensk domarstatistik</h1>
+  <h1>VÄSTSVENSK DOMARSTATISTIK</h1>
 
   <div class="row filters" id="filters">
     <div class="card">
-      <div class="muted">Säsong (2025/26 t.o.m. 2025-10-31)</div>
+      <div class="muted">Säsong (2025-04-01 - 2025-10-31)</div>
       <select id="seasonSelect" class="ref-select">
         <option value="">(alla säsonger)</option>
       </select>
@@ -172,18 +172,18 @@
       </select>
     </div>
     <div class="card">
-      <div class="muted">Filter</div>
+      <div class="muted">Rensa filter</div>
       <button id="clearBtn" class="clear-btn">Rensa</button>
     </div>
   </div>
 
   <div class="row">
     <div class="card">
-      <div class="muted">Antal matcher per domare (inom vald säsong eller serie)</div>
+      <div class="muted">Antal matcher per domare (baserat på valda filter)</div>
       <div id="toplist" class="list">Laddar…</div>
     </div>
     <div class="card" style="grid-column:1;">
-      <div class="muted">Matchlista för vald domare (inom vald säsong eller serie)</div>
+      <div class="muted">Matchlista för vald domare (baserat på valda filter)</div>
       <div class="table-wrap">
         <table>
           <thead><tr>
@@ -223,8 +223,9 @@
     const refs=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
                [g("Domare1"),g("Domare2"),g("Domare3"),g("Referee1"),g("Referee2"),g("Referee3")]
                .filter(Boolean).join(",");
+    const date = first(g("Date")||g("Datum")||g("MatchDate")||g("Start")||g("Kickoff"));
     return {
-      date:first(g("Date")||g("Datum")||g("MatchDate")||g("Start")||g("Kickoff")),
+      date,
       series:g("Serie")||g("Series")||g("Competition")||"",
       arena:g("Arena")||g("Venue")||g("Hall")||"",
       home:g("Hemmalag")||g("Home")||g("HomeTeam")||g("Hemma")||"",
@@ -246,15 +247,23 @@
   let currentRef    = "";
   let currentSeries = "";
 
+  // Hjälpare: skapa säsongsetikett från datum
+  function seasonLabelFromDate(d){
+    if(!d) return "";
+    const year = parseInt(d.slice(0,4),10);
+    const md   = d.slice(5); // "MM-DD"
+    const startYear = (md >= "07-01") ? year : year - 1;
+    const nextYear  = startYear + 1;
+    return startYear + "/" + String(nextYear).slice(-2);
+  }
+
   // Bygg säsonger (1 juli – 30 juni)
   const seasons = new Map(); // label -> {start,end}
   for(const m of all){
-    if(!m.date) continue;
-    const year = parseInt(m.date.slice(0,4),10);
-    const md   = m.date.slice(5); // "MM-DD"
-    const startYear = (md >= "07-01") ? year : year - 1;
+    const label = seasonLabelFromDate(m.date);
+    if(!label) continue;
+    const startYear = parseInt(label.slice(0,4),10);
     const nextYear  = startYear + 1;
-    const label = startYear + "/" + String(nextYear).slice(-2);
     if(!seasons.has(label)){
       seasons.set(label,{
         start: startYear + "-07-01",
@@ -263,18 +272,37 @@
     }
   }
 
+  // Alla säsonger i ordning nyast -> äldst
   const seasonLabels = [...seasons.keys()]
-    .sort((a,b)=>seasons.get(a).start.localeCompare(seasons.get(b).start));
-  const latestSeason = seasonLabels[seasonLabels.length-1] || "";
+    .sort((a,b)=>seasons.get(b).start.localeCompare(seasons.get(a).start));
 
-  $seasonSelect.innerHTML =
-    '<option value="">(alla säsonger)</option>' +
-    seasonLabels.map(s => '<option value="'+s+'">'+s+'</option>').join("");
+  // Ingen förvald säsong – default är (alla säsonger)
+  function updateSeasonOptions(){
+    const set = new Set();
+    for(const m of all){
+      if(currentSeries && m.series !== currentSeries) continue;
+      if(currentRef && !m.referees.includes(currentRef)) continue;
+      const label = seasonLabelFromDate(m.date);
+      if(label) set.add(label);
+    }
+    const prev = currentSeason;
+    const arr = seasonLabels.filter(s => set.size === 0 || set.has(s)); // om set tomt => visa alla
 
-  if(latestSeason){
-    currentSeason = latestSeason;
-    $seasonSelect.value = latestSeason;
+    $seasonSelect.innerHTML =
+      '<option value="">(alla säsonger)</option>' +
+      arr.map(s => '<option value="'+s+'">'+s+'</option>').join("");
+
+    if(prev && set.has(prev)){
+      currentSeason = prev;
+      $seasonSelect.value = prev;
+    }else{
+      currentSeason = "";
+      $seasonSelect.value = "";
+    }
   }
+
+  // Första uppbyggnaden av säsongsmeny
+  updateSeasonOptions();
 
   function inCurrentSeason(date){
     if(!currentSeason) return true;
@@ -353,6 +381,7 @@
       el.onclick = ()=>{
         currentRef = el.dataset.ref;
         $refSelect.value = currentRef;
+        updateSeasonOptions();   // domare påverkar säsonger
         updateSeriesOptions();
         renderTop();
         renderMatches();
@@ -373,27 +402,26 @@
 
     if(!currentRef){
       $rows.innerHTML = '<tr><td colspan="6" class="muted">Välj domare i listan eller i menyn</td></tr>';
-      return;
-    }
-    if(!rows.length){
+    }else if(!rows.length){
       $rows.innerHTML = '<tr><td colspan="6" class="muted">Inga matcher för '+currentRef+' i vald filtrering.</td></tr>';
-      return;
+    }else{
+      $rows.innerHTML = rows.map(m=>{
+        const others = (m.referees||[]).filter(r=>r!==currentRef);
+        return (
+          '<tr>' +
+            '<td data-label="Datum">'+m.date+'</td>' +
+            '<td data-label="Serie">'+m.series+'</td>' +
+            '<td data-label="Hemmalag">'+m.home+'</td>' +
+            '<td data-label="Bortalag">'+m.away+'</td>' +
+            '<td data-label="Arena">'+m.arena+'</td>' +
+            '<td data-label="Domarkollega">'+(others.join(", ")||"—")+'</td>' +
+          '</tr>'
+        );
+      }).join("");
     }
-    $rows.innerHTML = rows.map(m=>{
-      const others = (m.referees||[]).filter(r=>r!==currentRef);
-      return (
-        '<tr>' +
-          '<td data-label="Datum">'+m.date+'</td>' +
-          '<td data-label="Serie">'+m.series+'</td>' +
-          '<td data-label="Hemmalag">'+m.home+'</td>' +
-          '<td data-label="Bortalag">'+m.away+'</td>' +
-          '<td data-label="Arena">'+m.arena+'</td>' +
-          '<td data-label="Domarkollega">'+(others.join(", ")||"—")+'</td>' +
-        '</tr>'
-      );
-    }).join("");
   }
 
+  // Ändrings-handlers
   $seasonSelect.addEventListener("change", ()=>{
     currentSeason = $seasonSelect.value || "";
     updateRefOptions();
@@ -410,6 +438,7 @@
 
   $seriesSelect.addEventListener("change", ()=>{
     currentSeries = $seriesSelect.value || "";
+    updateSeasonOptions();   // serie filtrerar säsong
     updateRefOptions();
     renderTop();
     renderMatches();
@@ -423,6 +452,7 @@
 
   $refSelect.addEventListener("change", ()=>{
     currentRef = $refSelect.value || "";
+    updateSeasonOptions();   // domare filtrerar säsong
     updateSeriesOptions();
     renderTop();
     renderMatches();
@@ -437,6 +467,7 @@
     $seasonSelect.value = "";
     $refSelect.value    = "";
     $seriesSelect.value = "";
+    updateSeasonOptions();
     updateRefOptions();
     updateSeriesOptions();
     renderTop();
@@ -444,6 +475,7 @@
     $top.scrollTop = 0;
   });
 
+  // Init
   updateRefOptions();
   updateSeriesOptions();
   renderTop();
