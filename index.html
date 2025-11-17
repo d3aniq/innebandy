@@ -12,6 +12,27 @@
     --accent-weak:#ede9fe;
   }
 
+
+    .disclaimer{
+    margin:18px 4px 8px;
+    font-size:11px;
+    line-height:1.5;
+    color:var(--muted);
+    text-align:center;
+  }
+  .disclaimer a{
+    color:var(--accent);
+    text-decoration:none;
+  }
+  .disclaimer a:hover{
+    text-decoration:underline;
+  }
+
+
+
+
+
+
   *{box-sizing:border-box}
   body{
     margin:14px;
@@ -192,7 +213,7 @@
 
   <div class="row filters" id="filters">
     <div class="card">
-      <div class="muted">Säsong (inom 2024-09-01 - 2025-10-31)</div>
+      <div class="muted">Säsong (inom 2024-07-01 - 2025-10-31)</div>
       <select id="seasonSelect" class="ref-select">
         <option value="">(alla säsonger)</option>
       </select>
@@ -226,15 +247,15 @@
   <!-- NY RAD: topp 5 serier + topp 5 domarkollegor -->
   <div class="row stats-row">
     <div class="card">
-      <div class="muted">Topp 5 serier för vald domare</div>
+      <div class="muted">Topp 5 serier för vald domare (baserat på valda filter)</div>
       <div id="topSeries" class="mini-list">
-        <span class="muted">Välj domare för att se seriestatistik.</span>
+        <span class="muted">Välj domare i listan eller i menyn</span>
       </div>
     </div>
     <div class="card">
-      <div class="muted">Topp 5 domarkollegor för vald domare</div>
+      <div class="muted">Topp 5 domarkollegor för vald domare (baserat på valda filter)</div>
       <div id="topColleagues" class="mini-list">
-        <span class="muted">Välj domare för att se kollegestatistik.</span>
+        <span class="muted">Välj domare i listan eller i menyn</span>
       </div>
     </div>
   </div>
@@ -255,6 +276,18 @@
       </div>
     </div>
   </div>
+
+
+<div class="disclaimer">
+  Inofficiell sida baserad på öppna uppgifter från 
+  <a href="https://stats.innebandy.se" target="_blank">stats.innebandy.se</a>
+  <br>Kontakt: <a href="mailto:refstat@dzanic.se">refstat@dzanic.se</a>
+</div>
+
+
+
+
+
 </div>
 
 <script>
@@ -449,8 +482,8 @@
 
   function renderTopMiniLists(rows){
     if(!currentRef){
-      $topSeries.innerHTML     = '<span class="muted">Välj domare för att se seriestatistik.</span>';
-      $topColleagues.innerHTML = '<span class="muted">Välj domare för att se kollegestatistik.</span>';
+      $topSeries.innerHTML     = '<span class="muted">Välj domare i listan eller i menyn</span>';
+      $topColleagues.innerHTML = '<span class="muted">Välj domare i listan eller i menyn</span>';
       return;
     }
     if(!rows.length){
