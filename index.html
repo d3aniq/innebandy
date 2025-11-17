@@ -27,11 +27,14 @@
   }
 
   .row{display:grid;gap:12px;grid-template-columns:1fr;margin:10px 0}
-  @media(min-width:820px){ .row.filters{grid-template-columns:repeat(4,minmax(0,1fr));} }
+  @media(min-width:820px){
+    .row.filters{grid-template-columns:repeat(4,minmax(0,1fr));}
+    .row.stats-row{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
 
   .card{
     background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 16px;
-    box-shadow:0 4px 10px rgba(0,0,0,.04),0 8px 24px rgba(109,40,217,.04);
+    box-shadow:0 4px 10px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.04);
   }
   .muted{color:var(--muted);font-size:12px;margin-bottom:6px}
 
@@ -97,6 +100,41 @@
     border:1px solid color-mix(in oklab,var(--accent) 25%, var(--border));
   }
 
+  /* Mini-statlistor (topp 5) */
+  .mini-list{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    font-size:14px;
+  }
+  .mini-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:4px 0;
+    border-bottom:1px dashed var(--border);
+  }
+  .mini-item:last-child{
+    border-bottom:none;
+  }
+  .mini-rank{
+    font-weight:700;
+    color:var(--accent);
+    width:20px;
+  }
+  .mini-name{
+    flex:1;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .mini-count{
+    font-variant-numeric:tabular-nums;
+    font-weight:600;
+    min-width:20px;
+    text-align:right;
+  }
+
   @media (max-width:600px){
     body{ margin:8px; font-size:14px; }
     h1{ font-size:24px; margin:10px 0 14px; }
@@ -154,7 +192,7 @@
 
   <div class="row filters" id="filters">
     <div class="card">
-      <div class="muted">Säsong (inom 2024-11-01 - 2025-10-31)</div>
+      <div class="muted">Säsong (inom 2024-09-01 - 2025-10-31)</div>
       <select id="seasonSelect" class="ref-select">
         <option value="">(alla säsonger)</option>
       </select>
@@ -177,11 +215,32 @@
     </div>
   </div>
 
+  <!-- Antal matcher per domare -->
   <div class="row">
     <div class="card">
       <div class="muted">Antal matcher per domare (baserat på valda filter)</div>
       <div id="toplist" class="list">Laddar…</div>
     </div>
+  </div>
+
+  <!-- NY RAD: topp 5 serier + topp 5 domarkollegor -->
+  <div class="row stats-row">
+    <div class="card">
+      <div class="muted">Topp 5 serier för vald domare</div>
+      <div id="topSeries" class="mini-list">
+        <span class="muted">Välj domare för att se seriestatistik.</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="muted">Topp 5 domarkollegor för vald domare</div>
+      <div id="topColleagues" class="mini-list">
+        <span class="muted">Välj domare för att se kollegestatistik.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Matchlista för vald domare -->
+  <div class="row">
     <div class="card" style="grid-column:1;">
       <div class="muted">Matchlista för vald domare (baserat på valda filter)</div>
       <div class="table-wrap">
@@ -236,29 +295,29 @@
 
   const all = texts.flatMap(t => parseCSV(t).map(norm)).filter(r => r.date);
 
-  const $seasonSelect = document.getElementById("seasonSelect");
-  const $refSelect    = document.getElementById("refSelect");
-  const $seriesSelect = document.getElementById("seriesSelect");
-  const $rows         = document.getElementById("rows");
-  const $top          = document.getElementById("toplist");
-  const $clearBtn     = document.getElementById("clearBtn");
+  const $seasonSelect   = document.getElementById("seasonSelect");
+  const $refSelect      = document.getElementById("refSelect");
+  const $seriesSelect   = document.getElementById("seriesSelect");
+  const $rows           = document.getElementById("rows");
+  const $top            = document.getElementById("toplist");
+  const $clearBtn       = document.getElementById("clearBtn");
+  const $topSeries      = document.getElementById("topSeries");
+  const $topColleagues  = document.getElementById("topColleagues");
 
   let currentSeason = "";
   let currentRef    = "";
   let currentSeries = "";
 
-  // Hjälpare: skapa säsongsetikett från datum
   function seasonLabelFromDate(d){
     if(!d) return "";
     const year = parseInt(d.slice(0,4),10);
-    const md   = d.slice(5); // "MM-DD"
+    const md   = d.slice(5);
     const startYear = (md >= "07-01") ? year : year - 1;
     const nextYear  = startYear + 1;
     return startYear + "/" + String(nextYear).slice(-2);
   }
 
-  // Bygg säsonger (1 juli – 30 juni)
-  const seasons = new Map(); // label -> {start,end}
+  const seasons = new Map();
   for(const m of all){
     const label = seasonLabelFromDate(m.date);
     if(!label) continue;
@@ -272,11 +331,9 @@
     }
   }
 
-  // Alla säsonger i ordning nyast -> äldst
   const seasonLabels = [...seasons.keys()]
     .sort((a,b)=>seasons.get(b).start.localeCompare(seasons.get(a).start));
 
-  // Ingen förvald säsong – default är (alla säsonger)
   function updateSeasonOptions(){
     const set = new Set();
     for(const m of all){
@@ -286,7 +343,7 @@
       if(label) set.add(label);
     }
     const prev = currentSeason;
-    const arr = seasonLabels.filter(s => set.size === 0 || set.has(s)); // om set tomt => visa alla
+    const arr = seasonLabels.filter(s => set.size === 0 || set.has(s));
 
     $seasonSelect.innerHTML =
       '<option value="">(alla säsonger)</option>' +
@@ -301,7 +358,6 @@
     }
   }
 
-  // Första uppbyggnaden av säsongsmeny
   updateSeasonOptions();
 
   function inCurrentSeason(date){
@@ -381,7 +437,7 @@
       el.onclick = ()=>{
         currentRef = el.dataset.ref;
         $refSelect.value = currentRef;
-        updateSeasonOptions();   // domare påverkar säsonger
+        updateSeasonOptions();
         updateSeriesOptions();
         renderTop();
         renderMatches();
@@ -391,6 +447,50 @@
     });
   }
 
+  function renderTopMiniLists(rows){
+    if(!currentRef){
+      $topSeries.innerHTML     = '<span class="muted">Välj domare för att se seriestatistik.</span>';
+      $topColleagues.innerHTML = '<span class="muted">Välj domare för att se kollegestatistik.</span>';
+      return;
+    }
+    if(!rows.length){
+      $topSeries.innerHTML     = '<span class="muted">Ingen seriestatistik för valda filter.</span>';
+      $topColleagues.innerHTML = '<span class="muted">Ingen kollegestatistik för valda filter.</span>';
+      return;
+    }
+
+    const seriesCount    = new Map();
+    const colleagueCount = new Map();
+
+    for(const m of rows){
+      if(m.series){
+        seriesCount.set(m.series,(seriesCount.get(m.series)||0)+1);
+      }
+      const others = (m.referees||[]).filter(r=>r!==currentRef);
+      for(const col of others){
+        colleagueCount.set(col,(colleagueCount.get(col)||0)+1);
+      }
+    }
+
+    function renderMap(map, container, emptyText){
+      const arr = [...map.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5);
+      if(!arr.length){
+        container.innerHTML = '<span class="muted">'+emptyText+'</span>';
+        return;
+      }
+      container.innerHTML = arr.map(([name,n],idx)=>`
+        <div class="mini-item">
+          <span class="mini-rank">${idx+1}.</span>
+          <span class="mini-name">${name}</span>
+          <span class="mini-count">${n}</span>
+        </div>
+      `).join("");
+    }
+
+    renderMap(seriesCount,    $topSeries,     "Ingen seriestatistik.");
+    renderMap(colleagueCount, $topColleagues, "Ingen kollegestatistik.");
+  }
+
   function renderMatches(){
     const rows = all
       .filter(m =>
@@ -398,8 +498,10 @@
         (!currentRef || m.referees.includes(currentRef)) &&
         (!currentSeries || m.series === currentSeries)
       )
-      //.sort((a,b)=>(a.date||"").localeCompare(b.date||""));
       .sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+
+    // uppdatera topp 5-korten baserat på samma rows
+    renderTopMiniLists(rows);
 
     if(!currentRef){
       $rows.innerHTML = '<tr><td colspan="6" class="muted">Välj domare i listan eller i menyn</td></tr>';
@@ -422,7 +524,6 @@
     }
   }
 
-  // Ändrings-handlers
   $seasonSelect.addEventListener("change", ()=>{
     currentSeason = $seasonSelect.value || "";
     updateRefOptions();
@@ -439,7 +540,7 @@
 
   $seriesSelect.addEventListener("change", ()=>{
     currentSeries = $seriesSelect.value || "";
-    updateSeasonOptions();   // serie filtrerar säsong
+    updateSeasonOptions();
     updateRefOptions();
     renderTop();
     renderMatches();
@@ -453,7 +554,7 @@
 
   $refSelect.addEventListener("change", ()=>{
     currentRef = $refSelect.value || "";
-    updateSeasonOptions();   // domare filtrerar säsong
+    updateSeasonOptions();
     updateSeriesOptions();
     renderTop();
     renderMatches();
