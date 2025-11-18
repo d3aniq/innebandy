@@ -100,10 +100,9 @@
   th{font-weight:800;text-transform:uppercase;letter-spacing:.3px}
   th:first-child, td:first-child{white-space:nowrap;width:120px;}
 
-  /* Hover på tabellrader – bara desktop */
   @media (min-width:601px){
     tbody tr:hover{
-      background:#f3f4ff; /* fallback */
+      background:#f3f4ff;
       background:color-mix(in oklab,var(--accent-weak) 40%, var(--card));
     }
   }
@@ -119,26 +118,25 @@
     transition:background .15s, transform .05s;
   }
   .item:hover{
-    background:#f3f4ff; /* fallback */
+    background:#f3f4ff;
     background:color-mix(in oklab,var(--accent-weak) 40%, var(--card))
   }
   .item:active{transform:translateY(1px)}
   .item.active{
-    background:#ede9ff; /* fallback */
+    background:#ede9ff;
     background:color-mix(in oklab,var(--accent-weak) 60%, var(--card));
     font-weight:600
   }
   .pill{
     display:inline-flex;align-items:center;gap:6px;font:600 12px/1 Inter,system-ui;
     padding:3px 10px;border-radius:999px;
-    background:#f6f0ff; /* fallback */
+    background:#f6f0ff;
     background:color-mix(in oklab,var(--accent) 10%, var(--card));
     color:var(--accent);
-    border:1px solid #e0d4ff; /* fallback */
+    border:1px solid #e0d4ff;
     border-color:color-mix(in oklab,var(--accent) 25%, var(--border));
   }
 
-  /* Mini-statlistor (topp 5) */
   .mini-list{
     display:flex;
     flex-direction:column;
@@ -253,7 +251,6 @@
     </div>
   </div>
 
-  <!-- Antal matcher per domare -->
   <div class="row">
     <div class="card">
       <div class="muted">Antal matcher per domare (baserat på valda filter)</div>
@@ -261,7 +258,6 @@
     </div>
   </div>
 
-  <!-- Topp 5 serier + topp 5 domarkollegor -->
   <div class="row stats-row">
     <div class="card">
       <div class="muted">Topp 5 serier för vald domare (baserat på valda filter)</div>
@@ -277,7 +273,6 @@
     </div>
   </div>
 
-  <!-- Matchlista för vald domare -->
   <div class="row">
     <div class="card" style="grid-column:1;">
       <div class="muted">Matchlista för vald domare (baserat på valda filter)</div>
@@ -302,9 +297,8 @@
 </div>
 
 <script>
-(async function(){
-  const files = await (await fetch("csv/files.json")).json();
-  const texts = await Promise.all(files.map(f => fetch("csv/" + f).then(r => r.text())));
+(function(){
+  const CACHE_KEY = "refstat_domarstat_v1";
 
   function parseCSV(s){
     const out=[], re=/\s*(?:"([^"]*(?:""[^"]*)*)"|([^,"\r\n]*))\s*(,|\r?\n|$)/g;
@@ -324,7 +318,8 @@
   function norm(rec){
     const g=k=>rec[k]??""; const first=x=>(x||"").split(/[ T]/)[0];
     const refs=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
-               [g("Domare1"),g("Domare2"),g("Domare3"),g("Referee1"),g("Referee2"),g("Referee3")]
+               [g("Domare1"),g("Domare2"),g("Domare3"),
+                g("Referee1"),g("Referee2"),g("Referee3")]
                .filter(Boolean).join(",");
     const date = first(g("Date")||g("Datum")||g("MatchDate")||g("Start")||g("Kickoff"));
     return {
@@ -337,304 +332,394 @@
     };
   }
 
-  const all = texts.flatMap(t => parseCSV(t).map(norm)).filter(r => r.date);
-
-  const $seasonSelect   = document.getElementById("seasonSelect");
-  const $refSelect      = document.getElementById("refSelect");
-  const $seriesSelect   = document.getElementById("seriesSelect");
-  const $rows           = document.getElementById("rows");
-  const $top            = document.getElementById("toplist");
-  const $clearBtn       = document.getElementById("clearBtn");
-  const $topSeries      = document.getElementById("topSeries");
-  const $topColleagues  = document.getElementById("topColleagues");
-  const $seasonLabel    = document.getElementById("seasonLabel");
-
-  let currentSeason = "";
-  let currentRef    = "";
-  let currentSeries = "";
-
-  // Dynamisk text för statistikperiod
-  const allDates = all.map(m => m.date).filter(Boolean).sort();
-  if($seasonLabel && allDates.length){
-    const minDate = allDates[0];
-    const maxDate = allDates[allDates.length - 1];
-    $seasonLabel.textContent = `Säsong (inom ${minDate} - ${maxDate})`;
-  }
-
-  function seasonLabelFromDate(d){
-    if(!d) return "";
-    const year = parseInt(d.slice(0,4),10);
-    const md   = d.slice(5);
-    const startYear = (md >= "07-01") ? year : year - 1;
-    const nextYear  = startYear + 1;
-    return startYear + "/" + String(nextYear).slice(-2);
-  }
-
-  const seasons = new Map();
-  for(const m of all){
-    const label = seasonLabelFromDate(m.date);
-    if(!label) continue;
-    const startYear = parseInt(label.slice(0,4),10);
-    const nextYear  = startYear + 1;
-    if(!seasons.has(label)){
-      seasons.set(label,{
-        start: startYear + "-07-01",
-        end:   nextYear  + "-06-30"
-      });
-    }
-  }
-
-  const seasonLabels = [...seasons.keys()]
-    .sort((a,b)=>seasons.get(b).start.localeCompare(seasons.get(a).start));
-
-  function updateSeasonOptions(){
-    const set = new Set();
-    for(const m of all){
-      if(currentSeries && m.series !== currentSeries) continue;
-      if(currentRef && !m.referees.includes(currentRef)) continue;
-      const label = seasonLabelFromDate(m.date);
-      if(label) set.add(label);
-    }
-    const prev = currentSeason;
-    const arr = seasonLabels.filter(s => set.size === 0 || set.has(s));
-
-    $seasonSelect.innerHTML =
-      '<option value="">(alla säsonger)</option>' +
-      arr.map(s => `<option value="${s}">${s}</option>`).join("");
-
-    if(prev && set.has(prev)){
-      currentSeason = prev;
-      $seasonSelect.value = prev;
-    }else{
-      currentSeason = "";
-      $seasonSelect.value = "";
-    }
-  }
-
-  updateSeasonOptions();
-
-  function inCurrentSeason(date){
-    if(!currentSeason) return true;
-    const s = seasons.get(currentSeason);
-    if(!s) return true;
-    return (!s.start || date >= s.start) && (!s.end || date <= s.end);
-  }
-
-  function updateRefOptions(){
-    const set = new Set();
-    for(const m of all){
-      if(!inCurrentSeason(m.date)) continue;
-      if(currentSeries && m.series !== currentSeries) continue;
-      for(const r of m.referees) set.add(r);
-    }
-    const prev = currentRef;
-    const arr = [...set].sort((a,b)=>a.localeCompare(b,"sv"));
-    $refSelect.innerHTML =
-      '<option value="">(alla domare)</option>' +
-      arr.map(n => `<option value="${n}">${n}</option>`).join("");
-
-    if(prev && set.has(prev)){
-      currentRef = prev;
-      $refSelect.value = prev;
-    }else{
-      currentRef = "";
-      $refSelect.value = "";
-    }
-  }
-
-  function updateSeriesOptions(){
-    const set = new Set();
-    for(const m of all){
-      if(!inCurrentSeason(m.date)) continue;
-      if(currentRef && !m.referees.includes(currentRef)) continue;
-      if(m.series) set.add(m.series);
-    }
-    const prev = currentSeries;
-    const arr = [...set].sort((a,b)=>a.localeCompare(b,"sv"));
-    $seriesSelect.innerHTML =
-      '<option value="">(alla serier)</option>' +
-      arr.map(s => `<option value="${s}">${s}</option>`).join("");
-
-    if(prev && set.has(prev)){
-      currentSeries = prev;
-      $seriesSelect.value = prev;
-    }else{
-      currentSeries = "";
-      $seriesSelect.value = "";
-    }
-  }
-
-  function renderTop(){
-    const cnt = new Map();
-    for(const m of all){
-      if(!inCurrentSeason(m.date)) continue;
-      if(currentSeries && m.series !== currentSeries) continue;
-      for(const r of m.referees){
-        cnt.set(r,(cnt.get(r)||0)+1);
-      }
-    }
-    const arr = [...cnt.entries()].sort((a,b)=>b[1]-a[1]);
-    if(!arr.length){
-      $top.textContent = "Inga matcher i vald filtrering.";
-      return;
-    }
-    $top.innerHTML = arr.map(([name,n]) => `
-      <div class="item" data-ref="${name}">
-        <span>${name}</span><span class="pill">${n}</span>
-      </div>
-    `).join("");
-
-    const items = $top.querySelectorAll(".item");
-    items.forEach(el=>{
-      if(el.dataset.ref === currentRef) el.classList.add("active");
-      el.onclick = ()=>{
-        currentRef = el.dataset.ref;
-        $refSelect.value = currentRef;
-        updateSeasonOptions();
-        updateSeriesOptions();
-        renderTop();
-        renderMatches();
-        const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
-        if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
+  function createParserWorker(){
+    const workerSource = `
+      self.onmessage = function(e){
+        const texts = e.data.texts || [];
+        function parseCSV(s){
+          const out=[], re=/\\s*(?:"([^"]*(?:""[^"]*)*)"|([^,"\\r\\n]*))\\s*(,|\\r?\\n|$)/g;
+          let m,row=[],head;
+          const val=(a,b)=>(a||b||"").replace(/""/g,'"');
+          while((m=re.exec(s))){
+            row.push(val(m[1],m[2]));
+            if(m[3]!==','){
+              out.push(row); row=[];
+              if(!m[3]) break;
+            }
+          }
+          head=out.shift()||[];
+          return out.map(r=>Object.fromEntries(head.map((h,i)=>[h.trim(),(r[i]??"").trim()])));
+        }
+        function norm(rec){
+          const g=k=>rec[k]??""; const first=x=>(x||"").split(/[ T]/)[0];
+          const refs=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
+                     [g("Domare1"),g("Domare2"),g("Domare3"),
+                      g("Referee1"),g("Referee2"),g("Referee3")]
+                     .filter(Boolean).join(",");
+          const date = first(g("Date")||g("Datum")||g("MatchDate")||g("Start")||g("Kickoff"));
+          return {
+            date,
+            series:g("Serie")||g("Series")||g("Competition")||"",
+            arena:g("Arena")||g("Venue")||g("Hall")||"",
+            home:g("Hemmalag")||g("Home")||g("HomeTeam")||g("Hemma")||"",
+            away:g("Bortalag")||g("Away")||g("AwayTeam")||g("Borta")||"",
+            referees:refs.split(/[;,|]/).map(s=>s.trim()).filter(Boolean)
+          };
+        }
+        const all=[];
+        for(const t of texts){
+          const rows = parseCSV(t).map(norm);
+          for(const r of rows){
+            if(r.date) all.push(r);
+          }
+        }
+        self.postMessage({all});
       };
-    });
+    `;
+    const blob = new Blob([workerSource], {type:"application/javascript"});
+    const url  = URL.createObjectURL(blob);
+    return new Worker(url);
   }
 
-  function renderTopMiniLists(rows){
-    if(!currentRef){
-      $topSeries.innerHTML     = '<span class="muted">Välj domare i listan eller i menyn</span>';
-      $topColleagues.innerHTML = '<span class="muted">Välj domare i listan eller i menyn</span>';
-      return;
-    }
-    if(!rows.length){
-      $topSeries.innerHTML     = '<span class="muted">Ingen seriestatistik för valda filter.</span>';
-      $topColleagues.innerHTML = '<span class="muted">Ingen kollegestatistik för valda filter.</span>';
-      return;
+  function initDomarstat(all){
+    const $seasonSelect   = document.getElementById("seasonSelect");
+    const $refSelect      = document.getElementById("refSelect");
+    const $seriesSelect   = document.getElementById("seriesSelect");
+    const $rows           = document.getElementById("rows");
+    const $top            = document.getElementById("toplist");
+    const $clearBtn       = document.getElementById("clearBtn");
+    const $topSeries      = document.getElementById("topSeries");
+    const $topColleagues  = document.getElementById("topColleagues");
+    const $seasonLabel    = document.getElementById("seasonLabel");
+
+    let currentSeason = "";
+    let currentRef    = "";
+    let currentSeries = "";
+
+    const allDates = all.map(m => m.date).filter(Boolean).sort();
+    if($seasonLabel && allDates.length){
+      const minDate = allDates[0];
+      const maxDate = allDates[allDates.length - 1];
+      $seasonLabel.textContent = `Säsong (inom ${minDate} - ${maxDate})`;
     }
 
-    const seriesCount    = new Map();
-    const colleagueCount = new Map();
+    function seasonLabelFromDate(d){
+      if(!d) return "";
+      const year = parseInt(d.slice(0,4),10);
+      const md   = d.slice(5);
+      const startYear = (md >= "07-01") ? year : year - 1;
+      const nextYear  = startYear + 1;
+      return startYear + "/" + String(nextYear).slice(-2);
+    }
 
-    for(const m of rows){
-      if(m.series){
-        seriesCount.set(m.series,(seriesCount.get(m.series)||0)+1);
+    const seasons = new Map();
+    for(const m of all){
+      const label = seasonLabelFromDate(m.date);
+      if(!label) continue;
+      const startYear = parseInt(label.slice(0,4),10);
+      const nextYear  = startYear + 1;
+      if(!seasons.has(label)){
+        seasons.set(label,{
+          start: startYear + "-07-01",
+          end:   nextYear  + "-06-30"
+        });
       }
-      const others = (m.referees||[]).filter(r=>r!==currentRef);
-      for(const col of others){
-        colleagueCount.set(col,(colleagueCount.get(col)||0)+1);
+    }
+
+    const seasonLabels = [...seasons.keys()]
+      .sort((a,b)=>seasons.get(b).start.localeCompare(seasons.get(a).start));
+
+    function updateSeasonOptions(){
+      const set = new Set();
+      for(const m of all){
+        if(currentSeries && m.series !== currentSeries) continue;
+        if(currentRef && !m.referees.includes(currentRef)) continue;
+        const label = seasonLabelFromDate(m.date);
+        if(label) set.add(label);
+      }
+      const prev = currentSeason;
+      const arr = seasonLabels.filter(s => set.size === 0 || set.has(s));
+
+      $seasonSelect.innerHTML =
+        '<option value="">(alla säsonger)</option>' +
+        arr.map(s => `<option value="${s}">${s}</option>`).join("");
+
+      if(prev && set.has(prev)){
+        currentSeason = prev;
+        $seasonSelect.value = prev;
+      }else{
+        currentSeason = "";
+        $seasonSelect.value = "";
       }
     }
 
-    function renderMap(map, container, emptyText){
-      const arr = [...map.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5);
+    updateSeasonOptions();
+
+    function inCurrentSeason(date){
+      if(!currentSeason) return true;
+      const s = seasons.get(currentSeason);
+      if(!s) return true;
+      return (!s.start || date >= s.start) && (!s.end || date <= s.end);
+    }
+
+    function updateRefOptions(){
+      const set = new Set();
+      for(const m of all){
+        if(!inCurrentSeason(m.date)) continue;
+        if(currentSeries && m.series !== currentSeries) continue;
+        for(const r of m.referees) set.add(r);
+      }
+      const prev = currentRef;
+      const arr = [...set].sort((a,b)=>a.localeCompare(b,"sv"));
+      $refSelect.innerHTML =
+        '<option value="">(alla domare)</option>' +
+        arr.map(n => `<option value="${n}">${n}</option>`).join("");
+
+      if(prev && set.has(prev)){
+        currentRef = prev;
+        $refSelect.value = prev;
+      }else{
+        currentRef = "";
+        $refSelect.value = "";
+      }
+    }
+
+    function updateSeriesOptions(){
+      const set = new Set();
+      for(const m of all){
+        if(!inCurrentSeason(m.date)) continue;
+        if(currentRef && !m.referees.includes(currentRef)) continue;
+        if(m.series) set.add(m.series);
+      }
+      const prev = currentSeries;
+      const arr = [...set].sort((a,b)=>a.localeCompare(b,"sv"));
+      $seriesSelect.innerHTML =
+        '<option value="">(alla serier)</option>' +
+        arr.map(s => `<option value="${s}">${s}</option>`).join("");
+
+      if(prev && set.has(prev)){
+        currentSeries = prev;
+        $seriesSelect.value = prev;
+      }else{
+        currentSeries = "";
+        $seriesSelect.value = "";
+      }
+    }
+
+    function renderTop(){
+      const cnt = new Map();
+      for(const m of all){
+        if(!inCurrentSeason(m.date)) continue;
+        if(currentSeries && m.series !== currentSeries) continue;
+        for(const r of m.referees){
+          cnt.set(r,(cnt.get(r)||0)+1);
+        }
+      }
+      const arr = [...cnt.entries()].sort((a,b)=>b[1]-a[1]);
       if(!arr.length){
-        container.innerHTML = `<span class="muted">${emptyText}</span>`;
+        $top.textContent = "Inga matcher i vald filtrering.";
         return;
       }
-      container.innerHTML = arr.map(([name,n],idx)=>`
-        <div class="mini-item">
-          <span class="mini-rank">${idx+1}.</span>
-          <span class="mini-name">${name}</span>
-          <span class="mini-count">${n}</span>
+      $top.innerHTML = arr.map(([name,n]) => `
+        <div class="item" data-ref="${name}">
+          <span>${name}</span><span class="pill">${n}</span>
         </div>
       `).join("");
+
+      const items = $top.querySelectorAll(".item");
+      items.forEach(el=>{
+        if(el.dataset.ref === currentRef) el.classList.add("active");
+        el.onclick = ()=>{
+          currentRef = el.dataset.ref;
+          $refSelect.value = currentRef;
+          updateSeasonOptions();
+          updateSeriesOptions();
+          renderTop();
+          renderMatches();
+          const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
+          if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
+        };
+      });
     }
 
-    renderMap(seriesCount,    $topSeries,     "Ingen seriestatistik.");
-    renderMap(colleagueCount, $topColleagues, "Ingen kollegestatistik.");
-  }
+    function renderTopMiniLists(rows){
+      if(!currentRef){
+        $topSeries.innerHTML     = '<span class="muted">Välj domare i listan eller i menyn</span>';
+        $topColleagues.innerHTML = '<span class="muted">Välj domare i listan eller i menyn</span>';
+        return;
+      }
+      if(!rows.length){
+        $topSeries.innerHTML     = '<span class="muted">Ingen seriestatistik för valda filter.</span>';
+        $topColleagues.innerHTML = '<span class="muted">Ingen kollegestatistik för valda filter.</span>';
+        return;
+      }
 
-  function renderMatches(){
-    const rows = all
-      .filter(m =>
-        inCurrentSeason(m.date) &&
-        (!currentRef || m.referees.includes(currentRef)) &&
-        (!currentSeries || m.series === currentSeries)
-      )
-      .sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+      const seriesCount    = new Map();
+      const colleagueCount = new Map();
 
-    // uppdatera topp 5-korten baserat på samma rows
-    renderTopMiniLists(rows);
-
-    if(!currentRef){
-      $rows.innerHTML = '<tr><td colspan="6" class="muted">Välj domare i listan eller i menyn</td></tr>';
-    }else if(!rows.length){
-      $rows.innerHTML = `<tr><td colspan="6" class="muted">Inga matcher för ${currentRef} i vald filtrering.</td></tr>`;
-    }else{
-      $rows.innerHTML = rows.map(m=>{
+      for(const m of rows){
+        if(m.series){
+          seriesCount.set(m.series,(seriesCount.get(m.series)||0)+1);
+        }
         const others = (m.referees||[]).filter(r=>r!==currentRef);
-        return (
-          '<tr>' +
-            `<td data-label="Datum">${m.date}</td>` +
-            `<td data-label="Serie">${m.series}</td>` +
-            `<td data-label="Hemmalag">${m.home}</td>` +
-            `<td data-label="Bortalag">${m.away}</td>` +
-            `<td data-label="Arena">${m.arena}</td>` +
-            `<td data-label="Domarkollega">${(others.join(", ")||"—")}</td>` +
-          '</tr>'
-        );
-      }).join("");
+        for(const col of others){
+          colleagueCount.set(col,(colleagueCount.get(col)||0)+1);
+        }
+      }
+
+      function renderMap(map, container, emptyText){
+        const arr = [...map.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5);
+        if(!arr.length){
+          container.innerHTML = `<span class="muted">${emptyText}</span>`;
+          return;
+        }
+        container.innerHTML = arr.map(([name,n],idx)=>`
+          <div class="mini-item">
+            <span class="mini-rank">${idx+1}.</span>
+            <span class="mini-name">${name}</span>
+            <span class="mini-count">${n}</span>
+          </div>
+        `).join("");
+      }
+
+      renderMap(seriesCount,    $topSeries,     "Ingen seriestatistik.");
+      renderMap(colleagueCount, $topColleagues, "Ingen kollegestatistik.");
     }
+
+    function renderMatches(){
+      const rows = all
+        .filter(m =>
+          inCurrentSeason(m.date) &&
+          (!currentRef || m.referees.includes(currentRef)) &&
+          (!currentSeries || m.series === currentSeries)
+        )
+        .sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+
+      renderTopMiniLists(rows);
+
+      if(!currentRef){
+        $rows.innerHTML = '<tr><td colspan="6" class="muted">Välj domare i listan eller i menyn</td></tr>';
+      }else if(!rows.length){
+        $rows.innerHTML = `<tr><td colspan="6" class="muted">Inga matcher för ${currentRef} i vald filtrering.</td></tr>`;
+      }else{
+        $rows.innerHTML = rows.map(m=>{
+          const others = (m.referees||[]).filter(r=>r!==currentRef);
+          return (
+            '<tr>' +
+              `<td data-label="Datum">${m.date}</td>` +
+              `<td data-label="Serie">${m.series}</td>` +
+              `<td data-label="Hemmalag">${m.home}</td>` +
+              `<td data-label="Bortalag">${m.away}</td>` +
+              `<td data-label="Arena">${m.arena}</td>` +
+              `<td data-label="Domarkollega">${(others.join(", ")||"—")}</td>` +
+            '</tr>'
+          );
+        }).join("");
+      }
+    }
+
+    $seasonSelect.addEventListener("change", ()=>{
+      currentSeason = $seasonSelect.value || "";
+      updateRefOptions();
+      updateSeriesOptions();
+      renderTop();
+      renderMatches();
+      if(currentRef){
+        const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
+        if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
+      }else{
+        $top.scrollTop = 0;
+      }
+    });
+
+    $seriesSelect.addEventListener("change", ()=>{
+      currentSeries = $seriesSelect.value || "";
+      updateSeasonOptions();
+      updateRefOptions();
+      renderTop();
+      renderMatches();
+      if(currentRef){
+        const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
+        if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
+      }else{
+        $top.scrollTop = 0;
+      }
+    });
+
+    $refSelect.addEventListener("change", ()=>{
+      currentRef = $refSelect.value || "";
+      updateSeasonOptions();
+      updateSeriesOptions();
+      renderTop();
+      renderMatches();
+      const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
+      if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
+    });
+
+    $clearBtn.addEventListener("click", ()=>{
+      currentSeason = "";
+      currentRef    = "";
+      currentSeries = "";
+      $seasonSelect.value = "";
+      $refSelect.value    = "";
+      $seriesSelect.value = "";
+      updateSeasonOptions();
+      updateRefOptions();
+      updateSeriesOptions();
+      renderTop();
+      renderMatches();
+      $top.scrollTop = 0;
+    });
+
+    updateRefOptions();
+    updateSeriesOptions();
+    renderTop();
+    renderMatches();
   }
 
-  $seasonSelect.addEventListener("change", ()=>{
-    currentSeason = $seasonSelect.value || "";
-    updateRefOptions();
-    updateSeriesOptions();
-    renderTop();
-    renderMatches();
-    if(currentRef){
-      const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
-      if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
-    }else{
-      $top.scrollTop = 0;
+  (async function load(){
+    try{
+      const cached = sessionStorage.getItem(CACHE_KEY);
+      if(cached){
+        const all = JSON.parse(cached);
+        if(Array.isArray(all) && all.length){
+          initDomarstat(all);
+          return;
+        }
+      }
+    }catch(e){
+      console.warn("sessionStorage otillgänglig/korrupt", e);
     }
-  });
 
-  $seriesSelect.addEventListener("change", ()=>{
-    currentSeries = $seriesSelect.value || "";
-    updateSeasonOptions();
-    updateRefOptions();
-    renderTop();
-    renderMatches();
-    if(currentRef){
-      const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
-      if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
+    const filesResp = await fetch("csv/files.json");
+    const files = await filesResp.json();
+    const texts = await Promise.all(files.map(f => fetch("csv/" + f).then(r => r.text())));
+
+    if(window.Worker){
+      const worker = createParserWorker();
+      worker.onmessage = function(e){
+        const all = e.data.all || [];
+        try{
+          sessionStorage.setItem(CACHE_KEY, JSON.stringify(all));
+        }catch(err){
+          console.warn("Kunde inte skriva cache till sessionStorage", err);
+        }
+        initDomarstat(all);
+        worker.terminate();
+      };
+      worker.postMessage({texts});
     }else{
-      $top.scrollTop = 0;
+      const all = texts.flatMap(t => parseCSV(t).map(norm)).filter(r=>r.date);
+      try{
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify(all));
+      }catch(err){
+        console.warn("Kunde inte skriva cache till sessionStorage", err);
+      }
+      initDomarstat(all);
     }
+  })().catch(err=>{
+    console.error("Fel vid laddning av data", err);
   });
-
-  $refSelect.addEventListener("change", ()=>{
-    currentRef = $refSelect.value || "";
-    updateSeasonOptions();
-    updateSeriesOptions();
-    renderTop();
-    renderMatches();
-    const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
-    if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
-  });
-
-  $clearBtn.addEventListener("click", ()=>{
-    currentSeason = "";
-    currentRef    = "";
-    currentSeries = "";
-    $seasonSelect.value = "";
-    $refSelect.value    = "";
-    $seriesSelect.value = "";
-    updateSeasonOptions();
-    updateRefOptions();
-    updateSeriesOptions();
-    renderTop();
-    renderMatches();
-    $top.scrollTop = 0;
-  });
-
-  // Init
-  updateRefOptions();
-  updateSeriesOptions();
-  renderTop();
-  renderMatches();
 })();
 </script>
 </html>
