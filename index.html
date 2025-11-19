@@ -44,7 +44,7 @@
   .row{display:grid;gap:12px;grid-template-columns:1fr;margin:10px 0}
   @media(min-width:820px){
     .row.filters{grid-template-columns:repeat(4,minmax(0,1fr));}
-    .row.stats-row{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .row.stats-row{grid-template-columns:repeat(3,minmax(0,1fr));} /* 3 kort i stats-raden */
   }
 
   .card{
@@ -260,13 +260,21 @@
 
   <div class="row stats-row">
     <div class="card">
-      <div class="muted">Topp 5 serier för vald domare (baserat på valda filter)</div>
+      <div class="muted">Antal matcher per säsong för vald domare (topp 3)</div>
+      <div id="topSeasons" class="mini-list">
+        <span class="muted">Välj domare i listan eller i menyn</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="muted">Antal matcher per serie för vald domare (topp 3)</div>
       <div id="topSeries" class="mini-list">
         <span class="muted">Välj domare i listan eller i menyn</span>
       </div>
     </div>
+
     <div class="card">
-      <div class="muted">Topp 5 domarkollegor för vald domare (baserat på valda filter)</div>
+      <div class="muted">Antal matcher per domarkollega för vald domare (topp 3)</div>
       <div id="topColleagues" class="mini-list">
         <span class="muted">Välj domare i listan eller i menyn</span>
       </div>
@@ -389,6 +397,7 @@
     const $top            = document.getElementById("toplist");
     const $clearBtn       = document.getElementById("clearBtn");
     const $topSeries      = document.getElementById("topSeries");
+    const $topSeasons     = document.getElementById("topSeasons");
     const $topColleagues  = document.getElementById("topColleagues");
     const $seasonLabel    = document.getElementById("seasonLabel");
 
@@ -568,7 +577,7 @@
       }
 
       function renderMap(map, container, emptyText){
-        const arr = [...map.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5);
+        const arr = [...map.entries()].sort((a,b)=>b[1]-a[1]).slice(0,3);
         if(!arr.length){
           container.innerHTML = `<span class="muted">${emptyText}</span>`;
           return;
@@ -586,6 +595,49 @@
       renderMap(colleagueCount, $topColleagues, "Ingen kollegestatistik.");
     }
 
+    function renderTopSeasons(rows){
+      if(!currentRef){
+        $topSeasons.innerHTML = '<span class="muted">Välj domare i listan eller i menyn</span>';
+        return;
+      }
+      if(!rows.length){
+        $topSeasons.innerHTML = '<span class="muted">Ingen säsongsstatistik för valda filter.</span>';
+        return;
+      }
+
+      const seasonCount = new Map();
+      for(const m of rows){
+        const label = seasonLabelFromDate(m.date);
+        if(!label) continue;
+        seasonCount.set(label,(seasonCount.get(label)||0)+1);
+      }
+
+      const arr = [...seasonCount.entries()].sort((a,b)=>{
+        // sortera efter säsongens startdatum med seasons-map om möjligt
+        const sa = seasons.get(a[0]);
+        const sb = seasons.get(b[0]);
+        const ka = sa ? sa.start : a[0];
+        const kb = sb ? sb.start : b[0];
+        // flest matcher först, vid lika: nyare säsong först
+        const diff = b[1]-a[1];
+        if(diff !== 0) return diff;
+        return kb.localeCompare(ka);
+      }).slice(0,3);
+
+      if(!arr.length){
+        $topSeasons.innerHTML = '<span class="muted">Ingen säsongsstatistik.</span>';
+        return;
+      }
+
+      $topSeasons.innerHTML = arr.map(([season,n],idx)=>`
+        <div class="mini-item">
+          <span class="mini-rank">${idx+1}.</span>
+          <span class="mini-name">${season}</span>
+          <span class="mini-count">${n}</span>
+        </div>
+      `).join("");
+    }
+
     function renderMatches(){
       const rows = all
         .filter(m =>
@@ -596,6 +648,7 @@
         .sort((a,b)=>(b.date||"").localeCompare(a.date||""));
 
       renderTopMiniLists(rows);
+      renderTopSeasons(rows);
 
       if(!currentRef){
         $rows.innerHTML = '<tr><td colspan="6" class="muted">Välj domare i listan eller i menyn</td></tr>';
