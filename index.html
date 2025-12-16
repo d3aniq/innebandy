@@ -1,778 +1,966 @@
 <!doctype html>
 <html lang="sv">
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Västsvensk domarstatistik</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DʒaniQ RefStat</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'sans-serif'],
+          display: ['Outfit', 'sans-serif'],
+        },
+        colors: {
+          dark: {
+            bg: '#050505',      
+            surface: '#0f0f11', 
+            card: '#141416',    
+            border: '#27272a',
+          },
+          brand: {
+            primary: '#8b5cf6', // Violet
+            accent: '#d946ef',  // Fuchsia
+          }
+        },
+        animation: {
+          'fade-in': 'fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+          'pop-up': 'popUp 0.2s ease-out forwards',
+        },
+        keyframes: {
+          fadeIn: {
+            '0%': { opacity: '0', transform: 'translateY(5px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          popUp: {
+            '0%': { opacity: '0', transform: 'translate(-50%, -40%) scale(0.95)' },
+            '100%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' },
+          }
+        }
+      }
+    }
+  }
+</script>
 
 <style>
-  :root{
-    --bg:#f7f9fc; --card:#ffffff; --text:#0f172a; --muted:#6b7280; --border:#e6e9f2;
-    --accent:#6d28d9;
-    --accent-2:#9333ea;
-    --accent-weak:#ede9fe;
+  body {
+    background-color: #050505;
+    color: #e4e4e7;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
   }
 
-  .disclaimer{
-    margin:18px 4px 8px;
-    font-size:11px;
-    line-height:1.5;
-    color:var(--muted);
-    text-align:center;
-  }
-  .disclaimer a{
-    color:var(--accent);
-    text-decoration:none;
-  }
-  .disclaimer a:hover{
-    text-decoration:underline;
+  .glow-orb { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.25; pointer-events: none; }
+  .orb-1 { top: -20%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, #7c3aed 0%, transparent 70%); }
+  .orb-2 { bottom: -20%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, #2563eb 0%, transparent 70%); }
+  
+  select { -webkit-appearance: none; -moz-appearance: none; appearance: none; }
+  .tabular-nums { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+  
+  /* Slim Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+  .glass-card {
+    background: rgba(20, 20, 22, 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   }
 
-  *{box-sizing:border-box}
-  body{
-    margin:14px;
-    font:15px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
-    color:var(--text); background:var(--bg);
+  .checkbox-wrapper input:checked + div {
+      background-color: rgba(139, 92, 246, 0.2);
+      border-color: rgba(139, 92, 246, 0.5);
+      color: white;
   }
-  .wrap{max-width:1100px;margin:auto}
-
-  h1{
-    font-size:30px;margin:14px 0 18px;text-align:center;font-weight:900;letter-spacing:.4px;
-    background:linear-gradient(90deg,var(--accent),var(--accent-2));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-
-  .row{display:grid;gap:12px;grid-template-columns:1fr;margin:10px 0}
-  @media(min-width:820px){
-    .row.filters{grid-template-columns:repeat(4,minmax(0,1fr));}
-    .row.stats-row{grid-template-columns:repeat(3,minmax(0,1fr));} /* 3 kort i stats-raden */
-  }
-
-  .card{
-    background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 16px;
-    box-shadow:0 4px 10px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.04);
-  }
-  .muted{color:var(--muted);font-size:12px;margin-bottom:6px}
-
-  .ref-select{
-    width:100%;
-    padding:6px 0;
-    border:none;
-    background:transparent;
-    color:var(--text);
-    font-size:18px;
-    font-weight:800;
-    outline:none;
-  }
-
-  .clear-btn{
-    width:100%;
-    padding:10px 12px;
-    border-radius:999px;
-    border:1px solid var(--border);
-    background:#f3e8ff; /* fallback */
-    background:color-mix(in oklab,var(--accent-weak) 60%, var(--card));
-    color:var(--accent);
-    font-weight:700;
-    font-size:14px;
-    cursor:pointer;
-    transition:background .15s, box-shadow .15s, transform .05s;
-  }
-  .clear-btn:hover{
-    background:#ede9ff; /* fallback */
-    background:color-mix(in oklab,var(--accent-weak) 80%, var(--card));
-    box-shadow:0 3px 10px rgba(0,0,0,.06);
-  }
-  .clear-btn:active{ transform:translateY(1px); }
-
-  .table-wrap{ width:100%; overflow-x:hidden; }
-  table{
-    width:100%;
-    border-collapse:collapse;background:var(--card);
-    border:1px solid var(--border);border-radius:16px;overflow:hidden;
-    table-layout:auto;
-  }
-  thead{
-    background:#f3f4ff; /* fallback */
-    background:color-mix(in oklab,var(--accent-weak) 30%, var(--card));
-    color:var(--accent);
-  }
-  th,td{padding:11px 12px;border-bottom:1px solid var(--border);text-align:left}
-  th{font-weight:800;text-transform:uppercase;letter-spacing:.3px}
-  th:first-child, td:first-child{white-space:nowrap;width:120px;}
-
-  @media (min-width:601px){
-    tbody tr:hover{
-      background:#f3f4ff;
-      background:color-mix(in oklab,var(--accent-weak) 40%, var(--card));
-    }
-  }
-
-  .list{
-    max-height:420px;overflow:auto;border:1px solid var(--border);
-    border-radius:16px;background:var(--card);
-    -webkit-overflow-scrolling:touch;
-  }
-  .item{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:13px 14px;border-bottom:1px solid var(--border);cursor:pointer;
-    transition:background .15s, transform .05s;
-  }
-  .item:hover{
-    background:#f3f4ff;
-    background:color-mix(in oklab,var(--accent-weak) 40%, var(--card))
-  }
-  .item:active{transform:translateY(1px)}
-  .item.active{
-    background:#ede9ff;
-    background:color-mix(in oklab,var(--accent-weak) 60%, var(--card));
-    font-weight:600
-  }
-  .pill{
-    display:inline-flex;align-items:center;gap:6px;font:600 12px/1 Inter,system-ui;
-    padding:3px 10px;border-radius:999px;
-    background:#f6f0ff;
-    background:color-mix(in oklab,var(--accent) 10%, var(--card));
-    color:var(--accent);
-    border:1px solid #e0d4ff;
-    border-color:color-mix(in oklab,var(--accent) 25%, var(--border));
-  }
-
-  .mini-list{
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    font-size:14px;
-  }
-  .mini-item{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    padding:4px 0;
-    border-bottom:1px dashed var(--border);
-  }
-  .mini-item:last-child{
-    border-bottom:none;
-  }
-  .mini-rank{
-    font-weight:700;
-    color:var(--accent);
-    width:20px;
-  }
-  .mini-name{
-    flex:1;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-  }
-  .mini-count{
-    font-variant-numeric:tabular-nums;
-    font-weight:600;
-    min-width:20px;
-    text-align:right;
-  }
-
-  @media (max-width:600px){
-    body{ margin:8px; font-size:14px; }
-    h1{ font-size:24px; margin:10px 0 14px; }
-    .card{ padding:10px 12px; border-radius:14px; box-shadow:0 2px 8px rgba(0,0,0,.05); }
-    .list{ max-height:320px; }
-    th,td{ font-size:13px; padding:8px 8px; }
-    .ref-select{ font-size:16px; }
-
-    .table-wrap table{ border:none; }
-    thead{ display:none; }
-
-    tbody tr{
-      display:block;
-      background:var(--card);
-      margin-bottom:14px;
-      border-radius:14px;
-      padding:10px 12px;
-      box-shadow:0 3px 10px rgba(0,0,0,.08);
-      border:1px solid var(--border);
-    }
-
-    tbody td{
-      display:flex;
-      justify-content:space-between;
-      padding:6px 4px;
-      border-bottom:none;
-      word-break:break-word;
-    }
-
-    td[data-label="Datum"]{
-      font-weight:700;
-      font-size:14px;
-      padding-bottom:10px;
-      margin-bottom:6px;
-      border-bottom:1px solid var(--border);
-    }
-    td[data-label="Datum"]::before{
-      content:"Datum";
-      font-weight:700;
-      color:var(--accent);
-      margin-right:10px;
-    }
-
-    td:not([data-label="Datum"])::before{
-      content:attr(data-label);
-      font-weight:600;
-      color:var(--muted);
-      margin-right:10px;
-    }
-  }
+  .interactive-text { transition: color 0.2s; cursor: pointer; }
+  .interactive-text:hover { color: #fff; text-decoration: underline; text-decoration-color: #8b5cf6; text-underline-offset: 4px; }
 </style>
+</head>
 
-<div class="wrap">
-  <h1>VÄSTSVENSK DOMARSTATISTIK</h1>
+<body class="p-4 md:p-6 antialiased selection:bg-brand-primary selection:text-white">
 
-  <div class="row filters" id="filters">
-    <div class="card">
-      <div id="seasonLabel" class="muted">Säsong</div>
-      <select id="seasonSelect" class="ref-select">
-        <option value="">(alla säsonger)</option>
-      </select>
-    </div>
-    <div class="card">
-      <div class="muted">Serie</div>
-      <select id="seriesSelect" class="ref-select">
-        <option value="">(alla serier)</option>
-      </select>
-    </div>
-    <div class="card">
-      <div class="muted">Domare</div>
-      <select id="refSelect" class="ref-select">
-        <option value="">(alla domare)</option>
-      </select>
-    </div>
-    <div class="card">
-      <div class="muted">Rensa filter</div>
-      <button id="clearBtn" class="clear-btn">Rensa</button>
-    </div>
-  </div>
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
 
-  <div class="row">
-    <div class="card">
-      <div class="muted">Antal matcher per domare (baserat på valda filter)</div>
-      <div id="toplist" class="list">Laddar…</div>
-    </div>
-  </div>
+  <div id="modal-backdrop" onclick="closeAllModals()" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[90] transition-opacity"></div>
 
-  <div class="row stats-row">
-    <div class="card">
-      <div class="muted">Antal matcher per säsong för vald domare (topp 3)</div>
-      <div id="topSeasons" class="mini-list">
-        <span class="muted">Välj domare i listan eller i menyn</span>
+  <div id="modal-Serier" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-sm max-h-[80vh] bg-dark-surface border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col animate-pop-up">
+      <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+          <h3 class="font-display font-bold text-white text-lg">Välj Serier</h3>
+          <button onclick="closeAllModals()" class="text-zinc-400 hover:text-white"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
       </div>
-    </div>
-
-    <div class="card">
-      <div class="muted">Antal matcher per serie för vald domare (topp 3)</div>
-      <div id="topSeries" class="mini-list">
-        <span class="muted">Välj domare i listan eller i menyn</span>
+      <div id="list-Serier" class="flex-1 overflow-y-auto p-2 custom-scrollbar"></div>
+      <div class="p-3 border-t border-white/10 bg-white/5">
+          <button onclick="closeAllModals()" class="w-full py-2 bg-brand-primary hover:bg-violet-500 text-white font-bold rounded-lg text-xs uppercase tracking-wide transition-colors">Klar</button>
       </div>
-    </div>
-
-    <div class="card">
-      <div class="muted">Antal matcher per domarkollega för vald domare (topp 3)</div>
-      <div id="topColleagues" class="mini-list">
-        <span class="muted">Välj domare i listan eller i menyn</span>
-      </div>
-    </div>
   </div>
 
-  <div class="row">
-    <div class="card" style="grid-column:1;">
-      <div class="muted">Matchlista för vald domare (baserat på valda filter)</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th>Datum</th><th>Serie</th><th>Hemmalag</th><th>Bortalag</th><th>Arena</th><th>Domarkollega</th>
-          </tr></thead>
-          <tbody id="rows">
-            <tr><td colspan="6" class="muted">Välj domare i listan eller i menyn</td></tr>
-          </tbody>
-        </table>
+  <div id="modal-Domare" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-sm max-h-[80vh] bg-dark-surface border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col animate-pop-up">
+      <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+          <h3 class="font-display font-bold text-white text-lg">Välj Domare</h3>
+          <button onclick="closeAllModals()" class="text-zinc-400 hover:text-white"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
       </div>
-    </div>
+      <div id="list-Domare" class="flex-1 overflow-y-auto p-2 custom-scrollbar"></div>
+      <div class="p-3 border-t border-white/10 bg-white/5">
+          <button onclick="closeAllModals()" class="w-full py-2 bg-brand-primary hover:bg-violet-500 text-white font-bold rounded-lg text-xs uppercase tracking-wide transition-colors">Klar</button>
+      </div>
   </div>
 
-  <div class="disclaimer">
-    Inofficiell sida baserad på öppna uppgifter från
-    <a href="https://stats.innebandy.se" target="_blank">stats.innebandy.se</a>
-    <br>Kontakt <a href="mailto:refstat@dzanic.se">refstat@dzanic.se</a>
+
+  <div class="max-w-[1400px] mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <aside class="lg:col-span-3 flex flex-col gap-6 relative z-50">
+        
+        <header class="flex flex-col items-center justify-center pt-2">
+            <h1 class="font-display text-4xl tracking-tighter flex items-baseline gap-2">
+                <span class="font-semibold text-zinc-600">DʒaniQ</span>
+                <span class="font-black bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-white drop-shadow-sm">RefStat</span>
+            </h1>
+            <div class="flex items-center gap-2 mt-2">
+                <span class="h-px w-6 bg-zinc-700"></span>
+                <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em]">Domare • Data • Insikt</p>
+                <span class="h-px w-6 bg-zinc-700"></span>
+            </div>
+        </header>
+
+        <div class="glass-card rounded-xl p-4 relative overflow-hidden">
+          <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50"></div>
+
+          <div class="space-y-4">
+            <div class="space-y-2">
+                <div class="bg-dark-surface/50 rounded-lg p-2 border border-white/5 flex flex-col gap-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[10px] font-bold uppercase tracking-wide text-zinc-400">Fotboll</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" id="switchFotboll" class="sr-only peer" onchange="toggleSport('fotboll')">
+                          <div class="w-7 h-4 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-zinc-500 after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-emerald-900 peer-checked:after:bg-emerald-400 border border-white/10 peer-checked:border-emerald-500/50"></div>
+                        </label>
+                    </div>
+                    <select id="selectFotboll" onchange="validateForm(); saveSettings();" disabled class="w-full bg-dark-bg text-zinc-300 text-[10px] border border-white/10 rounded px-1 py-1 outline-none focus:border-emerald-500/50 disabled:opacity-30">
+                        <option value="">Förbund...</option>
+                    </select>
+                </div>
+
+                <div class="bg-dark-surface/50 rounded-lg p-2 border border-white/5 flex flex-col gap-2">
+                     <div class="flex justify-between items-center">
+                        <span class="text-[10px] font-bold uppercase tracking-wide text-zinc-400">Innebandy</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" id="switchInnebandy" class="sr-only peer" onchange="toggleSport('innebandy')">
+                          <div class="w-7 h-4 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-zinc-500 after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-blue-900 peer-checked:after:bg-blue-400 border border-white/10 peer-checked:border-blue-500/50"></div>
+                        </label>
+                    </div>
+                    <select id="selectInnebandy" onchange="validateForm(); saveSettings();" disabled class="w-full bg-dark-bg text-zinc-300 text-[10px] border border-white/10 rounded px-1 py-1 outline-none focus:border-blue-500/50 disabled:opacity-30">
+                        <option value="">Förbund...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="step-dates" class="opacity-30 pointer-events-none transition-opacity duration-300">
+               <div class="flex gap-1 mb-1.5">
+                  <button onclick="setQuickDate(7)" class="flex-1 text-[9px] font-bold bg-white/5 hover:bg-white/10 border border-white/5 py-1 rounded text-zinc-400">7d</button>
+                  <button onclick="setQuickDate(30)" class="flex-1 text-[9px] font-bold bg-white/5 hover:bg-white/10 border border-white/5 py-1 rounded text-zinc-400">30d</button>
+                  <button onclick="setQuickDate(365)" class="flex-1 text-[9px] font-bold bg-white/5 hover:bg-white/10 border border-white/5 py-1 rounded text-zinc-400">1år</button>
+               </div>
+               <div class="flex gap-2">
+                 <input id="dateFrom" type="date" onchange="validateForm(); saveSettings();" class="w-full bg-dark-bg/50 text-zinc-400 text-[10px] font-medium border border-white/10 rounded px-1 py-1.5 uppercase">
+                 <input id="dateTo" type="date" onchange="validateForm(); saveSettings();" class="w-full bg-dark-bg/50 text-zinc-400 text-[10px] font-medium border border-white/10 rounded px-1 py-1.5 uppercase">
+               </div>
+            </div>
+
+            <button id="btnLoad" onclick="loadData()" disabled class="w-full rounded-lg bg-zinc-800 text-zinc-500 font-display font-bold py-2.5 border border-white/5 transition-all duration-300 opacity-50 cursor-not-allowed shadow-lg text-xs tracking-wide">
+              HÄMTA STATISTIK
+            </button>
+            
+            <div id="loadingContainer" class="hidden animate-fade-in mt-2">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-[9px] font-bold text-zinc-500 uppercase">Bearbetar</span>
+                    <span id="loadingPercent" class="text-[9px] font-bold text-brand-primary tabular-nums">0%</span>
+                </div>
+              <div class="relative w-full bg-white/5 rounded-full h-1 overflow-hidden"><div id="loadingBar" class="absolute left-0 top-0 h-full bg-brand-primary rounded-full transition-all duration-300" style="width: 0%"></div></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="navPanel" class="hidden grid-cols-3 gap-2 animate-fade-in">
+
+            <button onclick="openModal('Domare')" id="btn-Domare" class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-dark-surface border border-white/5 hover:bg-white/5 transition-all font-display font-bold text-xs text-zinc-300 hover:text-white group">
+                <span>Domare</span>
+                <svg class="w-3 h-3 opacity-50 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+
+            <button onclick="openModal('Serier')" id="btn-Serier" class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-dark-surface border border-white/5 hover:bg-white/5 transition-all font-display font-bold text-xs text-zinc-300 hover:text-white group">
+                <span>Serier</span>
+                <svg class="w-3 h-3 opacity-50 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+
+            <button onclick="resetToToplist()" id="btn-Topplista" class="flex items-center justify-center px-2 py-2.5 rounded-lg bg-dark-surface border border-white/5 hover:bg-white/5 transition-all font-display font-bold text-xs text-zinc-300 hover:text-white">
+                Totalt
+            </button>
+            
+        </div>
+        
+        <div id="selectionInfo" class="hidden text-[10px] text-center text-zinc-500 animate-fade-in">
+             <span id="selectionCount"></span>
+             <button onclick="clearSelection()" class="ml-2 text-brand-primary underline">Rensa</button>
+        </div>
+
+      </aside>
+
+      <main class="lg:col-span-9 z-0 flex flex-col justify-between min-h-[500px]">
+        <div id="resultArea" class="flex-1">
+          <div class="h-full flex flex-col items-center justify-center py-32 opacity-30 bg-white/5 rounded-2xl border border-dashed border-white/10">
+            <svg class="w-12 h-12 text-zinc-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            <p class="text-sm font-display font-bold text-zinc-300">Statistikcenter</p>
+            <p class="text-xs text-zinc-500 mt-1">Ställ in parametrar för att starta.</p>
+          </div>
+        </div>
+
+        <footer class="mt-12 pt-6 border-t border-white/5 text-center">
+             <p class="text-[10px] text-zinc-600 leading-relaxed">
+                 All data är från <a href="https://www.svenskfotboll.se" target="_blank" class="hover:text-zinc-400 transition underline decoration-zinc-700 underline-offset-2">svenskfotboll.se</a> och <a href="https://www.innebandy.se" target="_blank" class="hover:text-zinc-400 transition underline decoration-zinc-700 underline-offset-2">innebandy.se</a>
+                 <br>
+                 Ingen personlig data lagras. Kontakt <a href="mailto:refstat@dzanic.se" class="hover:text-brand-primary transition font-medium">refstat@dzanic.se</a>
+             </p>
+        </footer>
+      </main>
+
+    </div>
   </div>
-</div>
 
 <script>
-(function(){
-  const CACHE_KEY = "refstat_domarstat_v1";
+// =====================================================================
+// DATA & STATE
+// =====================================================================
+const FOTBOLL_FED = [
+  { id: 1, name: "Svenska" }, { id: 2, name: "Blekinge" }, { id: 28, name: "Bohuslän-Dalsland" },
+  { id: 4, name: "Dalarna" }, { id: 6, name: "Gestrikland" }, { id: 5, name: "Gotland" },
+  { id: 7, name: "Göteborg" }, { id: 8, name: "Halland" }, { id: 9, name: "Hälsingland" },
+  { id: 10, name: "Jämtland-Härjedalen" }, { id: 11, name: "Medelpad" }, { id: 12, name: "Norrbotten" },
+  { id: 14, name: "Skåne" }, { id: 15, name: "Småland" }, { id: 16, name: "Stockholm" },
+  { id: 17, name: "Södermanland" }, { id: 18, name: "Uppland" }, { id: 19, name: "Värmland" },
+  { id: 20, name: "Västerbotten" }, { id: 21, name: "Västergötland" }, { id: 22, name: "Västmanland" },
+  { id: 23, name: "Ångermanland" }, { id: 13, name: "Örebro Län" }, { id: 24, name: "Östergötland" }
+];
 
-  function parseCSV(s){
-    const out=[], re=/\s*(?:"([^"]*(?:""[^"]*)*)"|([^,"\r\n]*))\s*(,|\r?\n|$)/g;
-    let m,row=[],head;
-    const val=(a,b)=>(a||b||"").replace(/""/g,'"');
-    while((m=re.exec(s))){
-      row.push(val(m[1],m[2]));
-      if(m[3]!==','){
-        out.push(row); row=[];
-        if(!m[3]) break;
-      }
-    }
-    head=out.shift()||[];
-    return out.map(r=>Object.fromEntries(head.map((h,i)=>[h.trim(),(r[i]??"").trim()])));
-  }
+const INNEBANDY_FED = [
+  { id: 1, name: "Svenska" }, { id: 3, name: "Blekinge" }, { id: 13, name: "Bohuslän-Dalsland" },
+  { id: 18, name: "Dalarna" }, { id: 19, name: "Gotland" }, { id: 20, name: "Gävleborg" },
+  { id: 22, name: "Halland" }, { id: 23, name: "Hälsingland" }, { id: 24, name: "Jämtland-Härjedalen" },
+  { id: 4, name: "Norrbotten" }, { id: 44, name: "Parasport" }, { id: 6, name: "Skåne" },
+  { id: 7, name: "Småland-Blekinge" }, { id: 8, name: "Stockholm" }, { id: 9, name: "Södermanland" },
+  { id: 10, name: "Uppland" }, { id: 11, name: "Värmland" }, { id: 12, name: "Västerbotten" },
+  { id: 14, name: "Västergötland" }, { id: 17, name: "Västernorrland" }, { id: 15, name: "Västmanland" },
+  { id: 21, name: "Västsvenska" }, { id: 5, name: "Örebro Län" }, { id: 16, name: "Östergötland" }
+];
 
-  function norm(rec){
-    const g=k=>rec[k]??""; const first=x=>(x||"").split(/[ T]/)[0];
-    const refs=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
-               [g("Domare1"),g("Domare2"),g("Domare3"),
-                g("Referee1"),g("Referee2"),g("Referee3")]
-               .filter(Boolean).join(",");
-    const date = first(g("Date")||g("Datum")||g("MatchDate")||g("Start")||g("Kickoff"));
-    return {
-      date,
-      series:g("Serie")||g("Series")||g("Competition")||"",
-      arena:g("Arena")||g("Venue")||g("Hall")||"",
-      home:g("Hemmalag")||g("Home")||g("HomeTeam")||g("Hemma")||"",
-      away:g("Bortalag")||g("Away")||g("AwayTeam")||g("Borta")||"",
-      referees:refs.split(/[;,|]/).map(s=>s.trim()).filter(Boolean)
+FOTBOLL_FED.sort((a,b) => a.name.localeCompare(b.name));
+INNEBANDY_FED.sort((a,b) => a.name.localeCompare(b.name));
+
+let state = {
+  active: { fotboll: false, innebandy: false },
+  fotboll: [],
+  innebandy: [],
+  mode: "Topplista",
+  selectedSeries: [],
+  selectedReferees: [] 
+};
+
+// =====================================================================
+// HELPER: ROLE MAPPING
+// =====================================================================
+function getShortRole(roleDescription) {
+    if (!roleDescription) return "";
+    const rd = roleDescription.toLowerCase();
+    
+    // Fotboll
+    if (rd === "domare") return "HD";
+    if (rd.includes("ass") && rd.includes("1")) return "AD1";
+    if (rd.includes("ass") && rd.includes("2")) return "AD2";
+    if (rd.includes("fjärde")) return "4D";
+    
+    // Futsal (ofta via fotbolls-API)
+    if (rd.includes("först")) return "1D";
+    if (rd.includes("andr")) return "2D";
+    if (rd.includes("tredje")) return "3D";
+    
+    return roleDescription.substring(0, 2).toUpperCase(); // Fallback
+}
+
+// =====================================================================
+// PERSISTENCE & INIT
+// =====================================================================
+const STORAGE_KEY = 'refstat_pro_config_v3';
+
+function saveSettings() {
+    const settings = {
+        fotbollActive: document.getElementById('switchFotboll').checked,
+        fotbollFed: document.getElementById('selectFotboll').value,
+        innebandyActive: document.getElementById('switchInnebandy').checked,
+        innebandyFed: document.getElementById('selectInnebandy').value,
+        dateFrom: document.getElementById('dateFrom').value,
+        dateTo: document.getElementById('dateTo').value
     };
-  }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+}
 
-  function createParserWorker(){
-    const workerSource = `
-      self.onmessage = function(e){
-        const texts = e.data.texts || [];
-        function parseCSV(s){
-          const out=[], re=/\\s*(?:"([^"]*(?:""[^"]*)*)"|([^,"\\r\\n]*))\\s*(,|\\r?\\n|$)/g;
-          let m,row=[],head;
-          const val=(a,b)=>(a||b||"").replace(/""/g,'"');
-          while((m=re.exec(s))){
-            row.push(val(m[1],m[2]));
-            if(m[3]!==','){
-              out.push(row); row=[];
-              if(!m[3]) break;
-            }
-          }
-          head=out.shift()||[];
-          return out.map(r=>Object.fromEntries(head.map((h,i)=>[h.trim(),(r[i]??"").trim()])));
+function loadSettings() {
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (!data) return;
+    try {
+        const settings = JSON.parse(data);
+        if (settings.fotbollActive) {
+            document.getElementById('switchFotboll').checked = true;
+            document.getElementById('selectFotboll').disabled = false;
+            if(settings.fotbollFed) document.getElementById('selectFotboll').value = settings.fotbollFed;
+            state.active.fotboll = true;
         }
-        function norm(rec){
-          const g=k=>rec[k]??""; const first=x=>(x||"").split(/[ T]/)[0];
-          const refs=(g("Referees")||g("Domare")||g("DomareLista")||"") ||
-                     [g("Domare1"),g("Domare2"),g("Domare3"),
-                      g("Referee1"),g("Referee2"),g("Referee3")]
-                     .filter(Boolean).join(",");
-          const date = first(g("Date")||g("Datum")||g("MatchDate")||g("Start")||g("Kickoff"));
-          return {
-            date,
-            series:g("Serie")||g("Series")||g("Competition")||"",
-            arena:g("Arena")||g("Venue")||g("Hall")||"",
-            home:g("Hemmalag")||g("Home")||g("HomeTeam")||g("Hemma")||"",
-            away:g("Bortalag")||g("Away")||g("AwayTeam")||g("Borta")||"",
-            referees:refs.split(/[;,|]/).map(s=>s.trim()).filter(Boolean)
-          };
+        if (settings.innebandyActive) {
+            document.getElementById('switchInnebandy').checked = true;
+            document.getElementById('selectInnebandy').disabled = false;
+            if(settings.innebandyFed) document.getElementById('selectInnebandy').value = settings.innebandyFed;
+            state.active.innebandy = true;
         }
-        const all=[];
-        for(const t of texts){
-          const rows = parseCSV(t).map(norm);
-          for(const r of rows){
-            if(r.date) all.push(r);
-          }
-        }
-        self.postMessage({all});
-      };
-    `;
-    const blob = new Blob([workerSource], {type:"application/javascript"});
-    const url  = URL.createObjectURL(blob);
-    return new Worker(url);
-  }
+        if (settings.dateFrom) document.getElementById('dateFrom').value = settings.dateFrom;
+        if (settings.dateTo) document.getElementById('dateTo').value = settings.dateTo;
+        
+        validateForm(); 
+    } catch(e) {}
+}
 
-  function initDomarstat(all){
-    const $seasonSelect   = document.getElementById("seasonSelect");
-    const $refSelect      = document.getElementById("refSelect");
-    const $seriesSelect   = document.getElementById("seriesSelect");
-    const $rows           = document.getElementById("rows");
-    const $top            = document.getElementById("toplist");
-    const $clearBtn       = document.getElementById("clearBtn");
-    const $topSeries      = document.getElementById("topSeries");
-    const $topSeasons     = document.getElementById("topSeasons");
-    const $topColleagues  = document.getElementById("topColleagues");
-    const $seasonLabel    = document.getElementById("seasonLabel");
+function initDropdowns() {
+    const sF = document.getElementById("selectFotboll");
+    const sI = document.getElementById("selectInnebandy");
+    FOTBOLL_FED.forEach(f => { const opt = document.createElement("option"); opt.value = f.id; opt.textContent = f.name; sF.appendChild(opt); });
+    INNEBANDY_FED.forEach(f => { const opt = document.createElement("option"); opt.value = f.id; opt.textContent = f.name; sI.appendChild(opt); });
+    loadSettings();
+}
+initDropdowns();
 
-    let currentSeason = "";
-    let currentRef    = "";
-    let currentSeries = "";
+function toggleSport(sport) {
+    const isChecked = document.getElementById(sport === 'fotboll' ? 'switchFotboll' : 'switchInnebandy').checked;
+    state.active[sport] = isChecked;
+    const select = document.getElementById(sport === 'fotboll' ? 'selectFotboll' : 'selectInnebandy');
+    select.disabled = !isChecked;
+    validateForm();
+    saveSettings(); 
+}
 
-    const allDates = all.map(m => m.date).filter(Boolean).sort();
-    if($seasonLabel && allDates.length){
-      const minDate = allDates[0];
-      const maxDate = allDates[allDates.length - 1];
-      $seasonLabel.textContent = `Säsong (inom ${minDate} - ${maxDate})`;
+function setQuickDate(days) {
+    const end = new Date();
+    const start = new Date();
+    start.setDate(end.getDate() - days);
+    document.getElementById("dateTo").value = end.toISOString().split('T')[0];
+    document.getElementById("dateFrom").value = start.toISOString().split('T')[0];
+    validateForm();
+    saveSettings();
+}
+
+function validateForm() {
+    const from = document.getElementById("dateFrom").value;
+    const to = document.getElementById("dateTo").value;
+    const fotOn = state.active.fotboll;
+    const innOn = state.active.innebandy;
+    const fotFed = document.getElementById("selectFotboll").value;
+    const innFed = document.getElementById("selectInnebandy").value;
+    const dateContainer = document.getElementById("step-dates");
+    const btn = document.getElementById("btnLoad");
+
+    let isSportValid = (fotOn && fotFed) || (innOn && innFed);
+    if (isSportValid) {
+        dateContainer.classList.remove("opacity-30", "pointer-events-none");
+    } else {
+        dateContainer.classList.add("opacity-30", "pointer-events-none");
     }
 
-    function seasonLabelFromDate(d){
-      if(!d) return "";
-      const year = parseInt(d.slice(0,4),10);
-      const md   = d.slice(5);
-      const startYear = (md >= "07-01") ? year : year - 1;
-      const nextYear  = startYear + 1;
-      return startYear + "/" + String(nextYear).slice(-2);
-    }
+    let isDateValid = from && to && (new Date(from) <= new Date(to));
 
-    const seasons = new Map();
-    for(const m of all){
-      const label = seasonLabelFromDate(m.date);
-      if(!label) continue;
-      const startYear = parseInt(label.slice(0,4),10);
-      const nextYear  = startYear + 1;
-      if(!seasons.has(label)){
-        seasons.set(label,{
-          start: startYear + "-07-01",
-          end:   nextYear  + "-06-30"
+    if (isSportValid && isDateValid) {
+        btn.disabled = false;
+        btn.classList.remove("opacity-50", "cursor-not-allowed", "bg-zinc-800", "text-zinc-500");
+        btn.classList.add("bg-white", "text-black", "shadow-[0_0_20px_rgba(255,255,255,0.2)]");
+    } else {
+        btn.disabled = true;
+        btn.classList.add("opacity-50", "cursor-not-allowed", "bg-zinc-800", "text-zinc-500");
+        btn.classList.remove("bg-white", "text-black", "shadow-[0_0_20px_rgba(255,255,255,0.2)]");
+    }
+}
+
+// =====================================================================
+// DATA LOADING
+// =====================================================================
+async function loadData() {
+    const from = document.getElementById("dateFrom").value;
+    const to = document.getElementById("dateTo").value;
+    const btn = document.getElementById("btnLoad");
+    const lc = document.getElementById("loadingContainer");
+    const lb = document.getElementById("loadingBar");
+    const lp = document.getElementById("loadingPercent");
+
+    btn.innerHTML = `<svg class="animate-spin h-4 w-4 inline mr-2" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>HÄMTAR...`;
+    btn.disabled = true;
+    lc.classList.remove("hidden");
+    lb.style.width = "0%";
+    lp.textContent = "0%";
+
+    state.fotboll = [];
+    state.innebandy = [];
+    state.selectedSeries = [];
+    state.selectedReferees = [];
+
+    try {
+        let start = new Date(from);
+        let end = new Date(to);
+        const days = [];
+        for (let d = new Date(start); d <= end; d.setDate(d.getDate()+1)) {
+            days.push(d.toISOString().slice(0,10));
+        }
+
+        const fotFedId = document.getElementById("selectFotboll").value;
+        const innFedId = document.getElementById("selectInnebandy").value;
+
+        const BATCH_SIZE = 5; 
+        for (let i = 0; i < days.length; i += BATCH_SIZE) {
+            const batch = days.slice(i, i + BATCH_SIZE);
+            const promises = [];
+            batch.forEach(date => {
+                if (state.active.fotboll) promises.push(fetchFotboll(date, fotFedId).then(res => state.fotboll.push(...res)));
+                if (state.active.innebandy) promises.push(fetchInnebandy(date, innFedId).then(res => state.innebandy.push(...res)));
+            });
+            await Promise.all(promises);
+            
+            const progress = Math.min(100, Math.round(((i + BATCH_SIZE) / days.length) * 100));
+            lb.style.width = `${progress}%`;
+            lp.textContent = `${progress}%`;
+        }
+        
+        document.getElementById("navPanel").classList.remove("hidden");
+        document.getElementById("navPanel").classList.add("grid");
+        
+        renderFilterList('Serier');
+        renderFilterList('Domare');
+        
+        setMode("Topplista");
+
+    } catch (error) {
+        alert("Ett fel inträffade vid hämtning av data.");
+    } finally {
+        btn.innerHTML = "STATISTIK LADDAD";
+        setTimeout(() => { lc.classList.add("hidden"); btn.disabled = false; btn.innerText = "UPPDATERA"; }, 500);
+    }
+}
+
+async function fetchFotboll(date, fed) {
+  const url = `https://www.gbgfotboll.se/api/matches-today/games/?showReferees=true&associationId=${fed}&date=${date}`;
+  try {
+    const res = await fetch("https://corsproxy.io/?" + encodeURIComponent(url));
+    if(!res.ok) return [];
+    const data = await res.json();
+    let out = [];
+    (data.competitions || []).forEach(comp => {
+      (comp.games || []).forEach(g => {
+        out.push({
+          sport: "fotboll", serie: comp.name, date: g.date.slice(0,10), time: g.date.slice(11,16), hall: g.location, home: g.homeTeam?.name, away: g.awayTeam?.name,
+          referees: (g.referees || []).map(r => ({ name: r.name, role: getShortRole(r.roleDescription) }))
         });
-      }
-    }
-
-    const seasonLabels = [...seasons.keys()]
-      .sort((a,b)=>seasons.get(b).start.localeCompare(seasons.get(a).start));
-
-    function updateSeasonOptions(){
-      const set = new Set();
-      for(const m of all){
-        if(currentSeries && m.series !== currentSeries) continue;
-        if(currentRef && !m.referees.includes(currentRef)) continue;
-        const label = seasonLabelFromDate(m.date);
-        if(label) set.add(label);
-      }
-      const prev = currentSeason;
-      const arr = seasonLabels.filter(s => set.size === 0 || set.has(s));
-
-      $seasonSelect.innerHTML =
-        '<option value="">(alla säsonger)</option>' +
-        arr.map(s => `<option value="${s}">${s}</option>`).join("");
-
-      if(prev && set.has(prev)){
-        currentSeason = prev;
-        $seasonSelect.value = prev;
-      }else{
-        currentSeason = "";
-        $seasonSelect.value = "";
-      }
-    }
-
-    updateSeasonOptions();
-
-    function inCurrentSeason(date){
-      if(!currentSeason) return true;
-      const s = seasons.get(currentSeason);
-      if(!s) return true;
-      return (!s.start || date >= s.start) && (!s.end || date <= s.end);
-    }
-
-    function updateRefOptions(){
-      const set = new Set();
-      for(const m of all){
-        if(!inCurrentSeason(m.date)) continue;
-        if(currentSeries && m.series !== currentSeries) continue;
-        for(const r of m.referees) set.add(r);
-      }
-      const prev = currentRef;
-      const arr = [...set].sort((a,b)=>a.localeCompare(b,"sv"));
-      $refSelect.innerHTML =
-        '<option value="">(alla domare)</option>' +
-        arr.map(n => `<option value="${n}">${n}</option>`).join("");
-
-      if(prev && set.has(prev)){
-        currentRef = prev;
-        $refSelect.value = prev;
-      }else{
-        currentRef = "";
-        $refSelect.value = "";
-      }
-    }
-
-    function updateSeriesOptions(){
-      const set = new Set();
-      for(const m of all){
-        if(!inCurrentSeason(m.date)) continue;
-        if(currentRef && !m.referees.includes(currentRef)) continue;
-        if(m.series) set.add(m.series);
-      }
-      const prev = currentSeries;
-      const arr = [...set].sort((a,b)=>a.localeCompare(b,"sv"));
-      $seriesSelect.innerHTML =
-        '<option value="">(alla serier)</option>' +
-        arr.map(s => `<option value="${s}">${s}</option>`).join("");
-
-      if(prev && set.has(prev)){
-        currentSeries = prev;
-        $seriesSelect.value = prev;
-      }else{
-        currentSeries = "";
-        $seriesSelect.value = "";
-      }
-    }
-
-    function renderTop(){
-      const cnt = new Map();
-      for(const m of all){
-        if(!inCurrentSeason(m.date)) continue;
-        if(currentSeries && m.series !== currentSeries) continue;
-        for(const r of m.referees){
-          cnt.set(r,(cnt.get(r)||0)+1);
-        }
-      }
-      const arr = [...cnt.entries()].sort((a,b)=>b[1]-a[1]);
-      if(!arr.length){
-        $top.textContent = "Inga matcher i vald filtrering.";
-        return;
-      }
-      $top.innerHTML = arr.map(([name,n]) => `
-        <div class="item" data-ref="${name}">
-          <span>${name}</span><span class="pill">${n}</span>
-        </div>
-      `).join("");
-
-      const items = $top.querySelectorAll(".item");
-      items.forEach(el=>{
-        if(el.dataset.ref === currentRef) el.classList.add("active");
-        el.onclick = ()=>{
-          currentRef = el.dataset.ref;
-          $refSelect.value = currentRef;
-          updateSeasonOptions();
-          updateSeriesOptions();
-          renderTop();
-          renderMatches();
-          const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
-          if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
-        };
       });
+    });
+    return out;
+  } catch(e) { return []; }
+}
+
+async function fetchInnebandy(date, fed) {
+  const url = `https://refstat-test.jasmin-e21.workers.dev/?date=${date}&fed=${fed}`;
+  try {
+    const res = await fetch(url);
+    if(!res.ok) return [];
+    const data = await res.json();
+    let out = [];
+    if(Array.isArray(data)) {
+        data.forEach(block => {
+          if(block.Matches) {
+              block.Matches.forEach(m => {
+                out.push({
+                  sport: "innebandy", serie: block.Name, date: m.MatchDateTime.slice(0,10), time: m.MatchDateTime.slice(11,16), hall: m.Venue, home: m.HomeTeam, away: m.AwayTeam,
+                  referees: [
+                      { name: m.Referee1, role: "D1" }, 
+                      { name: m.Referee2, role: "D2" }
+                  ]
+                });
+              });
+          }
+        });
+    }
+    return out;
+  } catch(e) { return []; }
+}
+
+// =====================================================================
+// HISTORY API & INTERACTIVITY
+// =====================================================================
+window.onpopstate = function(event) {
+    if (event.state) {
+        state.mode = event.state.mode;
+        state.selectedSeries = event.state.selectedSeries || [];
+        state.selectedReferees = event.state.selectedReferees || [];
+        
+        closeAllModals();
+        updateMenuUI(state.mode);
+        renderResults();
+        
+        // FIX: Rensa endast filter-checkboxar, inte sport-switches
+        document.querySelectorAll('input[type="checkbox"][data-type]').forEach(cb => cb.checked = false);
+        state.selectedSeries.forEach(s => { const cb = document.querySelector(`input[data-val="${s}"]`); if(cb) cb.checked = true; });
+        state.selectedReferees.forEach(s => { const cb = document.querySelector(`input[data-val="${s}"]`); if(cb) cb.checked = true; });
+        updateSelectionCount();
+    }
+};
+
+function pushHistoryState() {
+    history.pushState({
+        mode: state.mode,
+        selectedSeries: [...state.selectedSeries],
+        selectedReferees: [...state.selectedReferees]
+    }, "", "");
+}
+
+function resetToToplist() {
+    state.mode = 'Topplista';
+    closeAllModals();
+    pushHistoryState();
+    updateMenuUI('Topplista');
+    renderResults();
+}
+
+function goToReferee(name) {
+    state.mode = 'Domare';
+    state.selectedReferees = [name];
+    state.selectedSeries = [];
+    
+    // FIX: Rensa endast filter-checkboxar
+    document.querySelectorAll('input[type="checkbox"][data-type]').forEach(cb => cb.checked = false);
+    const cb = document.querySelector(`input[data-type="Domare"][data-val="${name}"]`);
+    if(cb) cb.checked = true;
+    
+    pushHistoryState();
+    closeAllModals();
+    updateMenuUI('Domare');
+    renderResults();
+    updateSelectionCount();
+}
+
+function goToSeries(name) {
+    state.mode = 'Serier';
+    state.selectedSeries = [name];
+    state.selectedReferees = [];
+    
+    // FIX: Rensa endast filter-checkboxar
+    document.querySelectorAll('input[type="checkbox"][data-type]').forEach(cb => cb.checked = false);
+    const cb = document.querySelector(`input[data-type="Serier"][data-val="${name}"]`);
+    if(cb) cb.checked = true;
+
+    pushHistoryState();
+    closeAllModals();
+    updateMenuUI('Serier');
+    renderResults();
+    updateSelectionCount();
+}
+
+// =====================================================================
+// NAVIGATION & MODALS
+// =====================================================================
+function setMode(mode) {
+    state.mode = mode;
+    pushHistoryState();
+    updateMenuUI(mode);
+    renderResults();
+}
+
+function openModal(type) {
+    const modal = document.getElementById(`modal-${type}`);
+    const backdrop = document.getElementById('modal-backdrop');
+    
+    if(modal) {
+        modal.classList.remove('hidden');
+        backdrop.classList.remove('hidden');
+        setMode(type);
+    }
+}
+
+function closeAllModals() {
+    document.getElementById('modal-Serier').classList.add('hidden');
+    document.getElementById('modal-Domare').classList.add('hidden');
+    document.getElementById('modal-backdrop').classList.add('hidden');
+}
+
+function updateMenuUI(mode) {
+    ['Topplista', 'Serier', 'Domare'].forEach(m => {
+        const btn = document.getElementById(`btn-${m}`);
+        if (m === mode) {
+            btn.classList.remove('text-zinc-300', 'border-white/5');
+            btn.classList.add('bg-white/10', 'text-white', 'border-brand-primary/50');
+        } else {
+            btn.classList.add('text-zinc-300', 'border-white/5');
+            btn.classList.remove('bg-white/10', 'text-white', 'border-brand-primary/50');
+        }
+    });
+}
+
+function renderFilterList(type) {
+    const listEl = document.getElementById(`list-${type}`);
+    listEl.innerHTML = "";
+
+    let items = new Set();
+    const allData = [...state.fotboll, ...state.innebandy];
+
+    if (type === 'Serier') {
+        allData.forEach(m => { if(m.serie) items.add(m.serie); });
+    } else if (type === 'Domare') {
+        allData.forEach(m => { m.referees.forEach(r => { if(r.name) items.add(r.name); }); });
     }
 
-    function renderTopMiniLists(rows){
-      if(!currentRef){
-        $topSeries.innerHTML     = '<span class="muted"></span>';
-        $topColleagues.innerHTML = '<span class="muted"></span>';
+    const sortedItems = [...items].sort();
+
+    sortedItems.forEach(item => {
+        const isSelected = type === 'Serier' ? state.selectedSeries.includes(item) : state.selectedReferees.includes(item);
+        
+        const wrapper = document.createElement("label");
+        wrapper.className = "checkbox-wrapper block cursor-pointer group mb-1";
+        
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "hidden";
+        checkbox.checked = isSelected;
+        checkbox.dataset.type = type; // Viktigt för selektorn
+        checkbox.dataset.val = item;
+        checkbox.onchange = (e) => toggleSelection(type, item, e.target.checked);
+
+        const content = document.createElement("div");
+        content.className = "flex justify-between items-center px-3 py-2.5 rounded bg-dark-bg/50 border border-transparent hover:bg-white/5 transition-all text-xs text-zinc-300";
+        content.innerHTML = `
+            <span class="truncate pr-2">${item}</span>
+            <div class="check-icon w-4 h-4 rounded-full border border-current flex items-center justify-center opacity-20 transform scale-75 transition-all">
+                <div class="w-2 h-2 bg-current rounded-full"></div>
+            </div>
+        `;
+
+        wrapper.appendChild(checkbox);
+        wrapper.appendChild(content);
+        listEl.appendChild(wrapper);
+    });
+}
+
+function toggleSelection(type, value, isChecked) {
+    if (type === 'Serier') {
+        if (isChecked) state.selectedSeries.push(value);
+        else state.selectedSeries = state.selectedSeries.filter(i => i !== value);
+    } else {
+        if (isChecked) state.selectedReferees.push(value);
+        else state.selectedReferees = state.selectedReferees.filter(i => i !== value);
+    }
+    updateSelectionCount();
+    // No history push here to avoid spamming history with every checkbox click
+    renderResults();
+}
+
+function clearSelection() {
+    state.selectedSeries = [];
+    state.selectedReferees = [];
+    // FIX: Rensa endast filter-checkboxar
+    document.querySelectorAll('input[type="checkbox"][data-type]').forEach(cb => cb.checked = false);
+    updateSelectionCount();
+    renderResults();
+}
+
+function updateSelectionCount() {
+    const s = state.selectedSeries.length;
+    const d = state.selectedReferees.length;
+    let txt = "";
+    if (d > 0) txt += `${d} domare `;
+    if (s > 0) txt += `${s} serier `;
+    
+    const infoEl = document.getElementById("selectionInfo");
+    if(txt) {
+        document.getElementById("selectionCount").textContent = txt + "valda";
+        infoEl.classList.remove('hidden');
+    } else {
+        infoEl.classList.add('hidden');
+    }
+}
+
+// =====================================================================
+// RENDER RESULTS
+// =====================================================================
+function renderResults() {
+    const area = document.getElementById("resultArea");
+    const allData = [...state.fotboll, ...state.innebandy];
+    
+    if (allData.length === 0) {
+        area.innerHTML = `<div class="glass-card rounded-2xl p-10 text-center text-zinc-500">Ingen data hittades.</div>`;
         return;
-      }
-      if(!rows.length){
-        $topSeries.innerHTML     = '<span class="muted">Ingen seriestatistik för valda filter.</span>';
-        $topColleagues.innerHTML = '<span class="muted">Ingen kollegestatistik för valda filter.</span>';
-        return;
-      }
-
-      const seriesCount    = new Map();
-      const colleagueCount = new Map();
-
-      for(const m of rows){
-        if(m.series){
-          seriesCount.set(m.series,(seriesCount.get(m.series)||0)+1);
-        }
-        const others = (m.referees||[]).filter(r=>r!==currentRef);
-        for(const col of others){
-          colleagueCount.set(col,(colleagueCount.get(col)||0)+1);
-        }
-      }
-
-      function renderMap(map, container, emptyText){
-        const arr = [...map.entries()].sort((a,b)=>b[1]-a[1]).slice(0,3);
-        if(!arr.length){
-          container.innerHTML = `<span class="muted">${emptyText}</span>`;
-          return;
-        }
-        container.innerHTML = arr.map(([name,n],idx)=>`
-          <div class="mini-item">
-            <span class="mini-rank">${idx+1}.</span>
-            <span class="mini-name">${name}</span>
-            <span class="mini-count">${n}</span>
-          </div>
-        `).join("");
-      }
-
-      renderMap(seriesCount,    $topSeries,     "Ingen seriestatistik.");
-      renderMap(colleagueCount, $topColleagues, "Ingen kollegestatistik.");
     }
 
-    function renderTopSeasons(rows){
-      if(!currentRef){
-        $topSeasons.innerHTML = '<span class="muted"></span>';
-        return;
-      }
-      if(!rows.length){
-        $topSeasons.innerHTML = '<span class="muted">Ingen säsongsstatistik för valda filter.</span>';
-        return;
-      }
+    if (state.mode === 'Topplista') {
+        renderToplist(area, allData);
+    } 
+    else if (state.mode === 'Serier') {
+        if (state.selectedSeries.length === 0) {
+            area.innerHTML = `<div class="glass-card rounded-2xl p-16 flex flex-col items-center justify-center text-center animate-fade-in"><p class="text-zinc-400 font-bold mb-2">Välj serier</p><p class="text-zinc-600 text-xs">Välj i menyn.</p></div>`;
+        } else {
+            renderLeagueComparison(area, allData);
+        }
+    } 
+    else if (state.mode === 'Domare') {
+        if (state.selectedReferees.length === 0) {
+             area.innerHTML = `<div class="glass-card rounded-2xl p-16 flex flex-col items-center justify-center text-center animate-fade-in"><p class="text-zinc-400 font-bold mb-2">Välj domare</p><p class="text-zinc-600 text-xs">Välj i menyn.</p></div>`;
+        } else {
+            renderRefereeComparison(area, allData);
+        }
+    }
+}
 
-      const seasonCount = new Map();
-      for(const m of rows){
-        const label = seasonLabelFromDate(m.date);
-        if(!label) continue;
-        seasonCount.set(label,(seasonCount.get(label)||0)+1);
-      }
+// ---- VIEW: MEST AKTIVA DOMARE ----
+function renderToplist(area, matches) {
+    let counter = {};
+    matches.forEach(m => {
+        m.referees.forEach(r => {
+            if (r.name) {
+                if (!counter[r.name]) counter[r.name] = { total: 0, fotboll: 0, innebandy: 0 };
+                counter[r.name].total++;
+                if(m.sport === 'fotboll') counter[r.name].fotboll++;
+                if(m.sport === 'innebandy') counter[r.name].innebandy++;
+            }
+        });
+    });
+    
+    let ranking = Object.entries(counter).sort((a,b) => b[1].total - a[1].total);
 
-      const arr = [...seasonCount.entries()].sort((a,b)=>{
-        // sortera efter säsongens startdatum med seasons-map om möjligt
-        const sa = seasons.get(a[0]);
-        const sb = seasons.get(b[0]);
-        const ka = sa ? sa.start : a[0];
-        const kb = sb ? sb.start : b[0];
-        // flest matcher först, vid lika: nyare säsong först
-        const diff = b[1]-a[1];
-        if(diff !== 0) return diff;
-        return kb.localeCompare(ka);
-      }).slice(0,3);
-
-      if(!arr.length){
-        $topSeasons.innerHTML = '<span class="muted">Ingen säsongsstatistik.</span>';
-        return;
-      }
-
-      $topSeasons.innerHTML = arr.map(([season,n],idx)=>`
-        <div class="mini-item">
-          <span class="mini-rank">${idx+1}.</span>
-          <span class="mini-name">${season}</span>
-          <span class="mini-count">${n}</span>
+    let html = `
+    <div class="glass-card rounded-2xl p-4 md:p-6 animate-fade-in">
+        <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
+            <h2 class="text-lg font-display font-black text-white">Antal matcher</h2>
+            <span class="text-xs font-bold bg-white/10 px-2 py-1 rounded-full text-zinc-400 tabular-nums">${ranking.length} domare</span>
         </div>
-      `).join("");
-    }
+        <div class="grid grid-cols-12 text-[9px] uppercase tracking-wider text-zinc-500 pb-2 px-2">
+            <div class="col-span-6 md:col-span-5">Namn</div>
+            <div class="col-span-2 text-center text-emerald-500/80">Fotboll</div>
+            <div class="col-span-2 text-center text-blue-500/80">Innebandy</div>
+            <div class="col-span-2 text-center text-white">Totalt</div>
+        </div>
+        <div class="flex flex-col gap-1">
+            ${ranking.slice(0, 50).map(([name, data], i) => {
+                return `<div class="grid grid-cols-12 items-center p-2 rounded bg-dark-surface/30 hover:bg-white/5 border border-transparent hover:border-white/5 transition group">
+                    <div class="col-span-6 md:col-span-5 flex items-center gap-3 overflow-hidden">
+                        <span class="w-6 text-right text-zinc-600 font-mono text-xs flex-shrink-0">${i+1}.</span>
+                        <span onclick="goToReferee('${name}')" class="interactive-text font-bold text-xs md:text-sm text-zinc-300 group-hover:text-white truncate">${name}</span>
+                    </div>
+                    <div class="col-span-2 text-center">${data.fotboll > 0 ? `<span class="bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-1.5 py-0.5 rounded tabular-nums">${data.fotboll}</span>` : '<span class="text-zinc-700 text-[10px]">-</span>'}</div>
+                    <div class="col-span-2 text-center">${data.innebandy > 0 ? `<span class="bg-blue-500/10 text-blue-400 text-[10px] font-bold px-1.5 py-0.5 rounded tabular-nums">${data.innebandy}</span>` : '<span class="text-zinc-700 text-[10px]">-</span>'}</div>
+                    <div class="col-span-2 text-center"><span class="bg-zinc-800 text-white px-2 py-0.5 rounded text-xs font-black min-w-[2rem] inline-block shadow-lg tabular-nums">${data.total}</span></div>
+                </div>`;
+            }).join('')}
+        </div>
+        ${ranking.length > 50 ? '<p class="text-center text-xs text-zinc-600 mt-4">Visar topp 50</p>' : ''}
+    </div>`;
+    area.innerHTML = html;
+}
 
-    function renderMatches(){
-      const rows = all
-        .filter(m =>
-          inCurrentSeason(m.date) &&
-          (!currentRef || m.referees.includes(currentRef)) &&
-          (!currentSeries || m.series === currentSeries)
-        )
-        .sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+// ---- VIEW: LEAGUE COMPARISON (AGGREGATED) ----
+function renderLeagueComparison(area, allData) {
+    const selectedData = allData.filter(m => state.selectedSeries.includes(m.serie));
+    const refCounts = {};
+    selectedData.forEach(m => m.referees.forEach(r => { if(r.name) refCounts[r.name] = (refCounts[r.name]||0)+1; }));
+    const sortedRefs = Object.entries(refCounts).sort((a,b) => b[1] - a[1]);
+    const title = state.selectedSeries.length > 1 ? "Sammanställning" : state.selectedSeries[0];
+    const subTitle = state.selectedSeries.length > 1 ? `${state.selectedSeries.length} serier valda` : "1 serie vald";
 
-      renderTopMiniLists(rows);
-      renderTopSeasons(rows);
+    let html = `
+    <div class="space-y-6 animate-fade-in">
+        <div class="glass-card rounded-xl p-5 border-l-4 border-brand-primary">
+            <div class="flex justify-between items-start mb-4 border-b border-white/10 pb-3">
+                <div><h3 class="text-lg font-bold text-white">${title}</h3><span class="text-[10px] uppercase text-zinc-500 tracking-widest">${selectedData.length} matcher totalt (${subTitle})</span></div>
+            </div>
+            <div class="bg-dark-surface/50 rounded-lg p-3">
+                <h4 class="text-[10px] font-bold text-zinc-400 uppercase mb-2">Antal matcher</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 max-h-80 overflow-y-auto custom-scrollbar pr-2">
+                        ${sortedRefs.map(([name, count], i) => `<div class="flex justify-between items-center text-xs p-1.5 rounded hover:bg-white/5 border border-white/5"><span onclick="goToReferee('${name}')" class="interactive-text text-zinc-300 truncate pr-2"><span class="text-zinc-600 mr-1.5 w-4 inline-block text-right">${i+1}.</span>${name}</span><span class="font-bold text-white bg-white/10 px-1.5 py-0.5 rounded text-[10px]">${count}</span></div>`).join('')}
+                </div>
+            </div>
+        </div>
+        <div class="pt-6 border-t border-white/5">
+            <h3 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4 ml-1">Matcher</h3>
+            ${generateMatchCardsHtml(selectedData)}
+        </div>
+    </div>`;
+    area.innerHTML = html;
+}
 
-      if(!currentRef){
-        $rows.innerHTML = '<tr><td colspan="6" class="muted">Välj domare i listan eller i menyn</td></tr>';
-      }else if(!rows.length){
-        $rows.innerHTML = `<tr><td colspan="6" class="muted">Inga matcher för ${currentRef} i vald filtrering.</td></tr>`;
-      }else{
-        $rows.innerHTML = rows.map(m=>{
-          const others = (m.referees||[]).filter(r=>r!==currentRef);
-          return (
-            '<tr>' +
-              `<td data-label="Datum">${m.date}</td>` +
-              `<td data-label="Serie">${m.series}</td>` +
-              `<td data-label="Hemmalag">${m.home}</td>` +
-              `<td data-label="Bortalag">${m.away}</td>` +
-              `<td data-label="Arena">${m.arena}</td>` +
-              `<td data-label="Domarkollega">${(others.join(", ")||"—")}</td>` +
-            '</tr>'
-          );
-        }).join("");
-      }
-    }
+// ---- VIEW: REFEREE COMPARISON (UPPDATERAD MED SERIE-STATISTIK) ----
+function renderRefereeComparison(area, allData) {
+    // Filtrera fram matcher där någon av de valda domarna är med
+    const selectedMatches = allData.filter(m => m.referees.some(r => state.selectedReferees.includes(r.name)));
+    
+    // 1. Beräkna statistik för huvudtabellen
+    let stats = state.selectedReferees.map(ref => {
+        const matches = allData.filter(m => m.referees.some(r => r.name === ref));
+        const leagues = {};
+        matches.forEach(m => leagues[m.serie] = (leagues[m.serie]||0)+1);
+        const topLeague = Object.entries(leagues).sort((a,b) => b[1] - a[1])[0];
+        return { 
+            name: ref, 
+            total: matches.length, 
+            fotboll: matches.filter(m => m.sport === 'fotboll').length, 
+            innebandy: matches.filter(m => m.sport === 'innebandy').length, 
+            topLeagueName: topLeague ? topLeague[0] : "-", 
+            topLeagueCount: topLeague ? topLeague[1] : 0 
+        };
+    }).sort((a,b) => b.total - a.total);
 
-    $seasonSelect.addEventListener("change", ()=>{
-      currentSeason = $seasonSelect.value || "";
-      updateRefOptions();
-      updateSeriesOptions();
-      renderTop();
-      renderMatches();
-      if(currentRef){
-        const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
-        if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
-      }else{
-        $top.scrollTop = 0;
-      }
+    // 2. Skapa data för både Kollegor OCH Serier per vald domare
+    const refereeDetailData = state.selectedReferees.map(refName => {
+        const myMatches = allData.filter(m => m.referees.some(r => r.name === refName));
+        
+        // Räkna kollegor
+        const colCounts = {};
+        myMatches.forEach(m => {
+            m.referees.forEach(r => {
+                if (r.name && r.name !== refName) {
+                    colCounts[r.name] = (colCounts[r.name] || 0) + 1;
+                }
+            });
+        });
+        const sortedColleagues = Object.entries(colCounts).sort((a,b) => b[1] - a[1]);
+
+        // NYTT: Räkna serier
+        const leagueCounts = {};
+        myMatches.forEach(m => {
+            if (m.serie) {
+                leagueCounts[m.serie] = (leagueCounts[m.serie] || 0) + 1;
+            }
+        });
+        const sortedLeagues = Object.entries(leagueCounts).sort((a,b) => b[1] - a[1]);
+
+        return { 
+            name: refName, 
+            colleagues: sortedColleagues,
+            leagues: sortedLeagues
+        };
     });
 
-    $seriesSelect.addEventListener("change", ()=>{
-      currentSeries = $seriesSelect.value || "";
-      updateSeasonOptions();
-      updateRefOptions();
-      renderTop();
-      renderMatches();
-      if(currentRef){
-        const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
-        if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
-      }else{
-        $top.scrollTop = 0;
-      }
-    });
+    // 3. Generera HTML för detalj-korten (Kollegor + Serier)
+    let detailsHtml = '';
+    if (refereeDetailData.length > 0) {
+        // Om fler än 1 domare vald, visa 2 kolumner (en domare per kolumn)
+        const gridCols = refereeDetailData.length > 1 ? "grid-cols-1 xl:grid-cols-2" : "grid-cols-1";
+        
+        const cardsHtml = refereeDetailData.map(data => {
+            const hasColleagues = data.colleagues.length > 0;
+            const hasLeagues = data.leagues.length > 0;
+            
+            // Kollega-lista
+            const colleaguesListHtml = hasColleagues 
+                ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                    ${data.colleagues.map(([cName, count]) => `
+                        <div onclick="goToReferee('${cName}')" class="flex justify-between items-center p-2 rounded bg-dark-surface/50 border border-white/5 hover:border-brand-accent/50 hover:bg-white/5 transition cursor-pointer group">
+                            <span class="text-xs text-zinc-300 group-hover:text-white truncate font-medium pr-2">${cName}</span>
+                            <span class="text-[10px] font-bold bg-brand-accent/10 text-brand-accent px-1.5 py-0.5 rounded tabular-nums flex-shrink-0">${count}</span>
+                        </div>
+                    `).join('')}
+                   </div>`
+                : `<p class="text-zinc-500 text-xs italic py-2 text-center">Inga kollegor.</p>`;
 
-    $refSelect.addEventListener("change", ()=>{
-      currentRef = $refSelect.value || "";
-      updateSeasonOptions();
-      updateSeriesOptions();
-      renderTop();
-      renderMatches();
-      const active = $top.querySelector(`.item[data-ref="${currentRef}"]`);
-      if(active) active.scrollIntoView({behavior:"smooth", block:"center"});
-    });
+            // Serie-lista (NY)
+            const leaguesListHtml = hasLeagues 
+                ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                    ${data.leagues.map(([lName, count]) => `
+                        <div onclick="goToSeries('${lName}')" class="flex justify-between items-center p-2 rounded bg-dark-surface/50 border border-white/5 hover:border-brand-primary/50 hover:bg-white/5 transition cursor-pointer group">
+                            <span class="text-xs text-zinc-300 group-hover:text-white truncate font-medium pr-2">${lName}</span>
+                            <span class="text-[10px] font-bold bg-brand-primary/10 text-brand-primary px-1.5 py-0.5 rounded tabular-nums flex-shrink-0">${count}</span>
+                        </div>
+                    `).join('')}
+                   </div>`
+                : `<p class="text-zinc-500 text-xs italic py-2 text-center">Inga serier.</p>`;
 
-    $clearBtn.addEventListener("click", ()=>{
-      currentSeason = "";
-      currentRef    = "";
-      currentSeries = "";
-      $seasonSelect.value = "";
-      $refSelect.value    = "";
-      $seriesSelect.value = "";
-      updateSeasonOptions();
-      updateRefOptions();
-      updateSeriesOptions();
-      renderTop();
-      renderMatches();
-      $top.scrollTop = 0;
-    });
+            return `
+                <div class="glass-card rounded-xl p-0 border-l-4 border-white/10 flex flex-col overflow-hidden">
+                    <div class="p-4 bg-white/5 border-b border-white/5">
+                        <h3 class="text-base font-display font-bold text-white">${data.name}</h3>
+                    </div>
+                    
+                    <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                <div>
+                            <div class="flex justify-between items-center mb-2 pb-1 border-b border-white/5">
+                                <span class="text-[10px] font-bold uppercase text-zinc-500 tracking-wider">Serier</span>
+                                <span class="text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-zinc-400">${data.leagues.length}</span>
+                            </div>
+                            ${leaguesListHtml}
+                        </div>
 
-    updateRefOptions();
-    updateSeriesOptions();
-    renderTop();
-    renderMatches();
-  }
+                        <div>
+                            <div class="flex justify-between items-center mb-2 pb-1 border-b border-white/5">
+                                <span class="text-[10px] font-bold uppercase text-zinc-500 tracking-wider">Kollegor</span>
+                                <span class="text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-zinc-400">${data.colleagues.length}</span>
+                            </div>
+                            ${colleaguesListHtml}
+                        </div>
 
-  (async function load(){
-    try{
-      const cached = sessionStorage.getItem(CACHE_KEY);
-      if(cached){
-        const all = JSON.parse(cached);
-        if(Array.isArray(all) && all.length){
-          initDomarstat(all);
-          return;
-        }
-      }
-    }catch(e){
-      console.warn("sessionStorage otillgänglig/korrupt", e);
+
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        detailsHtml = `<div class="grid ${gridCols} gap-4 mb-6 animate-fade-in">${cardsHtml}</div>`;
     }
 
-    const filesResp = await fetch("csv/files.json");
-    const files = await filesResp.json();
-    const texts = await Promise.all(files.map(f => fetch("csv/" + f).then(r => r.text())));
+    // 4. Bygg ihop hela vyn
+    let html = `
+    <div class="space-y-6 animate-fade-in">
+        <div class="glass-card rounded-2xl p-6">
+            <h2 class="text-xl font-display font-black text-white mb-4">Översikt</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead><tr class="text-[10px] uppercase text-zinc-500 border-b border-white/10"><th class="pb-2 pl-2">Namn</th><th class="pb-2 text-center">Totalt</th><th class="pb-2 text-center">Fotboll</th><th class="pb-2 text-center">Innebandy</th></tr></thead>
+                    <tbody class="text-xs font-medium text-zinc-300">
+                        ${stats.map(s => `<tr class="border-b border-white/5 hover:bg-white/5 transition"><td class="py-3 pl-2 font-bold text-white text-sm">${s.name}</td><td class="py-3 text-center"><span class="bg-white/10 text-white px-2 py-1 rounded font-bold">${s.total}</span></td><td class="py-3 text-center text-zinc-500">${s.fotboll || '-'}</td><td class="py-3 text-center text-zinc-500">${s.innebandy || '-'}</td></tr>`).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    if(window.Worker){
-      const worker = createParserWorker();
-      worker.onmessage = function(e){
-        const all = e.data.all || [];
-        try{
-          sessionStorage.setItem(CACHE_KEY, JSON.stringify(all));
-        }catch(err){
-          console.warn("Kunde inte skriva cache till sessionStorage", err);
-        }
-        initDomarstat(all);
-        worker.terminate();
-      };
-      worker.postMessage({texts});
-    }else{
-      const all = texts.flatMap(t => parseCSV(t).map(norm)).filter(r=>r.date);
-      try{
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify(all));
-      }catch(err){
-        console.warn("Kunde inte skriva cache till sessionStorage", err);
-      }
-      initDomarstat(all);
-    }
-  })().catch(err=>{
-    console.error("Fel vid laddning av data", err);
-  });
-})();
+        ${detailsHtml}
+
+        <div>
+            <h3 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3 ml-1">Matcher </h3>
+            ${generateMatchCardsHtml(selectedMatches)}
+        </div>
+    </div>`;
+    
+    area.innerHTML = html;
+}
+
+function generateMatchCardsHtml(matches) {
+    if(!matches || matches.length === 0) return '<p class="text-zinc-500 text-sm">Inga matcher.</p>';
+    const sortedMatches = matches.sort((a,b) => { const dateA = new Date(`${a.date}T${a.time}`); const dateB = new Date(`${b.date}T${b.time}`); return dateA - dateB; });
+    return `<div class="grid grid-cols-1 md:grid-cols-2 gap-3">` + sortedMatches.map(m => {
+        const isFotboll = m.sport === "fotboll";
+        const accent = isFotboll ? "border-emerald-500/30" : "border-blue-500/30";
+        const badge = isFotboll ? "text-emerald-400 bg-emerald-500/10" : "text-blue-400 bg-blue-500/10";
+        return `<div class="bg-dark-surface border border-white/5 ${accent} border-l-2 rounded-lg p-3 hover:bg-white/5 transition group"><div class="flex justify-between items-start mb-2"><span onclick="goToSeries('${m.serie}')" class="interactive-text text-[9px] font-bold uppercase tracking-wider ${badge} px-1.5 py-0.5 rounded truncate max-w-[60%]">${m.serie}</span><div class="flex flex-col items-end"><span class="text-[10px] font-mono text-zinc-300 font-bold">${m.date}</span><span class="text-[9px] font-mono text-zinc-500">${m.time}</span></div></div><div class="mb-2"><div class="text-xs font-bold text-zinc-200">${m.home} <span class="text-zinc-600 font-light mx-1">vs</span> ${m.away}</div><div class="text-[10px] text-zinc-500 mt-0.5 flex items-center gap-1"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${m.hall}</div></div><div class="pt-2 border-t border-white/5 flex flex-wrap gap-2">${(m.referees||[]).map(r => `<span onclick="goToReferee('${r.name}')" class="interactive-text text-[10px] text-zinc-400 bg-black/30 px-1.5 py-0.5 rounded border border-white/5 ${state.selectedReferees.includes(r.name) ? 'text-brand-primary border-brand-primary/30' : ''}"><span class="opacity-50 font-mono mr-1">${r.role}</span>${r.name}</span>`).join('')}</div></div>`;
+    }).join("") + `</div>`;
+}
 </script>
+</body>
 </html>
